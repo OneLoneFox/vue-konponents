@@ -1,0 +1,104 @@
+.kon-stepper{
+    --font-size: .8rem;
+    display: inline-flex;
+    position: relative;
+    width: 200px;
+    & input::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    & input[type=number]{
+        -moz-appearance: none;
+    }
+    & .kon-stepper-{
+        /* idle state */
+        &decrease, &increase{
+            --konponent-color: var(--background-color);
+            color: rgb(var(--foreground-color));
+            z-index: 1;
+            margin: 0;
+            flex-shrink: 0;
+            flex-grow: 0;
+            transform: none;
+            & .icon-decrease-default, & .icon-increase-default{
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+            }
+            &:focus-visible{
+                --konponent-color: var(--background-accent-color);
+            }
+        }
+        &content{
+            cursor: text;
+            & .kon-stepper-input-bg{
+                position: absolute;
+                // top: 0px;
+                // left: 0px;
+                width: 100%;
+                height: 100%;
+                background: rgb(var(--background-color));
+                border-radius: 0px;
+                z-index: 0;
+                transition-property: border-radius, width;
+                transition-duration: 150ms;
+                transition-timing-function: ease;
+            }
+        }
+    }
+    &:not(.focus){
+        & .kon-stepper-decrease{
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        & .kon-stepper-increase{
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+    }
+    & .kon-stepper-content{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        min-width: 50px;
+        flex-grow: 1;
+        & .kon-stepper-value{
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 100%;
+            width: 100%;
+            & input{
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                // width: 100%;
+                padding: 0 12px;
+                margin: 0px;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: var(--font-size);
+                color: rgb(var(--foreground-color));
+            }
+            & > .unit-label{
+                // display: inline-flex;
+                // align-items: center;
+                // height: 100%;
+                font-size: var(--font-size);
+                color: rgba(var(--foreground-color), .4);
+            }
+        }
+    }
+    &.focus{
+        & .kon-stepper-input-bg{
+            border-radius: 12px;
+            width: calc(100% - 8px);
+        }
+        & .kon-stepper-decrease, & .kon-stepper-increase{
+            --konponent-color: var(--background-accent-color);
+        }
+    }
+}

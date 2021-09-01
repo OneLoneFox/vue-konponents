@@ -1,0 +1,11 @@
+.kon-toggle-message{
+    &-enter-active, &-leave-active{
+        transition-property: transform, opacity;
+        transition-timing-function: ease;
+        transition-duration: 250ms;
+    }
+    &-enter, &-leave-to{
+        transform: translateY(-5px);
+        opacity: 0;
+    }
+}

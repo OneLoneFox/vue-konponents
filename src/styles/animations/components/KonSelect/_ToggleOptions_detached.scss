@@ -1,0 +1,23 @@
+/*
+ * Animation for the detached variation of the component
+ */
+.kon-select.detached{
+    .kon-show-options{
+       &-enter-active, &-leave-active{
+           transition-property: transform, opacity, background-color;
+           transition-timing-function: ease;
+           /*
+            * --open-transition-duration inherited from styles/components/_KonOption.scss 
+            */
+           transition-duration: var(--open-transition-duration);
+           pointer-events: none;
+       }
+       &-enter, &-leave-to{
+           opacity: 0;
+           transform: translateY(-10px);
+        //    & > *{  // fade KonOption elements
+        //        opacity: 0;
+        //    }
+       }
+   }
+}

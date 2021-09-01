@@ -1,0 +1,92 @@
+@use '../animations/components/KonInput/ToggleMessage';
+
+/* The label can be elevated from either user focus or fulfilled value */
+@mixin elevated-placeholder {
+    --current-label-color: rgba(var(--foreground-color), 1);
+    pointer-events: auto;
+    transform: translate(8px, -80%);
+}
+
+.kon-input{
+    --radius: 12px;
+    --margin: 10px;
+    --input-padding: 8px 10px;
+    --current-background-color: rgba(var(--background-color), 1);
+    --current-foreground-color: rgba(var(--foreground-color), 1);
+    --current-label-color: rgba(var(--foreground-color), 1);
+    position: relative;
+    margin: var(--margin);
+    // font-size: var(--font-size);
+    &.has-label{
+        margin-top: 22px;
+    }
+    &.no-margin{
+        --margin: 0px;
+    }
+    &.error{
+        --foreground-color: var(--danger-color);
+    }
+    &.warning{
+        --foreground-color: var(--warning-color);
+    }
+    &.success{
+        --foreground-color: var(--success-color);
+    }
+    & > input{
+        width: 200px;
+        border: none;
+        transition-property: padding, background, color;
+        transition-timing-function: ease;
+        transition-duration: 250ms;
+        border-radius: var(--radius);
+        padding: var(--input-padding);
+        color: rgba(var(--foreground-color), 1);
+        background: var(--current-background-color);
+        &::placeholder{
+            transition: opacity 250ms ease;
+            color: rgba(var(--foreground-color), .4);
+            opacity: 1;
+        }
+        &:focus{
+            &::placeholder{
+                opacity: 0;
+            }
+            padding-left: 16px;
+            & ~ .is-placeholder{
+                @include elevated-placeholder;
+                transform: translate(8px, -77%);
+            }
+        }
+    }
+    & > .kon-input-label{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        height: 100%;
+        font-size: .8rem;
+        transform: translate(8px, -80%);
+        color: var(--current-label-color);
+        &.is-placeholder{
+            --current-label-color: rgba(var(--foreground-color), .4);
+            // passthrough events while on placeholder mode
+            pointer-events: none;
+            transition-property: transform, color;
+            transition-timing-function: ease;
+            transition-duration: 250ms;
+            transform: translate(10px, 0);
+            &.elevated{
+                @include elevated-placeholder;
+            }
+        }
+    }
+    & > .kon-input-message{
+        position: absolute;
+        padding: 0 8px;
+        left: 0;
+        top: calc(100% + 2px);
+        font-size: .7rem;
+        color: var(--current-label-color);
+    }
+}

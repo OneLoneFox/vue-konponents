@@ -1,0 +1,38 @@
+.kon-option{
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    transition-property: color, background, padding;
+    transition-timing-function: ease;
+    transition-duration: 250ms;
+    overflow: hidden;
+    color: rgba(var(--foreground-color), 1);
+    // color: rgba(var(--foreground-color), 0.4);
+    /* reset default buttons styles */
+    border: none;
+    background: none;
+    outline: none;
+    &.disabled{
+        pointer-events: none;
+        opacity: .6;
+    }
+    &:hover, &:focus{
+        color: rgb(var(--konponent-color));
+        padding-left: 16px;
+    }
+    &:focus-visible:active{
+        background: rgba(var(--konponent-color), 0.05);
+    }
+    &:last-child{
+        margin-bottom: 0;
+    }
+    &.selected{
+        background: rgba(var(--konponent-color), 0.05);
+        color: rgb(var(--konponent-color));
+    }
+ }

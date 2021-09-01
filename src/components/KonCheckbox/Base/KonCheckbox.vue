@@ -1,0 +1,37 @@
+<template>
+    <div class="kon-checkbox" :class="{'checked': isChecked, 'disabled': disabled}">
+        <div class="kon-checkbox-content">
+            <input
+              type="checkbox"
+              :id="uid"
+              :value="value"
+              :checked="checked"
+              :disabled="disabled"
+              @change="handleChange"
+              v-bind="$attrs"
+            >
+            <div class="kon-checkmark">
+                <span class="kon-checkmark-tick"></span>
+            </div>
+        </div>
+        <template v-if="label">
+            <label :for="uid" class="kon-checkbox-label">
+                {{ label }}
+            </label>
+        </template>
+    </div>
+</template>
+
+<script>
+    import uidMixin from '../../../utils/mixins/uid.js';
+    import toggleableMixin from '../../../utils/mixins/toggleable.js';
+    export default {
+        name: 'KonCheckbox',
+        model: {
+            prop: 'val',
+            event: 'change',
+        },
+        inheritAttrs: false,
+        mixins: [uidMixin, toggleableMixin],
+    }
+</script>

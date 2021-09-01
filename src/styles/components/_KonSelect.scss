@@ -1,0 +1,105 @@
+@use '../animations/components/KonSelect/ToggleOptions_default';
+@use '../animations/components/KonSelect/ToggleOptions_detached';
+
+.kon-select{
+    --font-size: .8rem;
+    --radius: 12px;
+    --konponent-color: var(--primary-color);
+    --open-transition-duration: 250ms;
+    /* 
+     * Black magik fuckery
+     * 
+     * Ok serious, the reason I use this instead of directly changing 
+     * the background is so the -kon-options background can blend
+     * correctly while transitionning since you can either close the 
+     * select by clicking outside or clicking again on the element
+     * clicking outside changes the bg color and clicking the select
+     * again does not.
+     */
+    --current-background-color: rgba(var(--background-color), 1);
+    --current-foreground-color: rgba(var(--foreground-color), 1);
+    position: relative;
+    padding: 8px 12px;
+    background: var(--current-background-color);
+    border-radius: 12px;
+    user-select: none;
+    min-width: 200px;
+    cursor: pointer;
+    transition-property: border-radius, transform, background, filter, padding;
+    transition-timing-function: ease;
+    transition-duration: 250ms;
+    font-size: var(--font-size);
+    /*
+     * Adding z-index: 99 to the options-list helps the list render on top of other elements
+     * but it's not enought to prevent some issues with click detection, sometimes an option's
+     * pointer-event is completely occluded by an element behind the options-list preventing the
+     * selection of that option, it can even prevent the list from capturing the scroll event.
+     * Adding z-index: 2 to the parent should be enough to prevent most of this issues.
+     */
+    z-index: 2;
+    &:hover, &:focus, &:focus-within{
+        /* {10, ..., 17} */
+        --current-background-color: rgb(var(--background-active-color));
+        transform: translateY(-4px);
+        /* Use filter instead of box shadow since we are applying a shadow to the shole thing and we don't want overlaps */
+        filter: drop-shadow( 0 0 20px rgba(var(--konponent-color), 0.1) );
+    }
+    &.open:not(.detached){
+        border-radius: 12px 12px 0px 0px;
+    }
+    &.disabled{
+        pointer-events: none;
+    }
+    .kon-placeholder, .kon-value{
+        /* Allow it to have a z-index */
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: rgba(var(--foreground-color), 0.4);
+        /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
+        z-index: 100;
+    }
+    .kon-value{
+        color: var(--current-foreground-color);
+    }
+    &.detached{
+        & > .kon-options{
+            top: calc(100% + 10px);
+            border-radius: var(--radius);
+        }
+    }
+    & > .kon-options{
+        will-change: max-height;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        max-height: 208px;
+        width: 100%;
+        color: var(--current-foreground-color);
+        background: var(--current-background-color);
+        padding: 4px;
+        border-radius: 0px 0px 12px 12px;
+        z-index: 99;
+        overflow: hidden;
+        transform: translateY(0);
+        transition: background 250ms ease;
+        & > .kon-options-list{
+            transition: opacity 100ms linear;
+            width: 100%;
+            max-height: 200px;
+            overflow: auto;
+        }
+    }
+    /* kon-select-label */
+    &-label{
+        // color: #fafefd;
+        &-enter-active, &-leave-active{
+            transition-property: opacity;
+            transition-timing-function: ease;
+            transition-duration: 150ms;
+        }
+        &-enter, &-leave-to{
+            opacity: 0;
+        }
+    }
+}

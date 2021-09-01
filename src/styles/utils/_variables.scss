@@ -1,0 +1,31 @@
+[class^="kon-"], [class*="kon-"],
+[class^="kon-"] *, [class*=" kon-"] *{
+    font-family: "Poppins";
+    // font-size: 1rem;
+}
+:root{
+    --primary-color: 26, 92, 255;
+    --danger-color: 231, 112, 112;
+    --warning-color: 255, 255, 0; //255,255,0 is TEMPORARY!
+    --success-color: 68, 223, 48;
+    --dark-color: 18, 26, 45;
+    --dark-accent-color: 31, 44, 76;
+    // --dark-accent-color: 25, 36, 72; (alt)
+    --light-color: 240, 243, 250;
+    --light-accent-color: 226, 231, 244;
+    --background-color: var(--light-color);
+    --background-accent-color: var(--light-accent-color);
+    --background-active-color: 255, 255, 255;
+    --foreground-color: var(--dark-color);
+}
+[konponent-theme=dark]{
+    // --background-color: var(--dark-color);
+    // --background-active-color: var(--dark-accent-color);
+    --background-color: 41, 41, 41;
+    --background-accent-color: var(--dark-accent-color);
+    --background-active-color: var(--dark-color);
+    --foreground-color: var(--light-color);
+}
+[konponent-theme=mafren-green]{
+    --primary-color: 68, 223, 48;
+}
