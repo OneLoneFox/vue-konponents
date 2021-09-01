@@ -1,3 +1,3 @@
-import konButton from './konButton.vue';
+import konButton from './KonButton.vue';
 
 export default konButton;
