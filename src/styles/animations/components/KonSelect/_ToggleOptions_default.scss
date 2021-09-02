@@ -1,4 +1,4 @@
-.kon-select.default{
+.kon-select.default, .kon-select-multiple.default{
     .kon-show-options{
         &-enter-active, &-leave-active{
             transition-property: max-height, transform, opacity, background-color;
