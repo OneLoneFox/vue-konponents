@@ -1,21 +1,32 @@
 <template>
     <div
-        class="kon-select"
+        class="kon-select-multiple"
         :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
         v-on="listeners"
         tabindex="0"
     >
-        <input type="hidden" :name="name" :value="itemValue(selectedItem)">
-        <!-- <transition name="kon-select-label" mode="out-in"> -->
-            <span
-                class="kon-placeholder"
-                key="kon-label-placeholder"
-                v-if="!selectedItemExists"
+        <select class="kon-multiple-fallback" multiple>
+            <option v-for="item in items" :key="itemValue(item)" :selected="isSelected(item)" :value="itemValue(item)"></option>
+        </select>
+        <div
+            class="kon-placeholder"
+            v-if="!selectedItems.length"
+        >
+            {{ placeholder }}
+        </div>
+        <div
+            class="kon-values"
+            v-else
+        >
+            <button
+                class="kon-value-chip"
+                v-for="item in selectedItems"
+                :key="itemValue(item)"
             >
-                {{ placeholder }}
-            </span>
-            <span class="kon-value" :key="`kon-label-${itemValue(selectedItem)}`" v-else>{{ selectedLabel }}</span>
-        <!-- </transition> -->
+                <span class="kon-value-text">{{ itemText(item) }}</span>
+                <span class="kon-chip-remove" @click.stop="unselectItem($event, item)"></span>
+            </button>
+        </div>
         <transition name="kon-show-options">
             <div class="kon-options" v-show="isOpen">
                 <div class="kon-options-list">
@@ -24,8 +35,8 @@
                             v-for="item in items"
                             :key="itemValue(item)"
                             :value="itemValue(item)"
-                            :selected="selectedValue === itemValue(item)"
-                            @click="selectItem($event, item)"
+                            :selected="isSelected(item)"
+                            @click.stop="handleItemClick($event, item)"
                             ref="options"
                         >
                             <!-- 
@@ -33,7 +44,7 @@
                                     @binding {(string|object)} item the current item
                                     @binding {boolean} selected determines if the current item is selected
                             -->
-                            <slot :item="item" :selected="selectedValue === itemValue(item)">
+                            <slot :item="item" :selected="isSelected(item)">
                                 {{ itemText(item) }}
                             </slot>
                         </KonOption>
@@ -53,7 +64,7 @@
     import selectMixin from '../../../utils/mixins/select.js';
     import "../Option/";
     export default {
-        name: 'KonSelect',
+        name: 'KonSelectMultiple',
         mixins: [selectMixin],
         model: {
             prop: 'value',
@@ -84,70 +95,38 @@
                 type: Boolean,
                 default: false,
             },
-            value: [String, Number, Object],
-            returnObject: {
-                type: Boolean,
-                default: false,
+            value: {
+                type: Array,
+                default: []
             },
             konStyle: {
                 type: String,
                 default: 'default',
+            },
+            keepSelected: {
+                type: Boolean,
+                default: true,
+            },
+            collapseChips: {
+                type: Boolean,
+                default: false,
+            },
+            maxChips: {
+                type: Number,
+                default: 1,
             },
         },
         data: function(){
             return {
                 isOpen: false,
                 focusIndex: -1,
-                selectedItem: this.value,
-                selectedValue: this.itemValue(this.value),
+                selectedItems: [...this.value],
+                // unselectedItems: [this.items],
+                // selectedValues: this.itemValue(this.value),
                 focusedItem: null,
             };
         },
-        provide: function() {
-            /**
-             * Provide the following methods to KonOption and/or descendants
-             */
-            return {
-                open: this.open,
-                close: this.close,
-                toggle: this.toggle,
-                selectItem: this.selectItem,
-            };
-        },
         computed: {
-            /**
-             * Used to prevent the user passing an invalid default value and thus 
-             * causing the component's label to show a non existent value in the label
-             */
-            selectedItemExists: function(){
-                // ToDo: refactor into a simpler form (like the one in the mount hook)
-                /**
-                 * If it's a string simply check that the value is in the array
-                 */
-                if(typeof this.selectedItem === 'string'){
-                    if(this.items.indexOf(this.selectedItem) !== -1){
-                        return true;
-                    }
-                    this.focusedElement = null;
-                    this.$emit('invalid', this.selectedItem);
-                    return false;
-                }
-                /**
-                 * If it's an object try to find it by the value attribute
-                 */
-                let objectItem = this.items.find((item) => {
-                    return item[this.valueAttribute] === this.selectedItem[this.valueAttribute];
-                });
-                if(objectItem){
-                    return true;
-                }
-                this.focusedElement = null;
-                this.$emit('invalid', this.selectedItem);
-                return false;
-            },
-            selectedLabel: function(){
-                return this.itemText(this.selectedItem);
-            },
             /**
              * Set the events to be emitted by this comopnents
              */
@@ -168,8 +147,9 @@
                      * Fires when the element looses focus
                      */
                     blur: (e) => {
+                        console.log("b")
                         // clicked outside or tabbed the component
-                        if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.$el) ){
+                        if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$el) ){
                             /**
                              * Close if not focusable children (KonOption) was found.
                              * Otherwise the option will handle closing it, this is required
@@ -179,6 +159,7 @@
                             this.handleBlur();
                         }
                     },
+                    /**
                     keydown: (e) => {
                         if(this.isOpen){
                             // there's probably a simpler more performanct implementation but this one is, as far as I'm concerned, bulletproof
@@ -210,46 +191,37 @@
                             this.toggle();
                         }
                     },
+                    /**/
                 };
             },
         },
         methods: {
-            /**
-             * This method gets injected to KonOption and called there on click
-             * 
-             * @param {(string|number)} value - The selected option's value
-             * @param {string} label - The selected option's corresponding label to be displayed
-             */
-            selectItem: function(e, item){
-                this.focusedElement = e.target;
-                // let label = this.itemText(item);
-                let value = this.itemValue(item);
-
-                let oldValue = this.selectedValue;
-
-                // this.selectedLabel = label;
-                this.selectedItem = item;
-                this.selectedValue = value;
-                /**
-                 * Triggers when the user clicks an option and the value gets changed
-                 */
-                console.log(this.returnObject, {...item}, value);
-                oldValue !== value && this.$emit('change', this.returnObject ? item : value);
-                // return focus ownership to the parent element
-                this.$el.focus();
-            },
-        },
-        mounted: function(){
-            this.$nextTick(() => {
-                if(this.value != null){
-                    // set the initial focused element to be the corresponding item
-                    let selectedElement = this.$refs.options.find((option) => {
-                        return option.value === this.itemValue(this.value);
-                    });
-                    selectedElement = selectedElement && selectedElement.$el;
-                    this.focusedElement = selectedElement;
+            handleItemClick: function(e, item){
+                if(!this.isSelected(item)){
+                    this.selectItem(e, item);
+                }else{
+                    this.unselectItem(e, item);
                 }
-            });
+            },
+            selectItem: function(e, item){
+                this.selectedItems.push(item);
+                this.$emit('change', this.selectedItems);
+            },
+            unselectItem: function(e, item){
+                let selected = [...this.selectedItems];
+                // filter out the item from the selected items array
+                selected = selected.filter((selectedItem) => {
+                    return this.itemValue(selectedItem) !== this.itemValue(item);
+                });
+                this.selectedItems = selected;
+                this.$emit('change', this.selectedItems);
+            },
+            isSelected: function(item){
+                let selectedItem = this.selectedItems.find((selItem) => {
+                    return this.itemValue(selItem) === this.itemValue(item);
+                });
+                return !!selectedItem;
+            }
         }
     }
 </script>

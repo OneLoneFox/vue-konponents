@@ -1,6 +1,8 @@
 // box sizing to all konponents and its descendants
 [class^="kon-"], [class*=" kon-"],
-[class^="kon-"] *, [class*=" kon-"] *{
+[class^="kon-"] *, [class*=" kon-"] *,
+[class^="kon-"]::before, [class*=" kon-"]::after,
+[class^="kon-"] *::before, [class*=" kon-"] *::after{
   box-sizing: border-box;
   outline: none;
   /* W/H */

@@ -2,6 +2,8 @@ export { default as KonButton } from './KonButton';
 
 export { default as KonSelect } from './KonSelect/Base';
 
+export { default as KonSelectMultiple } from './KonSelect/Multiple';
+
 export { default as KonOption } from './KonSelect/Option';
 
 export { default as KonStepper } from './KonStepper/Base';

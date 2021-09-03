@@ -59,7 +59,9 @@
             handleBlur: function(e){
                 // clicked or tabbed outside component
                 // calls parent handler if required
-                if(!e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.$parent.$el)){
+                let isNotSelect = (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.$parent.$el);
+                let isNotSelectMultiple = (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$parent.$el);
+                if(!e.relatedTarget || (isNotSelect && isNotSelectMultiple)){
                     this.$parent.handleBlur();
                 }
             },

@@ -36,7 +36,16 @@ module.exports = {
                         {
                             title: 'Components',
                             collapsable: false,
-                            children: ['KonButton', 'KonSelect', 'KonStepper', 'KonInput', 'KonCheckbox', 'KonSwitch', 'KonRadio']
+                            children: [
+                                'KonButton',
+                                'KonSelect',
+                                'KonSelectMultiple',
+                                'KonStepper',
+                                'KonInput',
+                                'KonCheckbox',
+                                'KonSwitch',
+                                'KonRadio'
+                            ]
                         }
                     ]
                 }
