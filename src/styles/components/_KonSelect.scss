@@ -40,9 +40,11 @@
     &:hover, &:focus, &:focus-within{
         /* {10, ..., 17} */
         --current-background-color: rgb(var(--background-active-color));
-        transform: translateY(-4px);
         /* Use filter instead of box shadow since we are applying a shadow to the shole thing and we don't want overlaps */
         filter: drop-shadow( 0 0 20px rgba(var(--konponent-color), 0.1) );
+    }
+    &.open{
+        transform: translateY(-4px);
     }
     &.open:not(.detached){
         border-radius: 12px 12px 0px 0px;
