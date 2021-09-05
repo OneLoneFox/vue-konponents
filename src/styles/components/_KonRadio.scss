@@ -40,6 +40,12 @@
                     --glow-opacity: .6;
                 }
             }
+            &:checked:focus-visible{ // Keyboard only
+                & + .kon-radio-marker{
+                    --glow-intensity: 12px;
+                    --glow-opacity: .8;
+                }
+            }
             &:checked + .kon-radio-marker{
                 --border-width: 8px;
                 --border-color: rgb(var(--konponent-color));
