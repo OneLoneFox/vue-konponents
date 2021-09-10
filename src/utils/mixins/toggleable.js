@@ -15,18 +15,32 @@ var toggleableMixin = {
             type: Boolean,
             default: false,
         },
+        readonly: {
+            type: Boolean,
+            default: false,
+        },
         label: {
             type: String,
         },
     },
-    data: function(){
-        return {
-            isChecked: this.checked,
-        };
+    computed: {
+        isChecked: function(){
+            if(this.readonly){
+                return this.checked;
+            }
+            if(typeof this.val === 'boolean'){
+                return this.val;
+            }
+            if(Array.isArray(this.val)){
+                let itemFound = this.val.find((item) => {
+                    return item === this.value;
+                });
+                return !!itemFound;
+            }
+        },
     },
     methods: {
         handleChange: function(){
-            this.isChecked = !this.isChecked;
             if(typeof this.val === 'boolean'){
                 this.$emit('change', !this.val);
             }
@@ -36,12 +50,11 @@ var toggleableMixin = {
                 values = values.filter((item) => {return item !== this.value});
                 // if nothing changed it means it wasn't there so we add it to the array
                 if(values.length === len){
-                    this.isChecked = true;
                     values.push(this.value);
                 }
                 this.$emit('change', values);
             }
-        }
+        },
     },
 }
 

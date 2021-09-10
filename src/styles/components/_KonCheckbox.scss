@@ -12,6 +12,9 @@
         opacity: .6;
         pointer-events: none;
     }
+    &.readonly{
+        pointer-events: none;
+    }
     & > .kon-checkbox-content{
         position: relative;
         width: 24px;

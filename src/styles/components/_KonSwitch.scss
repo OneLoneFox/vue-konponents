@@ -17,6 +17,9 @@
         opacity: .6;
         pointer-events: none;
     }
+    &.readonly{
+        pointer-events: none;
+    }
     & > .kon-switch-label{
         cursor: pointer;
         padding: 0 6px;

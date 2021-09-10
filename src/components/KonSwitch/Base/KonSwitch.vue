@@ -1,5 +1,5 @@
 <template>
-    <div class="kon-switch" :class="{'checked': isChecked, 'disabled': disabled}">
+    <div class="kon-switch" :class="{'checked': isChecked, 'disabled': disabled, 'readonly': readonly}">
         <div class="kon-switch-content">
             <input
               type="checkbox"
