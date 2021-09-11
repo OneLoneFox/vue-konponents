@@ -98,8 +98,6 @@
             return {
                 isOpen: false,
                 focusIndex: -1,
-                selectedItem: this.value,
-                selectedValue: this.itemValue(this.value),
                 focusedItem: null,
             };
         },
@@ -115,6 +113,12 @@
             };
         },
         computed: {
+            selectedItem: function(){
+                return this.value;
+            },
+            selectedValue: function(){
+                return this.itemValue(this.value);
+            },
             /**
              * Used to prevent the user passing an invalid default value and thus 
              * causing the component's label to show a non existent value in the label
@@ -228,8 +232,8 @@
                 let oldValue = this.selectedValue;
 
                 // this.selectedLabel = label;
-                this.selectedItem = item;
-                this.selectedValue = value;
+                // this.selectedItem = item;
+                // this.selectedValue = value;
                 /**
                  * Triggers when the user clicks an option and the value gets changed
                  */

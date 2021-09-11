@@ -5,7 +5,7 @@
         v-on="listeners"
         tabindex="0"
     >
-        <select class="kon-multiple-fallback" multiple>
+        <select class="kon-multiple-fallback" multiple tabindex="-1">
             <option v-for="item in items" :key="itemValue(item)" :selected="isSelected(item)" :value="itemValue(item)"></option>
         </select>
         <div
@@ -18,14 +18,14 @@
             class="kon-values"
             v-else
         >
-            <button
+            <div
                 class="kon-value-chip"
                 v-for="item in selectedItems"
                 :key="itemValue(item)"
             >
                 <span class="kon-value-text">{{ itemText(item) }}</span>
-                <span class="kon-chip-remove" @click.stop="unselectItem($event, item)"></span>
-            </button>
+                <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
+            </div>
         </div>
         <transition name="kon-show-options">
             <div class="kon-options" v-show="isOpen">
@@ -97,7 +97,7 @@
             },
             value: {
                 type: Array,
-                default: []
+                default: [],
             },
             konStyle: {
                 type: String,
@@ -120,13 +120,14 @@
             return {
                 isOpen: false,
                 focusIndex: -1,
-                selectedItems: [...this.value],
-                // unselectedItems: [this.items],
-                // selectedValues: this.itemValue(this.value),
+                // selectedItems: [...this.value],
                 focusedItem: null,
             };
         },
         computed: {
+            selectedItems: function(){
+                return [...this.value];
+            },
             /**
              * Set the events to be emitted by this comopnents
              */
@@ -147,7 +148,6 @@
                      * Fires when the element looses focus
                      */
                     blur: (e) => {
-                        console.log("b")
                         // clicked outside or tabbed the component
                         if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$el) ){
                             /**
@@ -159,7 +159,7 @@
                             this.handleBlur();
                         }
                     },
-                    /**
+                    /**/
                     keydown: (e) => {
                         if(this.isOpen){
                             // there's probably a simpler more performanct implementation but this one is, as far as I'm concerned, bulletproof
@@ -204,23 +204,34 @@
                 }
             },
             selectItem: function(e, item){
-                this.selectedItems.push(item);
-                this.$emit('change', this.selectedItems);
+                // we want a copy of the computed value
+                let selectedItems = [...this.selectedItems];
+                selectedItems.push(item);
+                this.$emit('change', selectedItems);
             },
             unselectItem: function(e, item){
+                // we want a copy of the computed value
                 let selected = [...this.selectedItems];
                 // filter out the item from the selected items array
                 selected = selected.filter((selectedItem) => {
                     return this.itemValue(selectedItem) !== this.itemValue(item);
                 });
-                this.selectedItems = selected;
-                this.$emit('change', this.selectedItems);
+                let selectedItems = selected;
+                this.$emit('change', selectedItems);
             },
             isSelected: function(item){
                 let selectedItem = this.selectedItems.find((selItem) => {
                     return this.itemValue(selItem) === this.itemValue(item);
                 });
                 return !!selectedItem;
+            },
+            handleRemoveClick: function(e, item){
+                this.unselectItem(e, item);
+                // why close? doesn't really make sense to use the remove "button"
+                // and keep the menu open at the same time...
+                // PLUS since the remove button is not an actual button, the component loses focus
+                // and you're unable to close the element by clocking outside
+                this.close();
             }
         }
     }
