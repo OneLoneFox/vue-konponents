@@ -14,7 +14,7 @@
             >
                 {{ placeholder }}
             </span>
-            <span class="kon-value" :key="`kon-label-${itemValue(selectedItem)}`" v-else>{{ selectedLabel }}</span>
+            <span class="kon-value" :key="`kon-label-${itemValue(selectedItem)}`" v-else>{{ itemText(selectedItem) }}</span>
         <!-- </transition> -->
         <transition name="kon-show-options">
             <div class="kon-options" v-show="isOpen">
@@ -114,7 +114,9 @@
         },
         computed: {
             selectedItem: function(){
-                return this.value;
+                return this.items.find((item) => {
+                    return this.itemValue(item) === this.itemValue(this.value);
+                });
             },
             selectedValue: function(){
                 return this.itemValue(this.value);
@@ -124,33 +126,15 @@
              * causing the component's label to show a non existent value in the label
              */
             selectedItemExists: function(){
-                // ToDo: refactor into a simpler form (like the one in the mount hook)
-                /**
-                 * If it's a string simply check that the value is in the array
-                 */
-                if(typeof this.selectedItem === 'string'){
-                    if(this.items.indexOf(this.selectedItem) !== -1){
-                        return true;
-                    }
-                    this.focusedElement = null;
-                    this.$emit('invalid', this.selectedItem);
-                    return false;
-                }
-                /**
-                 * If it's an object try to find it by the value attribute
-                 */
-                let objectItem = this.items.find((item) => {
-                    return item[this.valueAttribute] === this.selectedItem[this.valueAttribute];
+                let foundItem = this.items.find((item) => {
+                    return this.itemValue(item) === this.itemValue(this.selectedItem);
                 });
-                if(objectItem){
-                    return true;
+
+                if(!foundItem){
+                    this.$emit('invalid', this.selectedItem);
                 }
-                this.focusedElement = null;
-                this.$emit('invalid', this.selectedItem);
-                return false;
-            },
-            selectedLabel: function(){
-                return this.itemText(this.selectedItem);
+
+                return !!foundItem;
             },
             /**
              * Set the events to be emitted by this comopnents
@@ -237,7 +221,6 @@
                 /**
                  * Triggers when the user clicks an option and the value gets changed
                  */
-                console.log(this.returnObject, {...item}, value);
                 oldValue !== value && this.$emit('change', this.returnObject ? item : value);
                 // return focus ownership to the parent element
                 this.$el.focus();
