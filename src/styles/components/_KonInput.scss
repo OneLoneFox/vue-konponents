@@ -16,6 +16,9 @@
     --current-label-color: rgba(var(--foreground-color), 1);
     position: relative;
     margin: var(--margin);
+    transition-property: opacity;
+    transition-duration: 250ms;
+    transition-timing-function: ease;
     // font-size: var(--font-size);
     &.has-label{
         margin-top: 22px;
@@ -31,6 +34,10 @@
     }
     &.success{
         --foreground-color: var(--success-color);
+    }
+    &.disabled{
+        opacity: .6;
+        pointer-events: none;
     }
     & > input{
         width: 200px;

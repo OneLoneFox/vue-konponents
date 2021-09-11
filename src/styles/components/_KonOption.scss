@@ -21,7 +21,7 @@
         pointer-events: none;
         opacity: .6;
     }
-    &:hover, &:focus{
+    &:hover, &:focus-visible{
         color: rgb(var(--konponent-color));
         padding-left: 16px;
     }

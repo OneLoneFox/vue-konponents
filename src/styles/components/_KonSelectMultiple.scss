@@ -45,6 +45,11 @@
         opacity: 0;
         pointer-events: none;
     }
+    .kon-placeholder{
+        // Removed 4px from main padding since the chips do have padding themselves
+        // Add it back
+        padding-left: 4px;
+    }
     .kon-placeholder, .kon-values{
         /* Allow it to have a z-index */
         position: relative;
