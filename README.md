@@ -5,15 +5,12 @@
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Runs docs in development mode
 ```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
+yarn run docs:dev
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Compiles for production
+```
+yarn run build
+```
