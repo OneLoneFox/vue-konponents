@@ -9,6 +9,7 @@
               :disabled="disabled"
               @change="handleChange"
               v-bind="$attrs"
+              :tabindex="readonly ? -1 : 0"
             >
             <div class="kon-switch-track">
                 <div class="kon-switch-thumb"></div>
