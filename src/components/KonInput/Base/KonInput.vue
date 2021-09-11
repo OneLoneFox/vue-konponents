@@ -56,6 +56,10 @@
                     return whitelist.includes(value);
                 }
             },
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
             label: {
                 type: String,
             },
