@@ -1,7 +1,18 @@
 <template>
-    <div class="kon-input" :class="[{'underline': underline, 'has-label': label}, status]">
-        <div class="kon-input-icon" v-if="!!$slots.icon">
-            <slot name="icon">
+    <div
+        class="kon-input"
+        :class="[
+            {
+                'underline': underline,
+                'has-label': label,
+                'disabled': disabled,
+                'has-leading-icon': !!$slots.leadingIcon,
+                'has-trailing-icon': !!$slots.trailingIcon
+            }, status
+        ]"
+    >
+        <div class="kon-input-icon" v-if="!!$slots.leadingIcon">
+            <slot name="leadingIcon" />
         </div>
         <input
           :id="uid"
@@ -11,6 +22,9 @@
           v-bind="$attrs"
           @input="$emit('input', $event.target.value)"
         >
+        <div class="kon-input-icon" v-if="!!$slots.trailingIcon">
+            <slot name="trailingIcon" />
+        </div>
         <label
           :for="uid"
           class="kon-input-label"
