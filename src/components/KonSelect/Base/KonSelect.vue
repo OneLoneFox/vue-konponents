@@ -126,6 +126,9 @@
              * causing the component's label to show a non existent value in the label
              */
             selectedItemExists: function(){
+                if(this.value === null){
+                    return false;
+                }
                 let foundItem = this.items.find((item) => {
                     return this.itemValue(item) === this.itemValue(this.selectedItem);
                 });

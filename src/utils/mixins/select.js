@@ -1,9 +1,15 @@
 var selectMixin = {
     methods: {
         itemText: function(item){
+            if(item === null || item === undefined || item === ''){
+                return null;
+            }
             return typeof item === "object" ? item[this.textAttribute] : item;
         },
         itemValue: function(item){
+            if(item === null || item === undefined || item === ''){
+                return null;
+            }
             return typeof item === "object" ? item[this.valueAttribute] : item;
         },
         /**
