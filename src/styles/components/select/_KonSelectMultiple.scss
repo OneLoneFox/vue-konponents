@@ -1,5 +1,9 @@
-@use '../animations/components/KonSelect/ToggleOptions_default';
-@use '../animations/components/KonSelect/ToggleOptions_detached';
+@use '../../animations/components/KonSelect/ToggleOptions_default';
+@use '../../animations/components/KonSelect/ToggleOptions_detached';
+
+@use 'KonSelectOptionsList';
+
+@use '../../animations/components/KonSelectMultiple/ChipList';
 
 .kon-select-multiple{
     --font-size: .8rem;
@@ -46,21 +50,33 @@
         pointer-events: none;
     }
     .kon-placeholder{
-        // Removed 4px from main padding since the chips do have padding themselves
-        // Add it back
+        /* Add back the removed 4px from main padding since the chips do have padding themselves */
         padding-left: 4px;
     }
     .kon-placeholder, .kon-values{
         /* Allow it to have a z-index */
         position: relative;
-        display: flex;
+        // display: flex;
         align-items: center;
-        flex-wrap: wrap;
         color: rgba(var(--foreground-color), 0.4);
         /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
         z-index: 100;
     }
+    .kon-placeholder + .kon-values{
+        /*
+        These 2 elements don't usually live together unless there's no more chips to show
+        in which case kon-values collapses and gets moved below kon-placeholder, to prevent
+        the element from jumping when the last element is removed we convert the kon-values
+        into an absolute element
+        */
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
     .kon-values{
+        display: flex;
+        flex-wrap: wrap;
         gap: 10px;
         .kon-value-chip{
             position: relative;
@@ -69,14 +85,13 @@
             border: none;
             cursor: pointer;
             background: none;
-            transform: translateY(0px);
-            transition: transform 150ms ease;
+            transition: all 250ms ease;
             padding: 0px 8px;
             padding-right: 12px;
             color: var(--current-foreground-color);
-            &:active{
-                transform: translateY(2px);
-            }
+            // &:active{
+            //     transform: translateY(2px);
+            // }
             &::before{
                 content: '';
                 display: inline-block;
@@ -129,28 +144,6 @@
                     transform: translate(-50%, -50%) rotate(-45deg);
                 }
             }
-        }
-    }
-    & > .kon-options{
-        will-change: max-height;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        max-height: 208px;
-        width: 100%;
-        color: var(--current-foreground-color);
-        background: var(--current-background-color);
-        padding: 4px;
-        border-radius: 0px 0px 12px 12px;
-        z-index: 99;
-        overflow: hidden;
-        transform: translateY(0);
-        transition: background 250ms ease;
-        & > .kon-options-list{
-            transition: opacity 100ms linear;
-            width: 100%;
-            max-height: 200px;
-            overflow: auto;
         }
     }
 }

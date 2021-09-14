@@ -1,0 +1,30 @@
+.kon-select, .kon-select-multiple{
+    &.detached{
+        & > .kon-options{
+            top: calc(100% + 10px);
+            border-radius: var(--radius);
+        }
+    }
+    & > .kon-options{
+        will-change: max-height;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        max-height: 208px;
+        width: 100%;
+        color: var(--current-foreground-color);
+        background: var(--current-background-color);
+        padding: 4px;
+        border-radius: 0px 0px 12px 12px;
+        z-index: 99;
+        overflow: hidden;
+        transform: translateY(0);
+        transition: background 250ms ease;
+        & > .kon-options-list{
+            transition: opacity 100ms linear;
+            width: 100%;
+            max-height: 200px;
+            overflow: auto;
+        }
+    }
+}

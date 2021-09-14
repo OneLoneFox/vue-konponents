@@ -1,0 +1,12 @@
+.kon-select-multiple{
+    .kon-values{
+        .kon-value-chip.kon-select-multiple-chips{
+            &-enter, &-leave-to{
+                opacity: 0;
+            }
+            &-leave-active{
+                position: absolute;
+            }
+        }
+    }
+}

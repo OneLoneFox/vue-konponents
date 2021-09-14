@@ -4,11 +4,11 @@
 
 @use 'components/_KonButton';
 
-@use 'components/_KonSelect';
+@use 'components/select/_KonSelect';
 
-@use 'components/_KonSelectMultiple';
+@use 'components/select/_KonSelectMultiple';
 
-@use 'components/_KonOption';
+@use 'components/select/_KonOption';
 
 @use 'components/_KonStepper';
 

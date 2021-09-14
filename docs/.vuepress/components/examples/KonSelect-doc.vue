@@ -7,10 +7,21 @@
             v-model="selectedItem"
         >
         </KonSelect>
+        <KonSelect
+            placeholder="Select konponent (simple)"
+            :items="items2"
+            v-model="selectedItem2"
+        >
+        </KonSelect>
         <KonButton @click="addItem">Add</KonButton>
         <div class="results">
             <h3>Select konponent results</h3>
-            <pre class="language-json">{{ selectedItem }}</pre>
+            <pre class="language-json">
+                {
+                    a: {{ selectedItem }},
+                    b: {{ selectedItem2 }}
+                }
+            </pre>
         </div>
     </div>
 </template>
@@ -26,7 +37,14 @@ export default {
                 'Item 4',
                 'Item 5',
             ],
+            items2: [
+                'aaaaaaaaaaaaa',
+                'bbbbbbbbbbbbb',
+                'ccccccccccccc',
+                'ddddddddddddd',
+            ],
             selectedItem: 'Item 3',
+            selectedItem2: null,
         };
     },
     methods: {
