@@ -143,15 +143,18 @@
                             this.handleBlur();
                         }
                     },
-                    /**/
+                    /**
+                     * Handles keyboard navigation :D
+                     * 
+                     * @returns {void}
+                     */
                     keydown: (e) => {
                         if(this.isOpen){
                             // there's probably a simpler more performanct implementation but this one is, as far as I'm concerned, bulletproof
                             if(e.code == 'ArrowUp'){
                                 e.preventDefault();
                                 this.focusPreviousOrLast();
-                            }
-                            if(e.code == 'ArrowDown'){
+                            }else if(e.code == 'ArrowDown'){
                                 e.preventDefault();
                                 this.focusNextOrFirst();
                             }else if(e.code == 'Enter' || e.code == 'Space'){
