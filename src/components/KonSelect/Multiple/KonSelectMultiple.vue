@@ -11,6 +11,7 @@
         </select>
         <div
             class="kon-placeholder"
+            :class="{'kon-placeholder-hidden': filterable && filterInput && isOpen}"
             v-if="!selectedItems.length"
         >
             {{ placeholder }}
@@ -19,7 +20,6 @@
             name="kon-select-multiple-chips"
             tag="div"
             class="kon-values"
-            :class="{'kon-values-hidden': filterable && filterInput && isOpen}"
             @before-leave="beforeLeave"
         >
             <div
@@ -30,18 +30,19 @@
                 <span class="kon-value-text">{{ itemText(item) }}</span>
                 <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
             </div>
+            <input
+                class="kon-filter-input"
+                v-if="filterable && filterInput && isOpen"
+                type="text"
+                key="kon-filter"
+                :value="$data._search"
+                @input="$data._search = $event.target.value"
+                @keydown.stop="listeners.keydown"
+                @blur.stop="listeners.blur"
+                @change.stop=""
+                ref="filterInput"
+            />
         </transition-group>
-        <input
-            class="kon-filter-input"
-            v-show="filterable && filterInput && isOpen"
-            type="text"
-            :value="$data._search"
-            @input="$data._search = $event.target.value"
-            @keydown.stop="listeners.keydown"
-            @blur.stop="listeners.blur"
-            @change.stop=""
-            ref="filterInput"
-        />
         <transition name="kon-show-options" @before-enter="setHigherIndex" @after-leave="setAutoIndex">
             <div class="kon-options" v-show="isOpen">
                 <transition-group name="kon-options-list" tag="div" class="kon-options-list">

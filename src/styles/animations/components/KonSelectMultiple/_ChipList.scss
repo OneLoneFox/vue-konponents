@@ -1,6 +1,7 @@
 .kon-select-multiple{
     .kon-values{
-        .kon-value-chip.kon-select-multiple-chips{
+        .kon-value-chip.kon-select-multiple-chips,
+        .kon-filter-input.kon-select-multiple-chips{
             &-enter, &-leave-to{
                 opacity: 0;
             }
