@@ -6,6 +6,8 @@
                 placeholder="Select multiple"
                 :items="items"
                 v-model="selectedItems"
+                value-attribute="id"
+                text-attribute="name"
             >
             </KonSelectMultiple>
         </div>
@@ -22,19 +24,23 @@ export default {
     data: function(){
         return {
             items: [
-                "Konponents",
-                "Vue.js",
-                "Feather",
-                "Vuepress",
-                "Library",
+                {id: 1, name: "Takayan"},
+                {id: 2, name: "Camellia"},
+                {id: 3, name: "E ve"},
+                {id: 4, name: "Inabakumori"},
+                {id: 5, name: "Minami"},
+                {id: 6, name: "Yorushika"},
             ],
-            selectedItems: ["Konponents"],
+            selectedItems: [{id: 4, name: "Inabakumori"}],
         };
     },
     methods: {
         addItem: function(){
             let lastItemId = this.items.length;
-            let newItem = `Option ${lastItemId + 1}`;
+            let newItem = {
+                id: lastItemId + 1,
+                name: `Option ${lastItemId + 1}`
+            };
             this.items.push(newItem);
         },
         removeItem: function(){

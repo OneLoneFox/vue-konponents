@@ -1,5 +1,6 @@
 @use '../../animations/components/KonSelect/ToggleOptions_default';
 @use '../../animations/components/KonSelect/ToggleOptions_detached';
+@use '../../animations/components/KonSelect/OptionsListFilter';
 
 @use 'KonSelectOptionsList';
 
@@ -59,6 +60,7 @@
         // display: flex;
         align-items: center;
         color: rgba(var(--foreground-color), 0.4);
+        transition: opacity 250ms ease;
         /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
         z-index: 100;
     }
@@ -74,10 +76,24 @@
         width: 100%;
         height: 100%;
     }
+    .kon-filter-input{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: none;
+        border: none;
+        z-index: 2;
+        padding: 8px 12px;
+    }
     .kon-values{
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        &-hidden{
+            opacity: 0;
+        }
         .kon-value-chip{
             position: relative;
             display: inline-flex;
@@ -85,7 +101,9 @@
             border: none;
             cursor: pointer;
             background: none;
-            transition: all 250ms ease;
+            transition-property: opacity, transform;
+            transition-duration: 250ms;
+            transition-timing-function: ease;
             padding: 0px 8px;
             padding-right: 12px;
             color: var(--current-foreground-color);

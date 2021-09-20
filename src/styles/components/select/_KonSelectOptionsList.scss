@@ -1,11 +1,11 @@
 .kon-select, .kon-select-multiple{
     &.detached{
-        & > .kon-options{
+        .kon-options{
             top: calc(100% + 10px);
             border-radius: var(--radius);
         }
     }
-    & > .kon-options{
+    .kon-options{
         will-change: max-height;
         position: absolute;
         top: 100%;
@@ -20,11 +20,22 @@
         overflow: hidden;
         transform: translateY(0);
         transition: background 250ms ease;
-        & > .kon-options-list{
+        .kon-options-list{
             transition: opacity 100ms linear;
             width: 100%;
             max-height: 200px;
             overflow: auto;
+            &::-webkit-scrollbar{
+                width: 5px;
+                height: 5px;
+                display: block;
+                background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb{
+                background: rgb(var(--background-color));
+                border-radius: 5px;
+            }
         }
     }
 }

@@ -6,7 +6,25 @@
                 placeholder="Select multiple"
                 :items="items"
                 v-model="selectedItems"
+                value-attribute="id"
+                text-attribute="name"
             >
+                <template #default="{item, selected}">
+                    {{ `${item.name} ${selected ? '( ⓛ ω ⓛ *)' : ''}` }}
+                </template>
+            </KonSelectMultiple>
+        </div>
+        <div class="col">
+            <KonSelectMultiple
+                placeholder="Select multiple"
+                :items="items"
+                v-model="selectedItems"
+                value-attribute="id"
+                text-attribute="name"
+            >
+                <template #default="{item, selected}">
+                    <KonCheckbox readonly :checked="selected" :label="item.name" />
+                </template>
             </KonSelectMultiple>
         </div>
         <KonButton @click="addItem">Add</KonButton>
@@ -22,19 +40,22 @@ export default {
     data: function(){
         return {
             items: [
-                "Konponents",
-                "Vue.js",
-                "Feather",
-                "Vuepress",
-                "Library",
+                {id: 1, name: "OwO"},
+                {id: 2, name: "Nya"},
+                {id: 3, name: "MAAAUUUU"},
+                {id: 4, name: "Nessie"},
+                {id: 5, name: "Wattson"},
             ],
-            selectedItems: ["Konponents"],
+            selectedItems: [{id: 4, name: "Nessie"}],
         };
     },
     methods: {
         addItem: function(){
             let lastItemId = this.items.length;
-            let newItem = `Option ${lastItemId + 1}`;
+            let newItem = {
+                id: lastItemId + 1,
+                name: `Option ${lastItemId + 1}`
+            };
             this.items.push(newItem);
         },
         removeItem: function(){

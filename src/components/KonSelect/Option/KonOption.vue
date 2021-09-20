@@ -43,36 +43,44 @@
                 default: false,
             }
         },
+        inject: ['handleParentBlur', 'parentComponent'],
         methods: {
+            /**
+             * Adds a ripple effect on mouse down
+             * 
+             * @returns {void}
+             */
             handleMouseDown: function(e){
                 if(!this.selected){
                     ripple(e, true);
                 }
                 this.$emit('mousedown', e);
             },
+            /**
+             * Re emits the click event if the option is not disabled.
+             * 
+             * @returns {void}
+             */
             handleClick: function(e){
                 if(this.disabled){
                     return;
                 }
                 this.$emit('click', e);
             },
+            /**
+             * Checks if the user clicked or tabbed outside the component.
+             * Requires the injected parent component injected by the parent itself
+             * in order to skip the transition-group as the $parent within the options list.
+             * 
+             * @returns {void}
+             */
             handleBlur: function(e){
-                // clicked or tabbed outside component
-                // calls parent handler if required
-                let isNotSelect = (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.$parent.$el);
-                let isNotSelectMultiple = (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$parent.$el);
+                let isNotSelect = (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.parentComponent.$el);
+                let isNotSelectMultiple = (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.parentComponent.$el);
                 if(!e.relatedTarget || (isNotSelect && isNotSelectMultiple)){
-                    this.$parent.handleBlur();
+                    this.handleParentBlur();
                 }
             },
-            // handleClick: function(e){
-            //     console.log('clicked item');
-            //     // tell the KonSelect element that this item was selected
-            //     this.selectItem(this.value, this.label || this.value);
-            //     // change the state of this option
-            //     this.isSelected = true;
-            //     this.$emit('click', e);
-            // },
         },
     }
 </script>

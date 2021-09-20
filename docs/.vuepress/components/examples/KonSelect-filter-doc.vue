@@ -2,17 +2,24 @@
     <div class="example">
         <KonButton @click="removeItem">Remove</KonButton>
         <KonSelect
-            placeholder="Select konponent (simple)"
+            placeholder="Select filter"
             :items="items"
             v-model="selectedItem"
+            filterable
+            filterInput
         >
         </KonSelect>
-        <KonSelect
-            placeholder="Select konponent (simple)"
-            :items="items2"
-            v-model="selectedItem2"
-        >
-        </KonSelect>
+        <div class="col">
+            <KonInput v-model="searchTerm" label="External filter" />
+            <KonSelect
+                placeholder="Select filter (external)"
+                :items="items2"
+                v-model="selectedItem2"
+                filterable
+                :search="searchTerm"
+            >
+            </KonSelect>
+        </div>
         <KonButton @click="addItem">Add</KonButton>
         <div class="results">
             <h3>Select konponent results</h3>
@@ -45,6 +52,7 @@ export default {
             ],
             selectedItem: 'Smol Ame',
             selectedItem2: null,
+            searchTerm: '',
         };
     },
     methods: {

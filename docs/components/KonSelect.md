@@ -20,7 +20,15 @@ These values are defaulted to text and value if none are provided.
 <<< @/docs/.vuepress/components/examples/KonSelect-object-doc.vue{8,9,10}
 </Demo>
 
+## Filter
+
+<Demo konponentName="examples-KonSelect-filter-doc">
+<<< @/docs/.vuepress/components/examples/KonSelect-filter-doc.vue
+</Demo>
+
 ## Detached
+
+Detached style
 
 <Demo konponentName="examples-KonSelect-detached-doc">
 <<< @/docs/.vuepress/components/examples/KonSelect-detached-doc.vue

@@ -13,6 +13,8 @@
             kon-style="detached"
             :items="objectItems"
             v-model="selectedObject"
+            value-attribute="value"
+            text-attribute="text"
         >
         </KonSelect>
         <KonButton @click="addItems">Add</KonButton>
@@ -42,7 +44,7 @@ export default {
                 {value: 4, text: "Option 4"},
                 {value: 5, text: "Option 5"},
             ],
-            selectedObject: {value: 3, text: "Option 3"},
+            selectedObject: 3,
         };
     },
     computed: {

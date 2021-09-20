@@ -2,6 +2,7 @@
     <div
         class="kon-select-multiple"
         :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
+        :style="`z-index: ${zIndex};`"
         v-on="listeners"
         tabindex="0"
     >
@@ -14,9 +15,12 @@
         >
             {{ placeholder }}
         </div>
-        <div
+        <transition-group
+            name="kon-select-multiple-chips"
+            tag="div"
             class="kon-values"
-            v-else
+            :class="{'kon-values-hidden': filterable && filterInput && isOpen}"
+            @before-leave="beforeLeave"
         >
             <div
                 class="kon-value-chip"
@@ -26,13 +30,24 @@
                 <span class="kon-value-text">{{ itemText(item) }}</span>
                 <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
             </div>
-        </div>
-        <transition name="kon-show-options">
+        </transition-group>
+        <input
+            class="kon-filter-input"
+            v-show="filterable && filterInput && isOpen"
+            type="text"
+            :value="$data._search"
+            @input="$data._search = $event.target.value"
+            @keydown.stop="listeners.keydown"
+            @blur.stop="listeners.blur"
+            @change.stop=""
+            ref="filterInput"
+        />
+        <transition name="kon-show-options" @before-enter="setHigherIndex" @after-leave="setAutoIndex">
             <div class="kon-options" v-show="isOpen">
-                <div class="kon-options-list">
-                    <template v-if="items.length">
+                <transition-group name="kon-options-list" tag="div" class="kon-options-list">
+                    <template v-if="filteredItems.length">
                         <KonOption
-                            v-for="item in items"
+                            v-for="item in filteredItems"
                             :key="itemValue(item)"
                             :value="itemValue(item)"
                             :selected="isSelected(item)"
@@ -50,11 +65,13 @@
                         </KonOption>
                     </template>
                     <template v-else>
-                        <KonOption disabled>
-                            <slot name="empty">No options</slot>
+                        <KonOption :key="-1" disabled>
+                            <slot name="empty">
+                                {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
+                            </slot>
                         </KonOption>
                     </template>
-                </div>
+                </transition-group>
             </div>
         </transition>
     </div>
@@ -71,38 +88,13 @@
             event: 'change',
         },
         props: {
-            name: {
-                type: String,
-                default: '',
-            },
-            placeholder: {
-                type: String,
-                default: '',
-            },
-            items: {
-                type: Array,
-                required: true,
-            },
-            textAttribute: {
-                type: String,
-                default: 'text',
-            },
-            valueAttribute: {
-                type: String,
-                default: 'value',
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
             value: {
                 type: Array,
                 default: [],
             },
-            konStyle: {
-                type: String,
-                default: 'default',
-            },
+            /**
+             * @todo Figure out why did I create this prop
+             */
             keepSelected: {
                 type: Boolean,
                 default: true,
@@ -115,14 +107,6 @@
                 type: Number,
                 default: 1,
             },
-        },
-        data: function(){
-            return {
-                isOpen: false,
-                focusIndex: -1,
-                // selectedItems: [...this.value],
-                focusedItem: null,
-            };
         },
         computed: {
             selectedItems: function(){
@@ -165,23 +149,17 @@
                             // there's probably a simpler more performanct implementation but this one is, as far as I'm concerned, bulletproof
                             if(e.code == 'ArrowUp'){
                                 e.preventDefault();
-                                this.focusedElement = this.focusedElement?.previousElementSibling || this.focusedElement;
-                                if(this.focusedElement == null){
-                                    // if no item is selected then just jump to the last one
-                                    let lastElement = this.$refs.options?.[this.items.length && this.items.length - 1];
-                                    this.focusedElement = lastElement && lastElement.$el || null;
-                                }
-                                this.focusedElement?.focus?.();
+                                this.focusPreviousOrLast();
                             }
                             if(e.code == 'ArrowDown'){
                                 e.preventDefault();
-                                this.focusedElement = this.focusedElement?.nextElementSibling || this.focusedElement;
-                                if(this.focusedElement == null){
-                                    // if no item is selected then just use the first one
-                                    let firstElement = this.$refs.options[0];
-                                    this.focusedElement = firstElement && firstElement.$el || null;
+                                this.focusNextOrFirst();
+                            }else if(e.code == 'Enter' || e.code == 'Space'){
+                                return;
+                            }else{
+                                if(this.isOpen && this.filterable && this.filterInput){
+                                    this.$refs.filterInput.focus();
                                 }
-                                this.focusedElement?.focus?.();
                             }
                         }
                     },
@@ -196,6 +174,11 @@
             },
         },
         methods: {
+            /**
+             * Handles toggling of items to either be selected or unselected.
+             * 
+             * @returns {void}
+             */
             handleItemClick: function(e, item){
                 if(!this.isSelected(item)){
                     this.selectItem(e, item);
@@ -203,12 +186,31 @@
                     this.unselectItem(e, item);
                 }
             },
+            /**
+             * Takes an item from the items list and adds it to the selected items array.
+             * It then emits that array as the first argument of the `change` event.
+             * 
+             * @param {Event} e - The click's event payload
+             * @param {Object|String|Number} - The item to select
+             * @fires change
+             * @return {void}
+             */
             selectItem: function(e, item){
                 // we want a copy of the computed value
                 let selectedItems = [...this.selectedItems];
                 selectedItems.push(item);
                 this.$emit('change', selectedItems);
             },
+            /**
+             * Takes an item from the items list and tries to remove it from the
+             * selected items array. It then emits that array as the first argument
+             * of the `change` event.
+             * 
+             * @param {Event} e - The click's event payload
+             * @param {Object|String|Number} item - The item to unselect
+             * @fires change
+             * @returns {void}
+             */
             unselectItem: function(e, item){
                 // we want a copy of the computed value
                 let selected = [...this.selectedItems];
@@ -219,12 +221,26 @@
                 let selectedItems = selected;
                 this.$emit('change', selectedItems);
             },
+            /**
+             * Determines if the current item is in the selected items array.
+             * 
+             * @param {Object|String|Number} item - The item to evaluate
+             * @returns {Boolean}
+             */
             isSelected: function(item){
                 let selectedItem = this.selectedItems.find((selItem) => {
                     return this.itemValue(selItem) === this.itemValue(item);
                 });
                 return !!selectedItem;
             },
+            /**
+             * Triggered when the user clicks on the remove button of one of the chips.
+             * 
+             * Takes an item as an argument unselects that item and closes the options list.
+             * 
+             * @param {Object|String|Number} item - The item to deselect
+             * @returns {void}
+             */
             handleRemoveClick: function(e, item){
                 this.unselectItem(e, item);
                 // why close? doesn't really make sense to use the remove "button"
@@ -232,6 +248,24 @@
                 // PLUS since the remove button is not an actual button, the component loses focus
                 // and you're unable to close the element by clocking outside
                 this.close();
+            },
+            /**
+             * Hook to before-leave event on the transition-group and force the chip
+             * to stay in position.
+             * 
+             * This funtion fixes the issue where the removed element jumps to the top left of the container
+             * since it needs position absolute and the parent is a flex container so it does not stay
+             * in the flow despite not having any positioning value.
+             * 
+             * @param {HTMLElement} el - The element to be repositioned
+             * @returns {void}
+             */
+            beforeLeave: function(el) {
+                const {marginLeft, marginTop, width, height} = window.getComputedStyle(el);
+                el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
+                el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
+                el.style.width = width;
+                el.style.height = height;
             }
         }
     }

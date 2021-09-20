@@ -2,26 +2,43 @@
     <div
         class="kon-select"
         :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
+        :style="`z-index: ${zIndex};`"
         v-on="listeners"
         tabindex="0"
     >
         <input type="hidden" :name="name" :value="itemValue(selectedItem)">
-        <!-- <transition name="kon-select-label" mode="out-in"> -->
-            <span
-                class="kon-placeholder"
-                key="kon-label-placeholder"
-                v-if="!selectedItemExists"
-            >
-                {{ placeholder }}
-            </span>
-            <span class="kon-value" :key="`kon-label-${itemValue(selectedItem)}`" v-else>{{ itemText(selectedItem) }}</span>
-        <!-- </transition> -->
-        <transition name="kon-show-options">
+        <span
+            class="kon-placeholder"
+            key="kon-label-placeholder"
+            v-if="!selectedItemExists"
+        >
+            {{ placeholder }}
+        </span>
+        <span
+            class="kon-value"
+            :class="{'kon-value-hidden': filterable && filterInput && isOpen}"
+            :key="`kon-label-${itemValue(selectedItem)}`"
+            v-else
+        >
+            {{ itemText(selectedItem) }}
+        </span>
+        <input
+            class="kon-filter-input"
+            v-show="filterable && filterInput && isOpen"
+            type="text"
+            :value="$data._search"
+            @input="$data._search = $event.target.value"
+            @keydown.stop="listeners.keydown"
+            @blur.stop="listeners.blur"
+            @change.stop=""
+            ref="filterInput"
+        />
+        <transition name="kon-show-options" @before-enter="setHigherIndex" @after-leave="setAutoIndex">
             <div class="kon-options" v-show="isOpen">
-                <div class="kon-options-list">
-                    <template v-if="items.length">
+                <transition-group name="kon-options-list" tag="div" class="kon-options-list">
+                    <template v-if="filteredItems.length">
                         <KonOption
-                            v-for="item in items"
+                            v-for="item in filteredItems"
                             :key="itemValue(item)"
                             :value="itemValue(item)"
                             :selected="selectedValue === itemValue(item)"
@@ -39,11 +56,13 @@
                         </KonOption>
                     </template>
                     <template v-else>
-                        <KonOption disabled>
-                            <slot name="empty">No options</slot>
+                        <KonOption :key="-1" disabled>
+                            <slot name="empty">
+                                {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
+                            </slot>
                         </KonOption>
                     </template>
-                </div>
+                </transition-group>
             </div>
         </transition>
     </div>
@@ -60,70 +79,43 @@
             event: 'change',
         },
         props: {
-            name: {
-                type: String,
-                default: '',
-            },
-            placeholder: {
-                type: String,
-                default: '',
-            },
-            items: {
-                type: Array,
-                required: true,
-            },
-            textAttribute: {
-                type: String,
-                default: 'text',
-            },
-            valueAttribute: {
-                type: String,
-                default: 'value',
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
             value: [String, Number, Object],
             returnObject: {
                 type: Boolean,
                 default: false,
             },
-            konStyle: {
-                type: String,
-                default: 'default',
-            },
-        },
-        data: function(){
-            return {
-                isOpen: false,
-                focusIndex: -1,
-                focusedItem: null,
-            };
-        },
-        provide: function() {
-            /**
-             * Provide the following methods to KonOption and/or descendants
-             */
-            return {
-                open: this.open,
-                close: this.close,
-                toggle: this.toggle,
-                selectItem: this.selectItem,
-            };
         },
         computed: {
+            /**
+             * Searches through the items array for the matching value.
+             * 
+             * It's done this wat since the items prop could be an array of objects
+             * and the value could either be the raw value or one complete item object.
+             * 
+             * @returns {Object|String|Number}
+             */
             selectedItem: function(){
                 return this.items.find((item) => {
                     return this.itemValue(item) === this.itemValue(this.value);
                 });
             },
+            /**
+             * Provides the value of the currently selected item.
+             * 
+             * @returns {String|Number}
+             */
             selectedValue: function(){
                 return this.itemValue(this.value);
             },
             /**
              * Used to prevent the user passing an invalid default value and thus 
-             * causing the component's label to show a non existent value in the label
+             * causing the component's label to show a non existent value in the label.
+             * 
+             * However if the user passes an invalid value, this will be fired as 
+             * the payload of the `invalid` event.
+             * 
+             * @fires invalid
+             * @returns {Boolean}
              */
             selectedItemExists: function(){
                 if(this.value === null){
@@ -134,67 +126,81 @@
                 });
 
                 if(!foundItem){
+                    /**
+                     * Invalid item event.
+                     * 
+                     * @event invalid
+                     * @type {String|Number|Object}
+                     */
                     this.$emit('invalid', this.selectedItem);
                 }
 
                 return !!foundItem;
             },
             /**
-             * Set the events to be emitted by this comopnents
+             * Set the events to be emitted by this comopnent.
+             * 
+             * @returns {Object}
              */
             listeners: function(){
                 return {
+                    /**
+                     * Keeps all the native events
+                     */
                     ...this.$listeners,
                     /**
                      * Toggles the options
+                     * 
+                     * @returns {void}
                      */
                     click: (e) => {
                         this.toggle();
-                        /**
-                         * Click event.
-                         */
                         this.$emit('click', e);
                     },
                     /**
-                     * Fires when the element looses focus
+                     * Handles clicking or tabbing outside the element.
+                     * 
+                     * Close if not focusable children (KonOption) was found.
+                     * 
+                     * Otherwise the option will handle closing it, this is required
+                     * because the blur event gets fired before click so the option list gets closed
+                     * before handling the option selection.
+                     * 
+                     * @returns {void}
                      */
                     blur: (e) => {
-                        // clicked outside or tabbed the component
                         if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select') != this.$el) ){
-                            /**
-                             * Close if not focusable children (KonOption) was found.
-                             * Otherwise the option will handle closing it, this is required
-                             * because the blur event gets fired before click so the option list gets closed
-                             * before handling the option selection
-                             */
                             this.handleBlur();
                         }
                     },
+                    /**
+                     * Handles keyboard navigation :D
+                     * 
+                     * @returns {void}
+                     */
                     keydown: (e) => {
                         if(this.isOpen){
-                            // there's probably a simpler more performanct implementation but this one is, as far as I'm concerned, bulletproof
+                            // there's probably a simpler more performant implementation but this one is, as far as I'm concerned, bulletproof
                             if(e.code == 'ArrowUp'){
                                 e.preventDefault();
-                                this.focusedElement = this.focusedElement?.previousElementSibling || this.focusedElement;
-                                if(this.focusedElement == null){
-                                    // if no item is selected then just jump to the last one
-                                    let lastElement = this.$refs.options?.[this.items.length && this.items.length - 1];
-                                    this.focusedElement = lastElement && lastElement.$el || null;
-                                }
-                                this.focusedElement?.focus?.();
-                            }
-                            if(e.code == 'ArrowDown'){
+                                this.focusPreviousOrLast();
+                            }else if(e.code == 'ArrowDown'){
                                 e.preventDefault();
-                                this.focusedElement = this.focusedElement?.nextElementSibling || this.focusedElement;
-                                if(this.focusedElement == null){
-                                    // if no item is selected then just use the first one
-                                    let firstElement = this.$refs.options[0];
-                                    this.focusedElement = firstElement && firstElement.$el || null;
+                                this.focusNextOrFirst();
+                            }else if(e.code == 'Enter' || e.code == 'Space'){
+                                return;
+                            }else{
+                                if(this.isOpen && this.filterable && this.filterInput){
+                                    this.$refs.filterInput.focus();
                                 }
-                                this.focusedElement?.focus?.();
                             }
                         }
                     },
+                    /**
+                     * Handles space and enter keys for keyboard navigation+}
+                     * 
+                     * @returns {void}
+                     */
                     keypress: (e) => {
                         if(document.activeElement == this.$el && (e.code == 'Space' || e.code == 'Enter')){
                             e.preventDefault();
@@ -206,10 +212,13 @@
         },
         methods: {
             /**
-             * This method gets injected to KonOption and called there on click
+             * Takes an item from the items list and adds it to the selected items array.
+             * It then emits that array as the first argument of the `change` event.
              * 
-             * @param {(string|number)} value - The selected option's value
-             * @param {string} label - The selected option's corresponding label to be displayed
+             * @param {Event} e - The click's event payload
+             * @param {Object|String|Number} item - The item to select
+             * @fires change
+             * @returns {void}
              */
             selectItem: function(e, item){
                 this.focusedElement = e.target;

@@ -4,14 +4,31 @@ Custom select multiple input.
 
 ## Default
 
+ª
+
+<Demo konponentName="examples-KonSelectMultiple-doc">
+<<< @/docs/.vuepress/components/examples/KonSelectMultiple-doc.vue
+</Demo>
+
+## Array of objects and text/value attributes
+
 When you set an array of objects the value returned on change is set to the **value-attribute** by default.
-It can also return the entire object if the **return-object** property is set to true.
+Whenever the value changes it will return an array with all the selected objects.
 
 When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your objects.
 These values are defaulted to text and value if none are provided.
 
-<Demo konponentName="examples-KonSelectMultiple-doc">
-<<< @/docs/.vuepress/components/examples/KonSelect-doc.vue
+<Demo konponentName="examples-KonSelectMultiple-object-doc">
+<<< @/docs/.vuepress/components/examples/KonSelectMultiple-object-doc.vue
+</Demo>
+
+## Scoped slot
+
+The default slot in within the component exposes the properties `item` and `selected` for every item passed to the items prop.
+This allows some extra flexibility and allows you to further style the way you show the selected and non-selected items.
+
+<Demo konponentName="examples-KonSelectMultiple-slot-doc">
+<<< @/docs/.vuepress/components/examples/KonSelectMultiple-slot-doc.vue{12-14,25-27}
 </Demo>
 
 ## Source code
