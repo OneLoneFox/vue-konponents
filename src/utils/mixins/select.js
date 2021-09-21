@@ -29,14 +29,21 @@ var selectMixin = {
             default: 'default',
         },
         /**
-             * Enables the usage of the filter function
-             * to narrow down the items list based on the search
-             * prop.
-             * 
-             * If false, the search prop won't have any effect.
-             * 
-             * @type {Boolean}
-             */
+         * 
+         */
+        disabledItem: {
+            type: Function,
+            default: (item) => false,
+        },
+        /**
+         * Enables the usage of the filter function
+         * to narrow down the items list based on the search
+         * prop.
+         * 
+         * If false, the search prop won't have any effect.
+         * 
+         * @type {Boolean}
+         */
          filterable: {
             type: Boolean,
             default: false,
@@ -234,7 +241,12 @@ var selectMixin = {
          * @returns {void}
          */
         focusPreviousOrLast: function(){
-            this.focusedElement = this.focusedElement?.previousElementSibling || this.focusedElement;
+            this.focusedElement = this.focusedElement?.previousElementSibling;
+            // recursively skip all disabled options
+            if(this.focusedElement && this.focusedElement.matches(':disabled')){
+                // Mom come pick me up I'm scared
+                return this.focusPreviousOrLast();
+            }
             if(!this.focusedElement || !this.isFocusedElementVisible()){
                 // If no item is selected or is selected but not visible
                 // then use the last element
@@ -253,14 +265,18 @@ var selectMixin = {
          * @returns {void}
          */
         focusNextOrFirst: function(){
-            this.focusedElement = this.focusedElement?.nextElementSibling || this.focusedElement;
+            this.focusedElement = this.focusedElement?.nextElementSibling;
+            // recursively skip all disabled options
+            if(this.focusedElement && this.focusedElement.matches(':disabled')){
+                // Mom come pick me up I'm scared
+                return this.focusNextOrFirst();
+            }
             if(!this.focusedElement || !this.isFocusedElementVisible()){
                 // If no item is selected or is selected but not visible
                 // then use the first element
                 let firstElement = this.$refs.options[0];
                 this.focusedElement = firstElement?.$el;
             }
-            
             // transfer focus to the next element or do nothing
             this.focusedElement?.focus?.();
         },

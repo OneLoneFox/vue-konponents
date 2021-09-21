@@ -1,7 +1,7 @@
 <template>
     <button 
         class="kon-option" 
-        :class="{'selected': selected, 'disabled': disabled}"
+        :class="{'selected': selected}"
         :disabled="disabled"
         @click="handleClick"
         @mousedown="handleMouseDown"

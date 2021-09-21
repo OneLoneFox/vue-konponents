@@ -52,6 +52,7 @@
                             :key="itemValue(item)"
                             :value="itemValue(item)"
                             :selected="isSelected(item)"
+                            :disabled="disabledItem(item)"
                             @click.stop="handleItemClick($event, item)"
                             ref="options"
                         >
