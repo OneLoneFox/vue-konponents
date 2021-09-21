@@ -22,14 +22,32 @@
             class="kon-values"
             @before-leave="beforeLeave"
         >
-            <div
-                class="kon-value-chip"
-                v-for="item in selectedItems"
-                :key="itemValue(item)"
-            >
-                <span class="kon-value-text">{{ itemText(item) }}</span>
-                <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
-            </div>
+            <template v-if="collapseChips">
+                <div
+                    class="kon-value-chip"
+                    :key="itemValue(firstSelectedItem)"
+                >
+                    <span class="kon-value-text">{{ itemText(firstSelectedItem) }}</span>
+                    <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, firstSelectedItem)"></span>
+                </div>
+                <div
+                    class="kon-value-chip"
+                    key="kon-collapsed-chips"
+                    v-if="extraSelectedItemsCount > 0"
+                >
+                    <span class="kon-value-text">{{ `+${extraSelectedItemsCount}` }}</span>
+                </div>
+            </template>
+            <template v-else>
+                <div
+                    class="kon-value-chip"
+                    v-for="item in selectedItems"
+                    :key="itemValue(item)"
+                >
+                    <span class="kon-value-text">{{ itemText(item) }}</span>
+                    <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
+                </div>
+            </template>
             <input
                 class="kon-filter-input"
                 v-if="filterable && filterInput && isOpen"
@@ -68,7 +86,11 @@
                     </template>
                     <template v-else>
                         <KonOption :key="-1" disabled>
-                            <slot name="empty">
+                            <!-- 
+                                @slot Use this slot for empty options list or no filter results
+                                    @binding {string} search the internal filter search value
+                             -->
+                            <slot name="empty" :search="$data._search">
                                 {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
                             </slot>
                         </KonOption>
@@ -113,6 +135,12 @@
         computed: {
             selectedItems: function(){
                 return [...this.value];
+            },
+            firstSelectedItem: function(){
+                return this.selectedItems[0];
+            },
+            extraSelectedItemsCount: function(){
+                return this.selectedItems.length - 1;
             },
             /**
              * Set the events to be emitted by this comopnents
