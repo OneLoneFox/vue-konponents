@@ -16,7 +16,7 @@
         background: var(--current-background-color);
         padding: 4px;
         border-radius: 0px 0px 12px 12px;
-        z-index: 99;
+        z-index: 1;
         overflow: hidden;
         transform: translateY(0);
         transition: background 250ms ease;

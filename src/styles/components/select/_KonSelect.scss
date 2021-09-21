@@ -64,7 +64,7 @@
         opacity: 1;
         transition: opacity 250ms ease;
         /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
-        z-index: 1;
+        z-index: 2;
     }
     .kon-filter-input{
         position: absolute;
@@ -74,7 +74,7 @@
         height: 100%;
         background: none;
         border: none;
-        z-index: 2;
+        z-index: 3;
         padding: 8px 12px;
     }
     .kon-value{

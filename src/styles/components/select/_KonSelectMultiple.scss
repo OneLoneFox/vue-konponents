@@ -65,7 +65,7 @@
         color: rgba(var(--foreground-color), 0.4);
         transition: opacity 250ms ease;
         /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
-        z-index: 100;
+        z-index: 2;
     }
     .kon-placeholder + .kon-values{
         /*
@@ -90,7 +90,7 @@
         color: var(--current-foreground-color);
         background: none;
         border: none;
-        z-index: 2;
+        z-index: 3;
     }
     .kon-values{
         display: flex;
