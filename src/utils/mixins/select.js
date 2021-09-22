@@ -244,6 +244,10 @@ var selectMixin = {
             this.focusedElement = this.focusedElement?.previousElementSibling;
             // recursively skip all disabled options
             if(this.focusedElement && this.focusedElement.matches(':disabled')){
+                // Prevents recursion stack overlflow since node.previousElementSibling is cyclic
+                if(this.focusedElement.matches(':first-child')){
+                    return;
+                }
                 // Mom come pick me up I'm scared
                 return this.focusPreviousOrLast();
             }
@@ -268,6 +272,10 @@ var selectMixin = {
             this.focusedElement = this.focusedElement?.nextElementSibling;
             // recursively skip all disabled options
             if(this.focusedElement && this.focusedElement.matches(':disabled')){
+                // Prevents recursion stack overlflow since node.nextElementSibling is cyclic
+                if(this.focusedElement.matches(':last-child')){
+                    return;
+                }
                 // Mom come pick me up I'm scared
                 return this.focusNextOrFirst();
             }
