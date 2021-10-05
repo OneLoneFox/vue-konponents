@@ -8,6 +8,7 @@
                 v-model="selectedItems"
                 value-attribute="id"
                 text-attribute="name"
+                collapse-chips
             >
                 <template #default="{item, selected}">
                     {{ `${item.name} ${selected ? '( ⓛ ω ⓛ *)' : ''}` }}

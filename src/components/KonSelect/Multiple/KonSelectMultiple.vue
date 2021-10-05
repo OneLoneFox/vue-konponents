@@ -25,6 +25,7 @@
             <template v-if="collapseChips">
                 <div
                     class="kon-value-chip"
+                    v-if="firstSelectedItem"
                     :key="itemValue(firstSelectedItem)"
                 >
                     <span class="kon-value-text">{{ itemText(firstSelectedItem) }}</span>
@@ -136,11 +137,18 @@
             selectedItems: function(){
                 return [...this.value];
             },
+            uncollapsedChips: function(){
+                let chips = [];
+                for(const i = 0; i < this.maxChips; i++){
+                    chips.push(this.selectedItems[i]);
+                }
+                return chips;
+            },
             firstSelectedItem: function(){
                 return this.selectedItems[0];
             },
             extraSelectedItemsCount: function(){
-                return this.selectedItems.length - 1;
+                return this.selectedItems.length - this.maxChips;
             },
             /**
              * Set the events to be emitted by this comopnents
@@ -163,7 +171,10 @@
                      */
                     blur: (e) => {
                         // clicked outside or tabbed the component
-                        if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$el) ){
+                        let isKonOption = e.relatedTarget && e.relatedTarget.classList.contains('kon-option');
+                        let isFilterInput = e.relatedTarget && e.relatedTarget.classList.contains('kon-filter-input');
+                        // if( !e.relatedTarget || (e.relatedTarget && e.relatedTarget.closest('.kon-select-multiple') != this.$el) ){
+                        if( !e.relatedTarget || (!isKonOption && !isFilterInput) ){
                             /**
                              * Close if not focusable children (KonOption) was found.
                              * Otherwise the option will handle closing it, this is required
@@ -224,7 +235,7 @@
              * It then emits that array as the first argument of the `change` event.
              * 
              * @param {Event} e - The click's event payload
-             * @param {Object|String|Number} - The item to select
+             * @param {Object|string|number} - The item to select
              * @fires change
              * @return {void}
              */
@@ -240,7 +251,7 @@
              * of the `change` event.
              * 
              * @param {Event} e - The click's event payload
-             * @param {Object|String|Number} item - The item to unselect
+             * @param {Object|string|number} item - The item to unselect
              * @fires change
              * @returns {void}
              */
@@ -257,8 +268,8 @@
             /**
              * Determines if the current item is in the selected items array.
              * 
-             * @param {Object|String|Number} item - The item to evaluate
-             * @returns {Boolean}
+             * @param {Object|string|number} item - The item to evaluate
+             * @returns {boolean}
              */
             isSelected: function(item){
                 let selectedItem = this.selectedItems.find((selItem) => {
@@ -271,7 +282,7 @@
              * 
              * Takes an item as an argument unselects that item and closes the options list.
              * 
-             * @param {Object|String|Number} item - The item to deselect
+             * @param {Object|string|number} item - The item to deselect
              * @returns {void}
              */
             handleRemoveClick: function(e, item){
@@ -300,6 +311,9 @@
                 el.style.width = width;
                 el.style.height = height;
             }
+        },
+        mounted: function(){
+            
         }
     }
 </script>

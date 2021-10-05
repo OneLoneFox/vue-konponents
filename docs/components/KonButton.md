@@ -1,3 +1,48 @@
+---
+{
+    "api": {
+        "props": [
+            {
+                "name": "loading",
+                "type": "boolean",
+                "desc": "Determines if the component is in the loading state. If true it disables all interactions with it.",
+                "default": "false",
+            },
+            {
+                "name": "xs",
+                "type": "boolean",
+                "desc": "Set the button size to be extra small.",
+                "default": "false",
+            },
+            {
+                "name": "xl",
+                "type": "boolean",
+                "desc": "Set the button size to be extra large.",
+                "default": "false",
+            },
+            {
+                "name": "text",
+                "type": "boolean",
+                "desc": "Determines if the button should be a text button.",
+                "default": "false",
+            },
+            {
+                "name": "border",
+                "type": "boolean",
+                "desc": "Determines if the button should be a border button.",
+                "default": "false",
+            },
+            {
+                "name": "iconOnly",
+                "type": "boolean",
+                "desc": "Sets the button's padding evenly to allow icons to be placed as the content.",
+                "default": "false",
+            }
+        ],
+    }
+}
+---
+
 # Button
 
 An elegant button with some states and utilities.
@@ -40,10 +85,11 @@ Needless to say this property is valid with all variations.
 <<< @/docs/.vuepress/components/examples/KonButton-icon-doc.vue
 </Demo>
 
+## Api
+<API />
+
 ## Source code
 
 <SourceCode>
 <<< @/src/components/KonButton/KonButton.vue
 </SourceCode>
-
-ToDo: API table \[props, events, slots, css_variables_per_style\]

@@ -19,11 +19,12 @@
     --foreground-color: var(--dark-color);
 }
 [konponent-theme=dark]{
-    // --background-color: var(--dark-color);
-    // --background-active-color: var(--dark-accent-color);
-    --background-color: 41, 41, 41;
-    --background-accent-color: var(--dark-accent-color);
-    --background-active-color: var(--dark-color);
+    // --background-color: 41, 41, 41;
+    // --background-accent-color: var(--dark-accent-color);
+    // --background-active-color: var(--dark-color);
+    --background-color: 20, 20, 23;
+    --background-accent-color: 12,12,12;
+    --background-active-color: 30, 32, 35;
     --foreground-color: var(--light-color);
 }
 [konponent-theme=mafren-green]{

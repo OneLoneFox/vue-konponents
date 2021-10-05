@@ -4,7 +4,7 @@
     --dy: 0px;
     --dw: 0px;
     --dh: 0px;
-    --opacity: 1;
+    --opacity: 0;
     position: absolute;
     left: var(--dx);
     top: var(--dy);
@@ -12,7 +12,9 @@
     height: var(--dh);
     border-radius: 50%;
     opacity: var(--opacity);
-    box-shadow: inset 0 0 calc(var(--dw) / 4) calc(var(--dw) / 3) rgba(255,255,255,.3), 0 0 20px 20px rgba(255,255,255,.3);
+    box-shadow: 
+        inset 0 0 calc(var(--dw) / 3) calc(var(--dw) / 3.2) rgba(255,255,255,.4),
+        0 0 20px 20px rgba(255,255,255,.4);
     transition-property: background, width, height, opacity;
     transform: translate(-50%, -50%);
     transition-duration: var(--duration);

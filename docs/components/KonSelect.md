@@ -22,6 +22,8 @@ These values are defaulted to text and value if none are provided.
 
 ## Filter
 
+Filter.
+
 <Demo konponentName="examples-KonSelect-filter-doc">
 <<< @/docs/.vuepress/components/examples/KonSelect-filter-doc.vue
 </Demo>

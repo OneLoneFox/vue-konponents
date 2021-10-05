@@ -6,6 +6,7 @@
         @click="handleClick"
         @mousedown="handleMouseDown"
         @blur="handleBlur"
+        tabindex="-1"
     >
         <!-- 
             @slot Option Content

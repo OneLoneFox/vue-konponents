@@ -11,24 +11,32 @@
             }, status
         ]"
     >
-        <div class="kon-input-icon" v-if="!!$slots.leadingIcon">
-            <slot name="leadingIcon" />
+        <div class="kon-input-icon leading" v-if="!!$slots.leadingIcon">
+            <!-- Simple 1:1 aspect ratio based on height -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="placeholder-svg"/>
+            <div class="kon-input-icon-content">
+                <slot name="leadingIcon" />
+            </div>
         </div>
         <input
-          :id="uid"
+          :id="id || uid"
           :type="inputType"
           :value="value"
           :disabled="disabled"
           v-bind="$attrs"
           @input="$emit('input', $event.target.value)"
         >
-        <div class="kon-input-icon" v-if="!!$slots.trailingIcon">
-            <slot name="trailingIcon" />
+        <div class="kon-input-icon trailing" v-if="!!$slots.trailingIcon">
+            <!-- Simple 1:1 aspect ratio based on height -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" class="placeholder-svg"/>
+            <div class="kon-input-icon-content">
+                <slot name="trailingIcon" />
+            </div>
         </div>
         <label
-          :for="uid"
+          :for="id || uid"
           class="kon-input-label"
-          :class="{'is-placeholder': labelAsPlaceholder, 'elevated': isElevated}"
+          :class="{'is-placeholder': placeholderAsLabel, 'elevated': isElevated}"
           v-if="label"
         >
             {{ label }}
@@ -42,11 +50,10 @@
 </template>
 
 <script>
-    import uidMixin from '../../../utils/mixins/uid.js';
+    import uniqueId from '../../../utils/uniqueId';
     export default {
         name: 'KonInput',
         inheritAttrs: false,
-        mixins: [uidMixin],
         props: {
             id: {
                 type: String,
@@ -77,7 +84,7 @@
             label: {
                 type: String,
             },
-            labelAsPlaceholder: {
+            placeholderAsLabel: {
                 type: Boolean,
                 default: false,
             },
@@ -99,10 +106,13 @@
                 return (this.type === 'password' && this.showPassword) ? 'text' : this.type;
             },
             isElevated: function(){
-                // let inputs with pre established "placeholders" be elevated by default so the labelAsPlaceholder doesn't interfere
+                // let inputs with pre established "placeholders" be elevated by default so the placeholderAsLabel doesn't interfere
                 let preformattedTypes = ['date', 'time', 'month', 'week'];
                 return this.value !== '' || preformattedTypes.includes(this.type);
             },
+        },
+        beforeCreate: function(){
+            this.uid = `konponent-${uniqueId()}`;
         },
     }
 </script>

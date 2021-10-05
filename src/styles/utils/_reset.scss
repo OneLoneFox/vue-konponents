@@ -5,6 +5,7 @@
 [class^="kon-"] *::before, [class*=" kon-"] *::after{
   box-sizing: border-box;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
   /* W/H */
   &::-webkit-scrollbar {
     width: 5px;

@@ -1,3 +1,5 @@
+import uniqueId from '../uniqueId';
+
 var selectMixin = {
     props: {
         name: {
@@ -29,7 +31,16 @@ var selectMixin = {
             default: 'default',
         },
         /**
+         * Determines if an item should be disabled.
          * 
+         * The function is executed for every item in the items Array
+         * or if enabled, for every item visible after the filter.
+         * 
+         * Returns false by default for all items.
+         * 
+         * @param {Object|string|number}
+         * 
+         * @returns {boolean}
          */
         disabledItem: {
             type: Function,
@@ -42,7 +53,7 @@ var selectMixin = {
          * 
          * If false, the search prop won't have any effect.
          * 
-         * @type {Boolean}
+         * @type {boolean}
          */
          filterable: {
             type: Boolean,
@@ -59,7 +70,7 @@ var selectMixin = {
         /**
          * Search term used for filtering items from outside the component.
          * 
-         * @type {String}
+         * @type {string}
          */
         search: {
             type: String,
@@ -69,7 +80,7 @@ var selectMixin = {
          * When true the internal _search value will be reset
          * after the options list closes.
          * 
-         * @type {Boolean}
+         * @type {boolean}
          */
         clearSearch: {
             type: Boolean,
@@ -89,7 +100,7 @@ var selectMixin = {
          * string matching.
          * 
          * @param {Array} items - A copy of the items prop
-         * @param {String} searchTerm - The search term passed by the search prop or the local _search data from the input
+         * @param {string} searchTerm - The search term passed by the search prop or the local _search data from the input
          * 
          * @returns {Array}
          */
@@ -160,7 +171,7 @@ var selectMixin = {
          * 
          * No item in the items list should be empty.
          * 
-         * @param {Object|String|Number} item - The item to return the text for
+         * @param {Object|string|number} item - The item to return the text for
          * @returns {*}
          */
         itemText: function(item){
@@ -179,7 +190,7 @@ var selectMixin = {
          * 
          * No item in the items list should be empty.
          * 
-         * @param {Object|String|Number} item - The item to return the value for
+         * @param {Object|string|number} item - The item to return the value for
          * @returns {String|Number}
          */
         itemValue: function(item){
@@ -291,7 +302,7 @@ var selectMixin = {
         /**
          * Determines if the focused element is visible through the filter
          * 
-         * @returns {Boolean}
+         * @returns {boolean}
          */
         isFocusedElementVisible: function(){
             if(this.filterable && (this.search.length || this.$data._search.length)){    
@@ -304,7 +315,9 @@ var selectMixin = {
                 return true;
             }
         },
-
+    },
+    beforeCreate: function(){
+        this.uid = `konponent-${uniqueId()}`;
     }
 }
 

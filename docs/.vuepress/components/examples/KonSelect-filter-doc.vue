@@ -2,7 +2,7 @@
     <div class="example">
         <KonButton @click="removeItem">Remove</KonButton>
         <KonSelect
-            placeholder="Select filter"
+            placeholder="Imaginary products"
             :items="items"
             v-model="selectedItem"
             filterable
@@ -12,23 +12,21 @@
         <div class="col">
             <KonInput v-model="searchTerm" label="External filter" />
             <KonSelect
-                placeholder="Select filter (external)"
-                :items="items2"
+                placeholder="Sizes"
                 v-model="selectedItem2"
                 filterable
+                :items="items2"
                 :search="searchTerm"
+                value-attribute="code"
+                text-attribute="name"
+                return-object
             >
             </KonSelect>
         </div>
         <KonButton @click="addItem">Add</KonButton>
         <div class="results">
             <h3>Select konponent results</h3>
-            <pre class="language-json">
-                {
-                    a: {{ selectedItem }},
-                    b: {{ selectedItem2 }}
-                }
-            </pre>
+            <pre class="language-json">{{ results }}</pre>
         </div>
     </div>
 </template>
@@ -38,22 +36,34 @@ export default {
     data: function(){
         return {
             items: [
-                'Gªwr Gurª',
-                'Smol Ame',
-                'Ninomae Inaff',
-                'Tsundori Calliope',
-                'Kusotori',
+                'Nvidia RTX 3060',
+                'Nvidia RTX 3060 TI',
+                'Nvidia RTX 3060 SUPER',
+                'Nvidia RTX 3070',
+                'Nvidia RTX 3070 TI',
+                'Nvidia RTX 3080',
+                'Nvidia RTX 3080 TI',
+                'Nvidia RTX 3090',
             ],
             items2: [
-                'Fubuki V O I D',
-                'Tokino Soda',
-                'Korone D O O G',
-                'Rushia 🦋',
+                {code: 'XS', name: 'Extra small'},
+                {code: 'SM', name: 'Small'},
+                {code: 'MD', name: 'Medium'},
+                {code: 'LG', name: 'Large'},
+                {code: 'XL', name: 'Extra large'},
             ],
-            selectedItem: 'Smol Ame',
+            selectedItem: 'Nvidia RTX 3060',
             selectedItem2: null,
             searchTerm: '',
         };
+    },
+    computed: {
+        results: function(){
+            return {
+                card: this.selectedItem,
+                size: this.selectedItem2
+            };
+        },
     },
     methods: {
         addItem: function(){

@@ -93,7 +93,7 @@
              * It's done this wat since the items prop could be an array of objects
              * and the value could either be the raw value or one complete item object.
              * 
-             * @returns {Object|String|Number}
+             * @returns {Object|string|number}
              */
             selectedItem: function(){
                 return this.items.find((item) => {
@@ -103,7 +103,7 @@
             /**
              * Provides the value of the currently selected item.
              * 
-             * @returns {String|Number}
+             * @returns {string|number}
              */
             selectedValue: function(){
                 return this.itemValue(this.value);
@@ -116,7 +116,7 @@
              * the payload of the `invalid` event.
              * 
              * @fires invalid
-             * @returns {Boolean}
+             * @returns {boolean}
              */
             selectedItemExists: function(){
                 if(this.value === null){
@@ -131,7 +131,7 @@
                      * Invalid item event.
                      * 
                      * @event invalid
-                     * @type {String|Number|Object}
+                     * @type {Object|string|number}
                      */
                     this.$emit('invalid', this.selectedItem);
                 }
@@ -217,7 +217,7 @@
              * It then emits that array as the first argument of the `change` event.
              * 
              * @param {Event} e - The click's event payload
-             * @param {Object|String|Number} item - The item to select
+             * @param {Object|string|number} item - The item to select
              * @fires change
              * @returns {void}
              */

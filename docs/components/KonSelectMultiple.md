@@ -10,6 +10,14 @@ Custom select multiple input.
 <<< @/docs/.vuepress/components/examples/KonSelectMultiple-doc.vue
 </Demo>
 
+## Collapse
+
+Collapse.
+
+<Demo konponentName="examples-KonSelectMultiple-collapse-doc">
+<<< @/docs/.vuepress/components/examples/KonSelectMultiple-collapse-doc.vue
+</Demo>
+
 ## Array of objects and text/value attributes
 
 When you set an array of objects the value returned on change is set to the **value-attribute** by default.
@@ -20,6 +28,14 @@ These values are defaulted to text and value if none are provided.
 
 <Demo konponentName="examples-KonSelectMultiple-object-doc">
 <<< @/docs/.vuepress/components/examples/KonSelectMultiple-object-doc.vue
+</Demo>
+
+## Filter
+
+Filter.
+
+<Demo konponentName="examples-KonSelectMultiple-filter-doc">
+<<< @/docs/.vuepress/components/examples/KonSelectMultiple-filter-doc.vue
 </Demo>
 
 ## Scoped slot

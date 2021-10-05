@@ -1,7 +1,9 @@
 <template>
     <div class="example">
-        <KonInput v-model="data" placeholder="Input" autocomplete="off">
-            <template #message v-if="data.length > 4">Input messages can be cool</template>
+        <KonInput v-model="data" placeholder="Leading icon" autocomplete="off">
+            <template #leadingIcon>
+                <div class="fake-icon"></div>
+            </template>
         </KonInput>
     </div>
 </template>
@@ -23,5 +25,11 @@ export default {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+.fake-icon{
+    width: 24px;
+    height: 24px;
+    border: 2px solid #000;
+    border-radius: 100%;
 }
 </style>
