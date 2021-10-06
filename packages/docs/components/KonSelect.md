@@ -4,8 +4,8 @@ Custom select input.
 
 ## Default
 
-<Demo konponentName="examples-KonSelect-doc">
-<<< @/docs/.vuepress/components/examples/KonSelect-doc.vue
+<Demo konponentName="examples-KonSelect-default">
+<<< @/.vuepress/components/examples/KonSelect/default.vue
 </Demo>
 
 ## Return object and text/value properties
@@ -16,34 +16,34 @@ It can also return the entire object if the **return-object** property is set to
 When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your objects.
 These values are defaulted to text and value if none are provided.
 
-<Demo konponentName="examples-KonSelect-object-doc">
-<<< @/docs/.vuepress/components/examples/KonSelect-object-doc.vue{8,9,10}
+<Demo konponentName="examples-KonSelect-object">
+<<< @/.vuepress/components/examples/KonSelect/object.vue{8,9,10}
 </Demo>
 
 ## Filter
 
 Filter.
 
-<Demo konponentName="examples-KonSelect-filter-doc">
-<<< @/docs/.vuepress/components/examples/KonSelect-filter-doc.vue
+<Demo konponentName="examples-KonSelect-filter">
+<<< @/.vuepress/components/examples/KonSelect/filter.vue
 </Demo>
 
 ## Detached
 
 Detached style
 
-<Demo konponentName="examples-KonSelect-detached-doc">
-<<< @/docs/.vuepress/components/examples/KonSelect-detached-doc.vue
+<Demo konponentName="examples-KonSelect-detached">
+<<< @/.vuepress/components/examples/KonSelect/detached.vue
 </Demo>
 
 ## Source code
 
 <SourceCode>
-<<< @/src/components/KonSelect/base/KonSelect.vue
+<<< @/../konponents/src/components/KonSelect/base/KonSelect.vue
 </SourceCode>
 
 ## Option source code
 
 <SourceCode>
-<<< @/src/components/KonSelect/option/KonOption.vue
+<<< @/../konponents/src/components/KonSelect/option/KonOption.vue
 </SourceCode>

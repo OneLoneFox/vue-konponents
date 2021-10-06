@@ -1,23 +1,6 @@
 {
-  "name": "konponents",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name Konponents src/main.js",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "scss:watch": "sass --watch src/styles/main.scss dist/konponents.css"
-  },
-  "dependencies": {
-    "core-js": "^3.6.5"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.8.2"
-  }
+    "name": "konponents-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": ["packages/*"]
 }

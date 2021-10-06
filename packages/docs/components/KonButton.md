@@ -51,28 +51,28 @@ An elegant button with some states and utilities.
 
 Default button without any options
 
-<Demo konponentName="examples-KonButton-doc">
-<<< @/docs/.vuepress/components/examples/KonButton-doc.vue
+<Demo konponentName="examples-KonButton-default">
+<<< @/.vuepress/components/examples/KonButton/default.vue
 </Demo>
 
 ## Size
 
 You can set the appropiate size prop for your button
 
-<Demo konponentName="examples-KonButton-size-doc">
-<<< @/docs/.vuepress/components/examples/KonButton-size-doc.vue
+<Demo konponentName="examples-KonButton-size">
+<<< @/.vuepress/components/examples/KonButton/size.vue
 </Demo>
 
 ## Text
 
-<Demo konponentName="examples-KonButton-text-doc">
-<<< @/docs/.vuepress/components/examples/KonButton-text-doc.vue
+<Demo konponentName="examples-KonButton-text">
+<<< @/.vuepress/components/examples/KonButton/text.vue
 </Demo>
 
 ## Border
 
-<Demo konponentName="examples-KonButton-border-doc">
-<<< @/docs/.vuepress/components/examples/KonButton-border-doc.vue
+<Demo konponentName="examples-KonButton-border">
+<<< @/.vuepress/components/examples/KonButton/border.vue
 </Demo>
 
 ## Icon button
@@ -81,8 +81,8 @@ The icon button simply makes the padding even on all sides withot forcing the as
 
 Needless to say this property is valid with all variations.
 
-<Demo konponentName="examples-KonButton-icon-doc">
-<<< @/docs/.vuepress/components/examples/KonButton-icon-doc.vue
+<Demo konponentName="examples-KonButton-icon">
+<<< @/.vuepress/components/examples/KonButton/icon.vue
 </Demo>
 
 ## Api
@@ -91,5 +91,5 @@ Needless to say this property is valid with all variations.
 ## Source code
 
 <SourceCode>
-<<< @/src/components/KonButton/KonButton.vue
+<<< @/../konponents/src/components/KonButton/KonButton.vue
 </SourceCode>
