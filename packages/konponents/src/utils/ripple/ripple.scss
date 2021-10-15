@@ -20,6 +20,7 @@
     transition-duration: var(--duration);
     transition-timing-function: ease;
     z-index: 0;
+    pointer-events: none;
     &.kon-ripple-solid{
         // background: rgba(80, 67, 255, 0.1);
         background: rgba(var(--konponent-color), 0.05);
