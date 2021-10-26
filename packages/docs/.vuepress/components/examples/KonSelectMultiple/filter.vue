@@ -1,5 +1,5 @@
 <template>
-    <div class="example">
+    <div class="demo between">
         <KonButton @click="removeItem">Remove</KonButton>
         <div class="col">
             <KonSelectMultiple
@@ -27,15 +27,13 @@
             </KonSelectMultiple>
         </div>
         <KonButton @click="addItem">Add</KonButton>
-        <div class="results">
-            <h3>Select konponent results</h3>
-            <pre class="language-json">{{ results }}</pre>
-        </div>
     </div>
 </template>
 
 <script>
+import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
+    mixins: [injectResultSnippet],
     data: function(){
         return {
             items: [
@@ -77,18 +75,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.example .col{
-    flex-basis: 200px;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

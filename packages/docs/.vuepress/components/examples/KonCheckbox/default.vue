@@ -1,10 +1,8 @@
 <template>
-    <div class="example">
+    <div class="demo">
         <KonCheckbox v-model="checked" label="simple checkbox" />
-        <div class="results">
-            <h3>Checkbox results</h3>
-            <pre class="language-json">checked: {{ checked }}</pre>
-        </div>
+        <KonCheckbox v-model="checked2" label="simple checkbox" disabled />
+        <KonCheckbox v-model="checked3" label="simple checkbox" disabled />
     </div>
 </template>
 
@@ -13,20 +11,9 @@ export default {
     data: function(){
         return {
             checked: false,
+            checked2: false,
+            checked3: true,
         };
-    }
+    },
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

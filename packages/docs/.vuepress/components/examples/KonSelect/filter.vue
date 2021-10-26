@@ -1,6 +1,6 @@
 <template>
-    <div class="example">
-        <KonButton @click="removeItem">Remove</KonButton>
+    <div class="demo between">
+        <KonButton @click="removeItem" icon-only><ListMinus :size="16" /></KonButton>
         <KonSelect
             placeholder="Imaginary products"
             :items="items"
@@ -23,16 +23,19 @@
             >
             </KonSelect>
         </div>
-        <KonButton @click="addItem">Add</KonButton>
-        <div class="results">
-            <h3>Select konponent results</h3>
-            <pre class="language-json">{{ results }}</pre>
-        </div>
+        <KonButton @click="addItem" icon-only><ListPlus :size="16" /></KonButton>
     </div>
 </template>
 
 <script>
+import { ListPlus, ListMinus } from 'lucide-vue';
+import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
+    mixins: [injectResultSnippet],
+    components: {
+        ListPlus,
+        ListMinus,
+    },
     data: function(){
         return {
             items: [
@@ -76,15 +79,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

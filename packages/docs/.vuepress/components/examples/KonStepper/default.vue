@@ -1,11 +1,6 @@
 <template>
-    <div class="example">
-        <KonStepper
-          v-model.number="count"
-        ></KonStepper>
-        <div class="result">
-            <pre class="language-json">{{ count }}</pre>
-        </div>
+    <div class="demo">
+        <KonStepper v-model.number="count" />
     </div>
 </template>
 
@@ -18,15 +13,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.result {
-    flex-basis: 100%;
-}
-</style>

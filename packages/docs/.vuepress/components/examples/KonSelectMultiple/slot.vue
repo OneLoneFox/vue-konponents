@@ -1,5 +1,5 @@
 <template>
-    <div class="example">
+    <div class="demo between">
         <KonButton @click="removeItem">Remove</KonButton>
         <div class="col">
             <KonSelectMultiple
@@ -25,30 +25,38 @@
             >
                 <template #default="{item, selected}">
                     <KonCheckbox readonly :checked="selected" :label="item.name" />
+                    <template v-if="item.count > 1">
+                        <span>{{ item.count }}</span>
+                    </template>
                 </template>
             </KonSelectMultiple>
         </div>
         <KonButton @click="addItem">Add</KonButton>
-        <div class="results">
-            <h3>Select multiple konponent results</h3>
-            <pre class="language-json">{{ selectedItems }}</pre>
-        </div>
     </div>
 </template>
 
 <script>
+import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
+    mixins: [injectResultSnippet],
     data: function(){
         return {
             items: [
-                {id: 1, name: "OwO"},
-                {id: 2, name: "Nya"},
-                {id: 3, name: "MAAAUUUU"},
-                {id: 4, name: "Nessie"},
-                {id: 5, name: "Wattson"},
+                {id: 1, name: "OwO", count: 14},
+                {id: 2, name: "Nya", count: 23},
+                {id: 3, name: "MAAAUUUU", count: 1},
+                {id: 4, name: "Nessie", count: 1},
+                {id: 5, name: "Wattson", count: 1},
             ],
-            selectedItems: [{id: 4, name: "Nessie"}],
+            selectedItems: [{id: 4, name: "Nessie", count: 1}],
         };
+    },
+    computed: {
+        results: function(){
+            return {
+                selectedItems: this.selectedItems,
+            };
+        },
     },
     methods: {
         addItem: function(){
@@ -65,18 +73,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.example .col{
-    flex-basis: 200px;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

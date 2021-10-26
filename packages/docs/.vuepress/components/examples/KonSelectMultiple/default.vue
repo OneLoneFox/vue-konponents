@@ -1,5 +1,5 @@
 <template>
-    <div class="example">
+    <div class="demo between">
         <KonButton @click="removeItem">Remove</KonButton>
         <div class="col">
             <KonSelectMultiple
@@ -9,16 +9,23 @@
             >
             </KonSelectMultiple>
         </div>
-        <KonButton @click="addItem">Add</KonButton>
-        <div class="results">
-            <h3>Select multiple konponent results</h3>
-            <pre class="language-json">{{ selectedItems }}</pre>
+        <div class="col">
+            <KonSelectMultiple
+                placeholder="Select multiple"
+                :items="items"
+                disabled
+                v-model="disabledItems"
+            >
+            </KonSelectMultiple>
         </div>
+        <KonButton @click="addItem">Add</KonButton>
     </div>
 </template>
 
 <script>
+import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
+    mixins: [injectResultSnippet],
     data: function(){
         return {
             items: [
@@ -29,7 +36,15 @@ export default {
                 "Library",
             ],
             selectedItems: ["Konponents"],
+            disabledItems: [],
         };
+    },
+    computed: {
+        results: function(){
+            return {
+                selectedItems: this.selectedItems,
+            };
+        },
     },
     methods: {
         addItem: function(){
@@ -43,18 +58,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.example .col{
-    flex-basis: 200px;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

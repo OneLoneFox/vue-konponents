@@ -44,7 +44,8 @@ module.exports = {
                                 'KonInput',
                                 'KonCheckbox',
                                 'KonSwitch',
-                                'KonRadio'
+                                'KonRadio',
+                                'KonCollapse',
                             ]
                         }
                     ]

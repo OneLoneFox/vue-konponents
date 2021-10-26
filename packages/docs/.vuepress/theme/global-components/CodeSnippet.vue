@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="collapse-toggle" tabindex="0">
-            <i class='bx bx-code-alt'></i>
-        </div>
         <transition
             name="expand"
             @enter="enter"
@@ -86,32 +83,5 @@ export default {
 .expand-enter,
 .expand-leave-to {
     height: 0;
-}
-.collapse-toggle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    color: #292929;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    outline: none;
-    &::before{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(53, 67, 255, 0.1);
-        transform: scale(0);
-        transform-origin: center;
-        transition: transform 150ms ease;
-    }
-    &:hover, &:focus{
-        &::before{
-            transform: scale(1);
-        }
-    }
 }
 </style>

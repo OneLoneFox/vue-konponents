@@ -2,13 +2,16 @@
     "name": "docs",
     "version": "1.0.0",
     "scripts": {
-        "docs:dev": "vuepress dev .",
-        "docs:build": "vuepress build ."
+        "docs:apigen": "node scripts/apigen.js",
+        "docs:dev": "yarn run docs:apigen && vuepress dev .",
+        "docs:build": "yarn run docs:apigen && vuepress build ."
     },
     "dependencies": {
-        "konponents": "1.0.0"
+        "konponents": "1.0.0",
+        "lucide-vue": "^0.16.10",
+        "prismjs": "^1.25.0"
     },
     "devDependencies": {
         "vuepress": "^1.8.2"
     }
-  }
+}

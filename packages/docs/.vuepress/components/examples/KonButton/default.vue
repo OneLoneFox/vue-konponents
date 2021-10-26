@@ -1,5 +1,5 @@
 <template>
-    <div class="example">
+    <div class="demo">
         <KonButton>
             Default
         </KonButton>
@@ -8,11 +8,3 @@
         </KonButton>
     </div>
 </template>
-
-<style scoped>
-.example {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-</style>

@@ -5,7 +5,7 @@
 <script>
     import ParentSideBar from '@parent-theme/components/SideBar.vue';
     export default {
-        name: 'SideBar',
+        name: 'Sidebar',
         components: {ParentSideBar},
         props: ['items'],
     }
@@ -15,5 +15,6 @@
 .sidebar{
     border: none;
     width: var(--doc-sidebar-width);
+    background: rgb(var(--background-active-color));
 }
 </style>

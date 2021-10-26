@@ -1,15 +1,35 @@
+---
+{
+  "api": {
+    "prop_notes": "All extra attributes will be inherited to the native input.",
+    "props": [
+      {
+        "name": "value",
+        "type": "string|number|object",
+        "description": "The value used to determine if the current radio is selected.\nIf not using v-model syntax this is the value you're aiming for.",
+        "options": "",
+        "default": null
+      }
+    ],
+  }
+}
+---
+
 # Radio
 
 ...
 
 ## Default
 
-<Demo konponentName="examples-KonRadio-default">
-<<< @/.vuepress/components/examples/KonRadio/default.vue
-</Demo>
+<Example>
+  <component is="examples-KonRadio-default" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonRadio/default.vue
+  
+  </template>
+</Example>
 
-## Source code
+## API
 
-<SourceCode>
-<<< @/../konponents/src/components/KonRadio/Base/KonRadio.vue
-</SourceCode>
+<API component="KonRadio" />

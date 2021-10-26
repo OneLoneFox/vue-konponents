@@ -1,55 +1,40 @@
 <template>
-    <div class="example">
+    <div class="demo">
         <KonButton icon-only xs>
-            <span class="fake-icon xs"></span>
+            <DownloadCloud :size="16" />
         </KonButton>
         <KonButton icon-only>
-            <span class="fake-icon"></span>
+            <UploadCloud />
         </KonButton>
         <KonButton icon-only xl>
-            <span class="fake-icon xl"></span>
+            <Edit :size="32" />
         </KonButton>
 
         <KonButton icon-only xs text>
-            <span class="fake-icon xs"></span>
+            <DownloadCloud :size="16" />
         </KonButton>
         <KonButton icon-only text>
-            <span class="fake-icon"></span>
+            <UploadCloud />
         </KonButton>
         <KonButton icon-only xl text>
-            <span class="fake-icon xl"></span>
+            <Edit :size="32" />
         </KonButton>
 
         <KonButton icon-only xs border>
-            <span class="fake-icon xs"></span>
+            <DownloadCloud :size="16" />
         </KonButton>
         <KonButton icon-only border>
-            <span class="fake-icon"></span>
+            <UploadCloud />
         </KonButton>
         <KonButton icon-only xl border>
-            <span class="fake-icon xl"></span>
+            <Edit :size="32" />
         </KonButton>
     </div>
 </template>
 
-<style scoped>
-.example {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+<script>
+import { DownloadCloud, UploadCloud, Edit } from 'lucide-vue';
+export default {
+    components: { DownloadCloud, UploadCloud, Edit },
 }
-.fake-icon{
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: currentColor;
-}
-.fake-icon.xs{
-    width: 12px;
-    height: 12px;
-}
-.fake-icon.xl{
-    width: 24px;
-    height: 24px;
-}
-</style>
+</script>

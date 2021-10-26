@@ -1,6 +1,10 @@
 {
-    "name": "konponents-monorepo",
-    "version": "1.0.0",
     "private": true,
-    "workspaces": ["packages/*"]
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "docs:dev": "yarn workspace docs run docs:dev"
+    },
+    "dependencies": {}
 }

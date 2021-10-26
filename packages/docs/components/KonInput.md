@@ -1,31 +1,53 @@
+---
+{
+  "api": {
+    "prop_notes": "All extra attributes will be inherited to the native input.",
+  }
+}
+---
+
 # Input
 
 ...
 
 ## Default
 
-<Demo konponentName="examples-KonInput-default">
-<<< @/.vuepress/components/examples/KonInput/default.vue
-</Demo>
+<Example>
+  <component is="examples-KonInput-default" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonInput/default.vue
+  
+  </template>
+</Example>
+
 
 ## Label types
 
 This component includes a couple of ways to add label to your input.
 
-<Demo konponentName="examples-KonInput-label">
-<<< @/.vuepress/components/examples/KonInput/label.vue
-</Demo>
+<Example>
+  <component is="examples-KonInput-label" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonInput/label.vue
+  
+  </template>
+</Example>
 
 ## Icons
 
 Icons.
 
-<Demo konponentName="examples-KonInput-icon">
-<<< @/.vuepress/components/examples/KonInput/icon.vue
-</Demo>
+<Example>
+  <component is="examples-KonInput-icon" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonInput/icon.vue
+  
+  </template>
+</Example>
 
-## Source code
+## API
 
-<SourceCode>
-<<< @/../konponents/src/components/KonInput/Base/KonInput.vue
-</SourceCode>
+<API component="KonInput" />

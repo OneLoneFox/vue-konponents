@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "main": "src/main.js",
     "scripts": {
-        "build": "vue-cli-service build --target lib --name Konponents src/main.js",
-        "scss:watch": "sass --watch src/styles/main.scss dist/konponents.css"
+        "build": "yarn run vetur && vue-cli-service build --target lib --name Konponents src/main.js",
+        "scss:watch": "sass --watch src/styles/main.scss dist/konponents.css",
+        "vetur": "node scripts/docgen.js"
     },
     "dependencies": {
         "core-js": "^3.6.5"
@@ -12,8 +13,17 @@
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
+        "glob": "^7.2.0",
         "sass": "^1.26.5",
         "sass-loader": "^8.0.2",
+        "vue-docgen-api": "^4.41.2",
         "vue-template-compiler": "^2.6.14"
+    },
+    "peerDependencies": {
+        "vue": "^2.6.14"
+    },
+    "vetur": {
+        "tags": "./vetur/tags.json",
+        "attributes": "./vetur/attributes.json"
     }
-  }
+}

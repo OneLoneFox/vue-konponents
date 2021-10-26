@@ -1,22 +1,48 @@
+---
+{
+  "api": {
+    "props": [
+      {
+        "name": "value",
+        "type": ["string", "number", "object"],
+        "description": "If not using v-model syntax this is the value you're aiming for.",
+        "options": "",
+        "default": null
+      }
+    ],
+  }
+}
+---
+
 # Select multiple / tag picker
 
 Custom select multiple input.
 
 ## Default
 
-ª
+Default behaviour.
 
-<Demo konponentName="examples-KonSelectMultiple-default">
-<<< @/.vuepress/components/examples/KonSelectMultiple/default.vue
-</Demo>
+<Example>
+  <component is="examples-KonSelectMultiple-default" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/default.vue
+  
+  </template>
+</Example>
 
 ## Collapse
 
 Collapse.
 
-<Demo konponentName="examples-KonSelectMultiple-collapse">
-<<< @/.vuepress/components/examples/KonSelectMultiple/collapse.vue
-</Demo>
+<Example>
+  <component is="examples-KonSelectMultiple-collapse" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/collapse.vue
+  
+  </template>
+</Example>
 
 ## Array of objects and text/value attributes
 
@@ -26,35 +52,57 @@ Whenever the value changes it will return an array with all the selected objects
 When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your objects.
 These values are defaulted to text and value if none are provided.
 
-<Demo konponentName="examples-KonSelectMultiple-object">
-<<< @/.vuepress/components/examples/KonSelectMultiple/object.vue
-</Demo>
+<Example>
+  <component is="examples-KonSelectMultiple-object" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/object.vue
+  
+  </template>
+</Example>
 
 ## Filter
 
 Filter.
 
-<Demo konponentName="examples-KonSelectMultiple-filter">
-<<< @/.vuepress/components/examples/KonSelectMultiple/filter.vue
-</Demo>
+<Example>
+  <component is="examples-KonSelectMultiple-filter" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/filter.vue
+  
+  </template>
+</Example>
 
-## Scoped slot
+## Slots
 
-The default slot in within the component exposes the properties `item` and `selected` for every item passed to the items prop.
+### Default slot
+
+The default slot exposes the properties `item` and `selected` for every item passed to the items prop.
 This allows some extra flexibility and allows you to further style the way you show the selected and non-selected items.
 
-<Demo konponentName="examples-KonSelectMultiple-slot">
-<<< @/.vuepress/components/examples/KonSelectMultiple/slot.vue{12-14,25-27}
-</Demo>
+<Example>
+  <component is="examples-KonSelectMultiple-slot" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/slot.vue{12-14,25-27}
+  
+  </template>
+</Example>
 
-## Source code
+### Empty slot
 
-<SourceCode>
-<<< @/../konponents/src/components/KonSelect/Multiple/KonSelectMultiple.vue
-</SourceCode>
+The empty slot exposes the search value if search is filter is enabled.
 
-## Option source code
+<Example>
+  <component is="examples-KonSelectMultiple-emptyslot" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/emptyslot.vue
+  
+  </template>
+</Example>
 
-<SourceCode>
-<<< @/../konponents/src/components/KonSelect/option/KonOption.vue
-</SourceCode>
+## API
+
+<API component="KonSelectMultiple" />

@@ -4,6 +4,9 @@
             <slot name="top" />
             <!-- <div class="hero">{{ $title }}</div> -->
             <Content />
+            <aside class="content-sidebar">
+                <ContentSidebarLinks :items="sidebarItems" :depth="1" />
+            </aside>
             <slot name="api" />
             <slot name="bottom" />
         </div>
@@ -13,8 +16,10 @@
 
 <script>
 import PageEdit from '@theme/components/PageEdit.vue';
+import ContentSidebarLinks from '@theme/components/ContentSidebarLinks.vue';
 export default {
-    components: {PageEdit},
+    components: {PageEdit, ContentSidebarLinks},
+    props: ['sidebarItems'],
 }
 </script>
 
@@ -38,6 +43,7 @@ export default {
         right: 0;
         width: calc(100% - var(--doc-sidebar-width));
         height: calc(100% - var(--doc-navbar-height));
+        // background: rgb(var(--doc-background-color));
         background: rgb(var(--background-color));
         border-radius: 40px 0 0 0;
         z-index: 0;

@@ -1,6 +1,6 @@
 <template>
-    <div class="example">
-        <KonButton @click="removeItem">Remove</KonButton>
+    <div class="demo between">
+        <KonButton @click="removeItem" icon-only><ListMinus :size="16" /></KonButton>
         <KonSelect
             placeholder="Select konponent (simple)"
             :items="items"
@@ -9,25 +9,24 @@
         </KonSelect>
         <KonSelect
             placeholder="Select konponent (simple)"
-            :items="items2"
-            v-model="selectedItem2"
+            :items="items"
+            disabled
+            v-model="disabledItem"
         >
         </KonSelect>
-        <KonButton @click="addItem">Add</KonButton>
-        <div class="results">
-            <h3>Select konponent results</h3>
-            <pre class="language-json">
-                {
-                    a: {{ selectedItem }},
-                    b: {{ selectedItem2 }}
-                }
-            </pre>
-        </div>
+        <KonButton @click="addItem" icon-only><ListPlus :size="16" /></KonButton>
     </div>
 </template>
 
 <script>
+import { ListPlus, ListMinus } from 'lucide-vue';
+import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
+    mixins: [injectResultSnippet],
+    components: {
+        ListPlus,
+        ListMinus,
+    },
     data: function(){
         return {
             items: [
@@ -37,15 +36,16 @@ export default {
                 'Tsundori Calliope',
                 'Kusotori',
             ],
-            items2: [
-                'Fubuki V O I D',
-                'Tokino Soda',
-                'Korone D O O G',
-                'Rushia 🦋',
-            ],
             selectedItem: 'Smol Ame',
-            selectedItem2: null,
+            disabledItem: 'Kusotori',
         };
+    },
+    computed: {
+        results: function(){
+            return {
+                selectedItem: this.selectedItem
+            };
+        },
     },
     methods: {
         addItem: function(){
@@ -58,15 +58,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.example {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.results{
-    flex-basis: 100%;
-}
-</style>

@@ -11,12 +11,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss">
-*{
-    --doc-navbar-height: 70px;
-    --doc-sidebar-width: 250px;
-
-    box-sizing: border-box;
-}
-</style>

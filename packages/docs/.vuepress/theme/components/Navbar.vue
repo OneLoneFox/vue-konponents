@@ -10,9 +10,13 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .navbar{
     height: var(--doc-navbar-height);
     border: none;
+    background: rgb(var(--background-active-color));
+    .links{
+        background: none;
+    }
 }
 </style>
