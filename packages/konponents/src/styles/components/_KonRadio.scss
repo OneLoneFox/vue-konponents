@@ -2,7 +2,7 @@
     --konponent-color: var(--primary-color);
     --font-size: 1rem;
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-size: var(--font-size);
     user-select: none;

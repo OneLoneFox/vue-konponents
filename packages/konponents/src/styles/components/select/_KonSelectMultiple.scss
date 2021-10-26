@@ -42,6 +42,7 @@
     }
     &.disabled{
         pointer-events: none;
+        opacity: .6;
     }
     .kon-multiple-fallback{
         position: absolute;

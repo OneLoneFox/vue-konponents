@@ -32,19 +32,31 @@
         inheritAttrs: false,
         mixins: [uidMixin],
         props: {
+            /**
+             * @model
+             */
             val: {
                 default: '',
             },
+            /**
+            * The actual value of the radio.
+            * 
+            * Behaves the same as a native radio.
+            */
             value: {
                 default: '',
             },
-            checked: { // Initial state
-                type: Boolean,
-                default: false,
-            },
+            /**
+             * Adds a label to the component.
+             * 
+             * The label also triggers interactions.
+             */
             label: {
                 type: String,
             },
+            /**
+             * Disables all interactions with the component and lowers the opacity.
+             */
             disabled: {
                 type: Boolean,
                 default: false,

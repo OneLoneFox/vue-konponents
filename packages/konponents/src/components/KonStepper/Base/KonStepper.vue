@@ -48,10 +48,18 @@
         name: 'KonStepper',
         inheritAttrs: false,
         props: {
+            /**
+             * @model
+             */
             value: {
                 type: Number,
                 default: 0,
             },
+            /**
+             * Amount to increase or decrease every step.
+             * 
+             * Must be greater than 0
+             */
             stepSize: {
                 type: Number,
                 default: 1,
@@ -59,6 +67,11 @@
                     return val > 0;
                 },
             },
+            /**
+             * The unit the component's value is representing.
+             * 
+             * @ignore
+             */
             unitLabel: {
                 type: String,
             },
@@ -110,6 +123,9 @@
                     this.$refs.value.focus();
                 });
             },
+            /**
+             * Decreases the component's value by one stepSize unit
+             */
             decrease: function(){
                 // if(!this.isFocused){
                 //     return;
@@ -117,6 +133,9 @@
                 let decreased = this.value - this.stepSize;
                 this.$emit('input', decreased);
             },
+            /**
+             * Increases the component's value by one stepSize unit
+             */
             increase: function(){
                 // if(!this.isFocused){
                 //     return;

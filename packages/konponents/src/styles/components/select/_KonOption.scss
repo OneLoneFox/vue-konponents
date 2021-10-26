@@ -20,6 +20,7 @@
     border: none;
     background: none;
     outline: none;
+    font-family: inherit;
     &:disabled{
         cursor: auto;
         opacity: .6;

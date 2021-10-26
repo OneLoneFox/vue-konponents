@@ -54,6 +54,7 @@
     }
     &.disabled{
         pointer-events: none;
+        opacity: .6;
     }
     .kon-placeholder, .kon-value{
         /* Allow it to have a z-index */
@@ -76,6 +77,7 @@
         border: none;
         z-index: 3;
         padding: 8px 12px;
+        color: rgb(var(--foreground-color));
     }
     .kon-value{
         color: var(--current-foreground-color);

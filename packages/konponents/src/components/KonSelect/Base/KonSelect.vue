@@ -48,7 +48,7 @@
                         >
                             <!-- 
                                 @slot Current KonOption content
-                                    @binding {(string|object)} item the current item
+                                    @binding {string|object} item the current item
                                     @binding {boolean} selected determines if the current item is selected
                             -->
                             <slot :item="item" :selected="selectedValue === itemValue(item)">
@@ -58,6 +58,9 @@
                     </template>
                     <template v-else>
                         <KonOption :key="-1" disabled>
+                            <!-- 
+                                @slot Empty option message
+                             -->
                             <slot name="empty">
                                 {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
                             </slot>
@@ -80,7 +83,15 @@
             event: 'change',
         },
         props: {
+            /**
+             * @model
+             */
             value: [String, Number, Object],
+            /**
+             * If set to true and the passed value is an object
+             * it will return the entire object on change instead of
+             * only returning the defined valueAttribute.
+             */
             returnObject: {
                 type: Boolean,
                 default: false,

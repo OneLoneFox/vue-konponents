@@ -77,7 +77,7 @@
                         >
                             <!-- 
                                 @slot Current KonOption content
-                                    @binding {(string|object)} item the current item
+                                    @binding {string|object} item the current item
                                     @binding {boolean} selected determines if the current item is selected
                             -->
                             <slot :item="item" :selected="isSelected(item)">
@@ -113,27 +113,33 @@
             event: 'change',
         },
         props: {
+            /**
+             * @model
+             */
             value: {
                 type: Array,
-                default: [],
+                default: () => [],
             },
             /**
-             * @todo Figure out why did I create this prop
+             * If set to true any selected value after the amount defined in the maxChips prop
+             * will be collapsed into a single chip containing the count of all the collapsed chips
              */
-            keepSelected: {
-                type: Boolean,
-                default: true,
-            },
             collapseChips: {
                 type: Boolean,
                 default: false,
             },
+            /**
+             * Defines the maximum amount of chips to be showed before collapsing.
+             */
             maxChips: {
                 type: Number,
                 default: 1,
             },
         },
         computed: {
+            /**
+             * @returns {Array}
+             */
             selectedItems: function(){
                 return [...this.value];
             },

@@ -6,29 +6,60 @@ var selectMixin = {
             type: String,
             default: '',
         },
+        /**
+         * @ignore
+         */
         placeholder: {
             type: String,
             default: '',
         },
+        /**
+         * An array of strings|numbers|objects containig the values
+         * you want in the select.
+         * 
+         * If an array of objects is passed the valueAttrbute and textAttribute
+         * properties MUST be defined as valid object properties.
+         */
         items: {
             type: Array,
             required: true,
         },
+        /**
+         * Determines which of the object properties must be treated as the label
+         * to show both in the selected label and the options list.
+         */
         textAttribute: {
             type: String,
             default: 'text',
         },
+        /**
+         * Determines which of the object properties must be treated as the value
+         * for the component to be able to know which element is selected.
+         * 
+         * It MUST be unique per item.
+         */
         valueAttribute: {
             type: String,
             default: 'value',
         },
+        /**
+         * Disables all interactions with the component and lowers the opacity.
+         */
         disabled: {
             type: Boolean,
             default: false,
         },
+        /**
+         * Determines the visual style of the options list,
+         * 
+         * @values default, detached
+         */
         konStyle: {
             type: String,
             default: 'default',
+            validator(val){
+                return ['default', 'detached'].includes(val);
+            }
         },
         /**
          * Determines if an item should be disabled.
@@ -38,7 +69,7 @@ var selectMixin = {
          * 
          * Returns false by default for all items.
          * 
-         * @param {Object|string|number}
+         * @param {Object|string|number} item
          * 
          * @returns {boolean}
          */
@@ -49,9 +80,9 @@ var selectMixin = {
         /**
          * Enables the usage of the filter function
          * to narrow down the items list based on the search
-         * prop.
+         * prop or the internal search value if filterInput is true.
          * 
-         * If false, the search prop won't have any effect.
+         * If false, the search and filterInput props won't have any effect.
          * 
          * @type {boolean}
          */
@@ -61,7 +92,7 @@ var selectMixin = {
         },
         /**
          * Shows an input in place of the placeholder for filtering
-         * with the internal _search term.
+         * with an internal search term.
          */
         filterInput: {
             type: Boolean,
@@ -88,6 +119,7 @@ var selectMixin = {
         },
         /**
          * @todo Implement this prop
+         * @ignore
          */
         filterBy: {
             type: String,
@@ -96,11 +128,10 @@ var selectMixin = {
         /**
          * Function used for filtering items.
          * 
-         * The default implementation uses lowercase
-         * string matching.
+         * The default implementation uses case insensitive string matching.
          * 
          * @param {Array} items - A copy of the items prop
-         * @param {string} searchTerm - The search term passed by the search prop or the local _search data from the input
+         * @param {string} searchTerm - The search term passed by the search prop or the internal search data from the input
          * 
          * @returns {Array}
          */
@@ -167,7 +198,7 @@ var selectMixin = {
          * and for every item in the options list.
          * 
          * Returns null if the item is null, undefined or an empty string
-         * in the case of :value (or v-model) being wither of those.
+         * in the case of :value (or v-model) being either of those.
          * 
          * No item in the items list should be empty.
          * 
@@ -203,7 +234,7 @@ var selectMixin = {
          * Opens the option list
          * 
          * @public
-         * @return {void}
+         * @returns {void}
          */
         open: function(){
             this.isOpen = true;
@@ -218,7 +249,7 @@ var selectMixin = {
          * Closes the option list
          * 
          * @public
-         * @return {void}
+         * @returns {void}
          */
         close: function(){
             this.isOpen = false;
@@ -230,7 +261,7 @@ var selectMixin = {
          * Toggles the state of the option list (open|close)
          * 
          * @public
-         * @return {void}
+         * @returns {void}
          */
         toggle: function(){
             // this.isOpen = !this.isOpen;
@@ -238,7 +269,8 @@ var selectMixin = {
         },
         /**
          * Handles focus loose
-         * @return {void}
+         * 
+         * @returns {void}
          */
         handleBlur: function(){
             this.close();

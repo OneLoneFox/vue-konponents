@@ -5,7 +5,7 @@
     --konponent-color: var(--primary-color);
     --current-foreground-color: var(--foreground-color);
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: var(--padding);
@@ -21,6 +21,10 @@
     transition-duration: 250ms;
     transition-timing-function: ease;
     box-sizing: border-box;
+    &.block{
+        display: block;
+        width: 100%;
+    }
     &.icon-only{
         /* helps to make it 1:1 aspect ratio but doesn't force it (content must be 1:1) */
         --padding: 8px;

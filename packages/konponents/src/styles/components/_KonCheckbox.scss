@@ -4,7 +4,7 @@
     --konponent-color: var(--primary-color);
     --current-background-color: rgba(var(--background-color), 1);
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-size: var(--font-size);
     user-select: none;

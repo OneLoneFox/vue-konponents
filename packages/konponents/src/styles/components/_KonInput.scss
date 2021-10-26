@@ -109,30 +109,31 @@
     }
     & .kon-input-icon{
         position: absolute;
-        top: 2px;
-        height: calc(100% - 4px);
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        background: var(--current-background-color);
-        border-radius: calc(var(--radius) - 2px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        top: 0;
+        padding: 2px;
         &.leading{
-            left: 2px;
+            left: 0;
+            .kon-input-icon-content{
+                box-shadow: 4px 0 4px -4px rgba(0, 0, 0, .1);
+            }
         }
         &.trailing{
-            right: 2px;
+            right: 0;
+            .kon-input-icon-content{
+                box-shadow: -4px 0 4px -4px rgba(0, 0, 0, .1);
+            }
         }
-        & .placeholder-svg{
-            height: 100%;
-            width: auto;
-        }
-        & .kon-input-icon-content{
-            display: flex;
+        .kon-input-icon-content{
+            padding: 6px;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
+            display: flex;
+            background: rgba(var(--background-color), 1);
+            border-radius: calc(var(--radius) - 2px);
         }
     }
 }

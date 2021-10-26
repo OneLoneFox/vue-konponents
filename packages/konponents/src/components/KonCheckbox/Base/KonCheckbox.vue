@@ -4,6 +4,7 @@
             <input
               type="checkbox"
               :id="uid"
+              :name="name"
               :value="value"
               :checked="checked"
               :disabled="disabled"
