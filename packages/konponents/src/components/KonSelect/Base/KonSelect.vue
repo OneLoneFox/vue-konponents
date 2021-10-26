@@ -133,9 +133,7 @@
                 if(this.value === null){
                     return false;
                 }
-                let foundItem = this.items.find((item) => {
-                    return this.itemValue(item) === this.itemValue(this.selectedItem);
-                });
+                let foundItem = this.selectedItem();
 
                 if(!foundItem){
                     /**
