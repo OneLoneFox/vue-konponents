@@ -2,5 +2,5 @@
     "include": [
         "packages/konponents/src/**/*"
     ],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "packages/**/node_modules"]
 }
