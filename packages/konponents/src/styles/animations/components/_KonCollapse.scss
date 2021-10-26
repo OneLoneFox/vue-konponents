@@ -1,0 +1,18 @@
+.kon-collapse{
+    will-change: height, width;
+    &-enter-active,
+    &-leave-active,
+    &-fade-enter-active,
+    &-fade-leave-active{
+        transition-property: height, width, opacity;
+        transition-timing-function: ease;
+        transition-duration: 250ms;
+        // transition-duration: 5s;
+        overflow: hidden;
+    }
+    
+    &-fade-enter,
+    &-fade-leave-to {
+        opacity: 0;
+    }
+}

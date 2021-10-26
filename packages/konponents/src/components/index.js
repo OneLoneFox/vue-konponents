@@ -15,3 +15,5 @@ export { default as Koncheckbox } from './KonCheckbox/Base';
 export { default as KonSwitch } from './KonSwitch/Base';
 
 export { default as KonRadio } from './KonRadio/Base';
+
+export { default as KonCollapse } from './KonCollapse';
