@@ -69,7 +69,7 @@
                             <!-- 
                                 @slot Empty option message
                              -->
-                            <slot name="empty">
+                            <slot name="empty" :search="$data._search || search">
                                 {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
                             </slot>
                         </KonOption>

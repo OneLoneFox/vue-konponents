@@ -98,7 +98,7 @@
                                 @slot Use this slot for empty options list or no filter results
                                     @binding {string} search the internal filter search value
                              -->
-                            <slot name="empty" :search="$data._search">
+                            <slot name="empty" :search="$data._search || search">
                                 {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}
                             </slot>
                         </KonOption>

@@ -116,7 +116,7 @@
              * If set to true, the label will mimic a placeholder when not focused
              * and shift to a normal label when focused or the value is not empty.
              * 
-             * Normal placeholder should not be used with this property.
+             * Normal placeholder should not be used in conjunction with this property.
              * 
              * Note: date, time, month and week input types will always show as a normal label.
              */

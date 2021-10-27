@@ -3,11 +3,25 @@
         <KonButton @click="removeItem" icon-only><ListMinus :size="16" /></KonButton>
         <KonSelect
             placeholder="Imaginary products"
+            :items="emptyItems"
+            v-model="emptySelected"
+            filterable
+            filterInput
+        >
+            <template #empty>
+                Where items? 🐒
+            </template>
+        </KonSelect>
+        <KonSelect
+            placeholder="Imaginary products"
             :items="items"
             v-model="selectedItem"
             filterable
             filterInput
         >
+            <template #empty="{search}">
+                {{ search }} not found.
+            </template>
         </KonSelect>
         <KonButton @click="addItem" icon-only><ListPlus :size="16" /></KonButton>
     </div>
@@ -34,7 +48,9 @@ export default {
                 'Nvidia RTX 3080 TI',
                 'Nvidia RTX 3090',
             ],
+            emptyItems: [],
             selectedItem: null,
+            emptySelected: null,
         };
     },
     computed: {
