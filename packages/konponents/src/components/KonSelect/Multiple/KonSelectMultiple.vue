@@ -29,14 +29,14 @@
             class="kon-values"
             @before-leave="beforeLeave"
         >
-            <template v-if="collapseChips">
+            <template v-if="collapseChips && uncollapsedChips.length">
                 <div
                     class="kon-value-chip"
-                    v-if="firstSelectedItem"
-                    :key="itemValue(firstSelectedItem)"
+                    v-for="item in uncollapsedChips"
+                    :key="itemValue(item)"
                 >
-                    <span class="kon-value-text">{{ itemText(firstSelectedItem) }}</span>
-                    <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, firstSelectedItem)"></span>
+                    <span class="kon-value-text">{{ itemText(item) }}</span>
+                    <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
                 </div>
                 <div
                     class="kon-value-chip"
@@ -153,24 +153,33 @@
             selectedItems: function(){
                 return [...this.value];
             },
+            /**
+             * @returns {Array}
+             */
             uncollapsedChips: function(){
-                let chips = [];
-                for(const i = 0; i < this.maxChips; i++){
-                    chips.push(this.selectedItems[i]);
-                }
-                return chips;
+                return this.selectedItems.slice(0, this.maxChips);
             },
+            /**
+             * @returns {Object}
+             */
             firstSelectedItem: function(){
                 return this.selectedItems[0];
             },
+            /**
+             * @returns {number}
+             */
             extraSelectedItemsCount: function(){
                 return this.selectedItems.length - this.maxChips;
             },
+            /**
+             * @returns {boolean}
+             */
             isElevated: function(){
                 return !!this.selectedItems.length;
             },
             /**
              * Set the events to be emitted by this comopnents
+             * @returns {Object}
              */
             listeners: function(){
                 return {
