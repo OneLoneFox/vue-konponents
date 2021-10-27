@@ -9,12 +9,19 @@
         <select class="kon-multiple-fallback" multiple tabindex="-1">
             <option v-for="item in items" :key="itemValue(item)" :selected="isSelected(item)" :value="itemValue(item)"></option>
         </select>
+        <label
+          class="kon-select-label"
+          :class="{'is-placeholder': labelAsPlaceholder, 'elevated': isElevated}"
+          v-if="label"
+        >
+            {{ label }}
+        </label>
         <div
             class="kon-placeholder"
             :class="{'kon-placeholder-hidden': filterable && filterInput && isOpen}"
             v-if="!selectedItems.length"
         >
-            {{ placeholder }}
+            {{ placeholder || '&nbsp;' }}
         </div>
         <transition-group
             name="kon-select-multiple-chips"
@@ -134,6 +141,9 @@
             maxChips: {
                 type: Number,
                 default: 1,
+                validator(val){
+                    return val > 0;
+                }
             },
         },
         computed: {
@@ -155,6 +165,9 @@
             },
             extraSelectedItemsCount: function(){
                 return this.selectedItems.length - this.maxChips;
+            },
+            isElevated: function(){
+                return !!this.selectedItems.length;
             },
             /**
              * Set the events to be emitted by this comopnents

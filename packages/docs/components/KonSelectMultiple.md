@@ -31,6 +31,19 @@ Default behaviour.
   </template>
 </Example>
 
+## Label
+
+Label and placeholder types.
+
+<Example>
+  <component is="examples-KonSelectMultiple-label" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelectMultiple/label.vue
+  
+  </template>
+</Example>
+
 ## Collapse
 
 Collapse.

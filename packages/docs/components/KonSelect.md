@@ -33,12 +33,27 @@ Custom select input.
 
   
 ## Default
-  
+
+Default behaviour.
+
 <Example>
   <component is="examples-KonSelect-default" />
   <template v-slot:snippet>
   
   <<< @/.vuepress/components/examples/KonSelect/default.vue
+  
+  </template>
+</Example>
+
+## Label
+
+Label and placeholder types.
+
+<Example>
+  <component is="examples-KonSelect-label" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelect/label.vue
   
   </template>
 </Example>

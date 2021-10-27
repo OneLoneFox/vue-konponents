@@ -1,10 +1,10 @@
 @use '../../animations/components/KonSelect/ToggleOptions_default';
 @use '../../animations/components/KonSelect/ToggleOptions_detached';
 @use '../../animations/components/KonSelect/OptionsListFilter';
+@use '../../animations/components/KonSelectMultiple/ChipList';
 
 @use 'KonSelectOptionsList';
-
-@use '../../animations/components/KonSelectMultiple/ChipList';
+@use 'Shared';
 
 .kon-select-multiple{
     --font-size: .8rem;

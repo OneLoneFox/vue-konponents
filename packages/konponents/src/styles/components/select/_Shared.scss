@@ -1,0 +1,30 @@
+@mixin elevated-placeholder{
+    pointer-events: auto;
+    transform: translate(0, calc(-100% - 8px)) scale(0.9);
+    --current-label-color: rgba(var(--foreground-color), 1);
+}
+
+.kon-select, .kon-select-multiple{
+    --current-label-color: rgba(var(--foreground-color), 1);
+    > .kon-select-label{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        left: 0;
+        font-size: .8rem;
+        transform: translate(8px, calc(-100% - 8px));
+        color: var(--current-label-color);
+        &.is-placeholder{
+            transition-property: transform, color;
+            transition-timing-function: ease;
+            transition-duration: 250ms;
+            --current-label-color: rgba(var(--foreground-color), .4);
+            // passthrough events while on placeholder mode
+            pointer-events: none;
+            transform: translate(10px, 0);
+            &.elevated{
+                @include elevated-placeholder;
+            }
+        }
+    }
+}

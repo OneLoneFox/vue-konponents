@@ -7,12 +7,19 @@
         tabindex="0"
     >
         <input type="hidden" :name="name" :value="itemValue(selectedItem)">
+        <label
+          class="kon-select-label"
+          :class="{'is-placeholder': labelAsPlaceholder, 'elevated': isElevated}"
+          v-if="label"
+        >
+            {{ label }}
+        </label>
         <span
             class="kon-placeholder"
             key="kon-label-placeholder"
             v-if="!selectedItemExists"
         >
-            {{ placeholder }}
+            {{ placeholder || '&nbsp;' }}
         </span>
         <span
             class="kon-value"
@@ -101,7 +108,7 @@
             /**
              * Searches through the items array for the matching value.
              * 
-             * It's done this wat since the items prop could be an array of objects
+             * It's done this way since the items prop could be an array of objects
              * and the value could either be the raw value or one complete item object.
              * 
              * @returns {Object|string|number}
@@ -133,7 +140,7 @@
                 if(this.value === null){
                     return false;
                 }
-                let foundItem = this.selectedItem();
+                let foundItem = this.selectedItem;
 
                 if(!foundItem){
                     /**
@@ -146,6 +153,10 @@
                 }
 
                 return !!foundItem;
+            },
+            isElevated: function(){
+                let value = this.selectedValue;
+                return !!value;
             },
             /**
              * Set the events to be emitted by this comopnent.
