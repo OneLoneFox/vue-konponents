@@ -4,7 +4,7 @@
         :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
         :style="`z-index: ${zIndex};`"
         v-on="listeners"
-        tabindex="0"
+        :tabindex="disabled ? -1 : 0"
     >
         <select class="kon-multiple-fallback" multiple tabindex="-1">
             <option v-for="item in items" :key="itemValue(item)" :selected="isSelected(item)" :value="itemValue(item)"></option>

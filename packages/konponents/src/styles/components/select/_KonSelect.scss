@@ -67,6 +67,9 @@
         transition: opacity 250ms ease;
         /* Text must stay on top of the option menu to prevent getting occluded during the reveal transition */
         z-index: 2;
+        &-hidden{
+            opacity: 0;
+        }
     }
     .kon-filter-input{
         position: absolute;
@@ -82,9 +85,6 @@
     }
     .kon-value{
         color: var(--current-foreground-color);
-        &-hidden{
-            opacity: 0;
-        }
     }
     /* kon-select-label */
     &-label{

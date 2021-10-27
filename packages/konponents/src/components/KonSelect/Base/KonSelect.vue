@@ -4,7 +4,7 @@
         :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
         :style="`z-index: ${zIndex};`"
         v-on="listeners"
-        tabindex="0"
+        :tabindex="disabled ? -1 : 0"
     >
         <input type="hidden" :name="name" :value="itemValue(selectedItem)">
         <label
@@ -16,6 +16,7 @@
         </label>
         <span
             class="kon-placeholder"
+            :class="{'kon-placeholder-hidden': filterable && filterInput && isOpen}"
             key="kon-label-placeholder"
             v-if="!selectedItemExists"
         >
