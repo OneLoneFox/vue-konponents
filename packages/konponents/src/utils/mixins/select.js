@@ -7,11 +7,28 @@ var selectMixin = {
             default: '',
         },
         /**
-         * @ignore
+         * Defines the component's label.
+         */
+        label: {
+            type: String,
+            required: false,
+        },
+        /**
+         * Defines the component's placeholder.
          */
         placeholder: {
             type: String,
             default: '',
+        },
+        /**
+         * If set to true, the label will mimic a placeholder when not focused
+         * and shift to a normal label when the value is not empty.
+         * 
+         * Placeholder should not be used in conjunction with this property.
+         */
+         labelAsPlaceholder: {
+            type: Boolean,
+            default: false,
         },
         /**
          * An array of strings|numbers|objects containig the values
@@ -93,6 +110,8 @@ var selectMixin = {
         /**
          * Shows an input in place of the placeholder for filtering
          * with an internal search term.
+         * 
+         * @type {boolean}
          */
         filterInput: {
             type: Boolean,
@@ -118,17 +137,29 @@ var selectMixin = {
             default: true,
         },
         /**
-         * @todo Implement this prop
-         * @ignore
+         * Determines the value to be used by the filter function
+         * as the searchTerm to match.
+         * 
+         * If not provided the default implementation of filter will
+         * use the textAttribute.
+         * 
+         * Note: This prop should only be set if the items are an array of.
+         * 
+         * @type {string}
          */
         filterBy: {
             type: String,
-            default: '',
+            required: false,
         },
         /**
          * Function used for filtering items.
          * 
          * The default implementation uses case insensitive string matching.
+         * 
+         * If no filterBy is provided it will use the textAttribute by default.
+         * 
+         * Note: Since both the internal search and the searh prop are strings, if you want
+         * to filter by comparing numeric values you need to parse the searchTerm.
          * 
          * @param {Array} items - A copy of the items prop
          * @param {string} searchTerm - The search term passed by the search prop or the internal search data from the input
@@ -139,7 +170,12 @@ var selectMixin = {
             type: Function,
             default(items, searchTerm){
                 return items.filter((item) => {
-                    let normalizedItemText = this.itemText(item).toLowerCase();
+                    let normalizedItemText = this.filterBy ? item[this.filterBy] : this.itemText(item);
+                    if(typeof normalizedItemText != 'string'){
+                        normalizedItemText = normalizedItemText.toString().toLowerCase();
+                    }else{
+                        normalizedItemText = normalizedItemText.toLowerCase();
+                    }
                     let normalizedSearchTerm = searchTerm.toLowerCase();
                     return normalizedItemText.indexOf(normalizedSearchTerm) !== -1;
                 });
