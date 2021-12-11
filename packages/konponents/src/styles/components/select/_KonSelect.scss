@@ -24,6 +24,7 @@
     --current-foreground-color: rgba(var(--foreground-color), 1);
     position: relative;
     padding: 8px 12px;
+    padding-right: 30px;
     background: var(--current-background-color);
     border-radius: 12px;
     user-select: none;

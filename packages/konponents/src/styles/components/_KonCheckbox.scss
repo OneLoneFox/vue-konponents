@@ -72,6 +72,10 @@
                 transition: all 250ms ease;
             }
             & > .kon-checkmark-tick{
+                /*
+                 * The only reason this is made with css and pseudo elements instead of an svg
+                 * is because I want to animate it.
+                 */
                 position: relative;
                 height: 12px;
                 width: 8px;

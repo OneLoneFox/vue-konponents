@@ -28,7 +28,7 @@
             :key="`kon-label-${itemValue(selectedItem)}`"
             v-else
         >
-            {{ itemText(selectedItem) }}
+            {{  itemText(selectedItem) }}
         </span>
         <input
             class="kon-filter-input"
@@ -41,6 +41,11 @@
             @change.stop=""
             ref="filterInput"
         />
+        <div class="chevron">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
         <transition name="kon-show-options" @before-enter="setHigherIndex" @after-leave="setAutoIndex">
             <div class="kon-options" v-show="isOpen">
                 <transition-group name="kon-options-list" tag="div" class="kon-options-list">
@@ -141,6 +146,7 @@
                 if(this.value === null){
                     return false;
                 }
+
                 let foundItem = this.selectedItem;
 
                 if(!foundItem){
@@ -156,8 +162,7 @@
                 return !!foundItem;
             },
             isElevated: function(){
-                let value = this.selectedValue;
-                return !!value;
+                return this.selectedItemExists;
             },
             /**
              * Set the events to be emitted by this comopnent.

@@ -290,7 +290,7 @@ var selectMixin = {
         close: function(){
             this.isOpen = false;
             if(this.clearSearch){
-                this.$data._search = '';
+                this.clearFilter();
             }
         },
         /**
@@ -302,6 +302,14 @@ var selectMixin = {
         toggle: function(){
             // this.isOpen = !this.isOpen;
             this.isOpen ? this.close() : this.open();
+        },
+        /**
+         * Clears the internal search value.
+         * 
+         * @public
+         */
+        clearFilter: function(){
+            this.$data._search = '';
         },
         /**
          * Handles focus loose
@@ -383,6 +391,10 @@ var selectMixin = {
                 return true;
             }
         },
+        handleFilterInput: function(e){
+            this.$data._search = e.target.value;
+            this.$emit('search', e.target.value);
+        }
     },
     beforeCreate: function(){
         this.uid = `konponent-${uniqueId()}`;

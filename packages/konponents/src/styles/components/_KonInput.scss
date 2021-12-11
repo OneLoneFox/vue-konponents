@@ -11,6 +11,7 @@
     --radius: 12px;
     --margin: 10px;
     --input-padding: 8px 10px;
+    --input-padding-left: 10px;
     --current-background-color: rgba(var(--background-color), 1);
     --current-foreground-color: rgba(var(--foreground-color), 1);
     --current-label-color: rgba(var(--foreground-color), 1);
@@ -40,14 +41,15 @@
         opacity: .6;
         pointer-events: none;
     }
-    & > input{
+    > input{
         width: 100%;
         border: none;
-        transition-property: padding, background, color;
+        transition-property: padding, background, color, box-shadow;
         transition-timing-function: ease;
         transition-duration: 250ms;
         border-radius: var(--radius);
         padding: var(--input-padding);
+        padding-left: var(--input-padding-left);
         color: rgba(var(--foreground-color), 1);
         background: var(--current-background-color);
         &::placeholder{
@@ -56,17 +58,19 @@
             opacity: 1;
         }
         &:focus{
+            --current-background-color: rgb(var(--background-active-color));
+            box-shadow: 0 0 20px 0 rgba(var(--primary-color), 0.1);
             &::placeholder{
                 opacity: 0;
             }
-            padding-left: 16px;
+            padding-left: calc(var(--input-padding-left) + 6px);
             & ~ .is-placeholder{
                 @include elevated-placeholder;
                 transform: translate(8px, -77%);
             }
         }
     }
-    & > .kon-input-label{
+    > .kon-input-label{
         position: absolute;
         display: flex;
         align-items: center;
@@ -89,7 +93,7 @@
             }
         }
     }
-    & > .kon-input-message{
+    > .kon-input-message{
         position: absolute;
         padding: 0 8px;
         left: 0;
@@ -99,7 +103,7 @@
     }
     &.has-leading-icon{
         & > input{
-            padding-left: 36px;
+            --input-padding-left: 36px;
         }
     }
     &.has-trailing-icon{
@@ -107,7 +111,7 @@
             padding-right: 36px;
         }
     }
-    & .kon-input-icon{
+    .kon-input-icon{
         position: absolute;
         display: flex;
         align-items: center;
@@ -132,7 +136,7 @@
             align-items: center;
             justify-content: center;
             display: flex;
-            background: rgba(var(--background-color), 1);
+            // background: rgba(var(--background-color), 1);
             border-radius: calc(var(--radius) - 2px);
         }
     }

@@ -62,13 +62,18 @@
                 type="text"
                 key="kon-filter"
                 :value="$data._search"
-                @input="$data._search = $event.target.value"
+                @input="handleFilterInput"
                 @keydown.stop="listeners.keydown"
                 @blur.stop="listeners.blur"
                 @change.stop=""
                 ref="filterInput"
             />
         </transition-group>
+        <div class="chevron">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
         <transition name="kon-show-options" @before-enter="setHigherIndex" @after-leave="setAutoIndex">
             <div class="kon-options" v-show="isOpen">
                 <transition-group name="kon-options-list" tag="div" class="kon-options-list">
@@ -211,6 +216,7 @@
                              */
                             this.handleBlur();
                         }
+                        this.$emit('blur', e);
                     },
                     /**
                      * Handles keyboard navigation :D
@@ -234,12 +240,14 @@
                                 }
                             }
                         }
+                        this.$emit('keydown', e);
                     },
                     keypress: (e) => {
                         if(document.activeElement == this.$el && (e.code == 'Space' || e.code == 'Enter')){
                             e.preventDefault();
                             this.toggle();
                         }
+                        this.$emit('keypess', e);
                     },
                     /**/
                 };

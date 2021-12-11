@@ -22,7 +22,7 @@
         name: 'KonOption',
         props: {
             /**
-             * The value for the option
+             * The value for the option.
              */
             value: [Number, String],
             /**
@@ -34,11 +34,14 @@
                 default: '',
             },
             /**
-             * the current state of the option
+             * The current state of the option.
              */
             selected: {
                 type: Boolean,
             },
+            /**
+             * Disables any interaction with the component and lowers opacity.
+             */
             disabled: {
                 type: Boolean,
                 default: false,
