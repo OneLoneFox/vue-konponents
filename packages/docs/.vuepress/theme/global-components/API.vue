@@ -71,7 +71,7 @@
                                 <tr v-for="(prop, index) in apiProps" :key="index">
                                     <td>{{ prop.name }}</td>
                                     <td class="type">
-                                        <template v-if="typeof prop.type == 'object'">
+                                        <template v-if="Array.isArray(prop.type)">
                                             <span>{{ prop.type.join(', ') }}</span>
                                         </template>
                                         <span v-else>
@@ -116,7 +116,7 @@
                                             <div class="bindings" v-for="(b, idx) in slot.bindings" :key="idx">
                                                 <p class="name">
                                                     {{ b.name }}: 
-                                                    <template v-if="typeof b.type == 'object'">
+                                                    <template v-if="Array.isArray(b.type)">
                                                         <span>{{ b.type.join(' | ') }}</span>
                                                     </template>
                                                     <span v-else>
@@ -151,7 +151,7 @@
                                         <div class="param" v-for="(param, idx) in method.params" :key="idx">
                                             <p class="name">
                                                 {{ param.name }}:
-                                                <template v-if="typeof param.type == 'object'">
+                                                <template v-if="Array.isArray(param.type)">
                                                     <span>{{ param.type.join(' | ') }}</span>
                                                 </template>
                                                 <template v-else>
@@ -187,7 +187,7 @@
                                         <div v-for="(item, idx) in event.payload" :key="idx">
                                             <div>
                                                 <span>{{ item.name }}</span>:
-                                                <template v-if="typeof item.type == 'object'">
+                                                <template v-if="Array.isArray(item.type)">
                                                     <span>{{ item.type.join(' | ') }}</span>
                                                 </template>
                                                 <template v-else>
