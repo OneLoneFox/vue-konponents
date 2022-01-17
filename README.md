@@ -1,16 +1,8 @@
-# konponents
+# Konponents
+A beautiful, functionality focused Vue 2 library
 
-## Project setup
-```
-yarn install
-```
+## Install
+yarn add konponents
 
-### Runs docs in development mode
-```
-yarn run docs:dev
-```
-
-### Compiles for production
-```
-yarn run build
-```
+## documentation
+To be published (WIP)
