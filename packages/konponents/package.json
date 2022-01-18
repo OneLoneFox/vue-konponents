@@ -1,6 +1,6 @@
 {
     "name": "konponents",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "src/main.js",
     "scripts": {
         "build": "vue-cli-service build --target lib --name Konponents src/main.js",
@@ -25,5 +25,6 @@
     "vetur": {
         "tags": "./vetur/tags.json",
         "attributes": "./vetur/attributes.json"
-    }
+    },
+    "license": "MIT"
 }
