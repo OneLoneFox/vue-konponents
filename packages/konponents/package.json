@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "src/main.js",
     "scripts": {
-        "build": "yarn run vetur && vue-cli-service build --target lib --name Konponents src/main.js",
+        "build": "vue-cli-service build --target lib --name Konponents src/main.js",
         "scss:watch": "sass --watch src/styles/main.scss dist/konponents.css",
         "vetur": "node scripts/docgen.js"
     },

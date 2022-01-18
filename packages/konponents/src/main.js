@@ -14,5 +14,5 @@ const Konponents = {
 export default Konponents;
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(ComponentLibrary);
+  window.Vue.use(Konponents);
 }

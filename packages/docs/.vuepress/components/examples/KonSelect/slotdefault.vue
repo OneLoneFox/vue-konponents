@@ -1,11 +1,10 @@
 <template>
-    <div class="demo between">
-        <KonButton @click="removeItem" icon-only><ListMinus :size="16" /></KonButton>
+    <div class="demo">
         <KonSelect
             placeholder="Sizes"
             v-model="selectedItem"
             :items="items"
-            value-attribute="code"
+            value-attribute="id"
             text-attribute="name"
             return-object
         >
@@ -13,27 +12,21 @@
                 ({{ item.code }}) {{ item.name }} {{ selected ? '👖' : '' }}
             </template>
         </KonSelect>
-        <KonButton @click="addItem" icon-only><ListPlus :size="16" /></KonButton>
     </div>
 </template>
 
 <script>
-import { ListPlus, ListMinus } from 'lucide-vue';
 import injectResultSnippet from '../../mixins/injectResultSnippet';
 export default {
     mixins: [injectResultSnippet],
-    components: {
-        ListPlus,
-        ListMinus,
-    },
     data: function(){
         return {
             items: [
-                {code: 'XS', name: 'Extra small'},
-                {code: 'SM', name: 'Small'},
-                {code: 'MD', name: 'Medium'},
-                {code: 'LG', name: 'Large'},
-                {code: 'XL', name: 'Extra large'},
+                {id: 1, code: 'XS', name: 'Extra small'},
+                {id: 2, code: 'SM', name: 'Small'},
+                {id: 3, code: 'MD', name: 'Medium'},
+                {id: 4, code: 'LG', name: 'Large'},
+                {id: 5, code: 'XL', name: 'Extra large'},
             ],
             selectedItem: null,
             searchTerm: '',
@@ -46,14 +39,5 @@ export default {
             };
         },
     },
-    methods: {
-        addItem: function(){
-            let lastItemId = this.items.length;
-            this.items.push(`Item ${lastItemId + 1}`);
-        },
-        removeItem: function(){
-            this.items.pop();
-        },
-    }
 }
 </script>

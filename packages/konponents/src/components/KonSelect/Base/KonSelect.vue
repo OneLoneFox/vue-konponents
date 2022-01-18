@@ -73,6 +73,7 @@
                         <KonOption :key="-1" disabled>
                             <!-- 
                                 @slot Empty option message
+                                    @binding {string} search the internal filter search value
                              -->
                             <slot name="empty" :search="$data._search || search">
                                 {{ (search == '' && $data._search == '') ? 'No options' : 'No matching results' }}

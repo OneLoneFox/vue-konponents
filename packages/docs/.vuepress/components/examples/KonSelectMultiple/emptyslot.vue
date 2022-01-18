@@ -1,6 +1,5 @@
 <template>
-    <div class="demo between">
-        <KonButton @click="removeItem">Remove</KonButton>
+    <div class="demo">
         <div class="col">
             <KonSelectMultiple
                 placeholder="Hololive EN"
@@ -11,13 +10,15 @@
                 :clear-search="false"
                 filterable
                 filterInput
+                @search="handleSearch"
+                @keypress.native.enter="addItem"
+                ref="example"
             >
                 <template #empty="{search}">
-                    No matching results for {{ search }}
+                    <span class="new-item">Create a new item <b>{{ search }}</b>. Press enter.</span>
                 </template>
             </KonSelectMultiple>
         </div>
-        <KonButton @click="addItem">Add</KonButton>
     </div>
 </template>
 
@@ -36,6 +37,7 @@ export default {
             ],
             graduated: ['Kyriu Coco'],
             selectedItems: [{id: 2, name: 'Smol Ame'}],
+            search: '',
         };
     },
     computed: {
@@ -47,12 +49,28 @@ export default {
     },
     methods: {
         addItem: function(){
-            let lastItemId = this.items.length;
-            this.items.push(`Item ${lastItemId + 1}`);
+            if(this.search.trim()){
+                let lastItemId = this.items.length;
+                let newItem = {
+                    id: ++lastItemId,
+                    name: this.search,
+                }
+                this.items.push(newItem);
+                this.selectedItems.push(newItem);
+                this.$refs.example.clearFilter();
+                this.search = '';
+            }
         },
-        removeItem: function(){
-            this.items.pop();
-        },
+        handleSearch: function(searchValue){
+            this.search = searchValue;
+        }
     }
 }
 </script>
+
+<style>
+.new-item{
+    display: inline-flex;
+    justify-content: space-between;
+}
+</style>
