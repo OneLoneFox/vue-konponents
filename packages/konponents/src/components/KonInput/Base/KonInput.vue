@@ -6,17 +6,17 @@
                 'underline': underline,
                 'has-label': label,
                 'disabled': disabled,
-                'has-leading-icon': !!$slots.leadingIcon,
-                'has-trailing-icon': !!$slots.trailingIcon
+                'has-leading-icon': !!$slots.leadingicon,
+                'has-trailing-icon': !!$slots.trailingicon
             }, status
         ]"
     >
-        <div class="kon-input-icon leading" v-if="!!$slots.leadingIcon">
+        <div class="kon-input-icon leading" v-if="!!$slots.leadingicon">
             <div class="kon-input-icon-content">
                 <!-- 
                     @slot Adds an icon to the left of the component
                  -->
-                <slot name="leadingIcon" />
+                <slot name="leadingicon" />
             </div>
         </div>
         <input
@@ -27,12 +27,12 @@
           v-bind="$attrs"
           @input="$emit('input', $event.target.value)"
         >
-        <div class="kon-input-icon trailing" v-if="!!$slots.trailingIcon">
+        <div class="kon-input-icon trailing" v-if="!!$slots.trailingicon">
             <div class="kon-input-icon-content">
                 <!-- 
                     @slot Adds an icon to the right of the component
                  -->
-                <slot name="trailingIcon" />
+                <slot name="trailingicon" />
             </div>
         </div>
         <label
