@@ -7,7 +7,7 @@
         "docs:build": "yarn run docs:apigen && vuepress build ."
     },
     "dependencies": {
-        "konponents": "1.0.0",
+        "konponents": "1.0.3",
         "lucide-vue": "^0.16.10",
         "prismjs": "^1.25.0"
     },
