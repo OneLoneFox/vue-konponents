@@ -268,7 +268,7 @@
         },
         mounted: function(){
             this.$nextTick(() => {
-                if(this.value != null){
+                if(this.value != null && this.value != undefined && this.value != ''){
                     // set the initial focused element to be the corresponding item
                     let selectedElement = this.$refs.options.find((option) => {
                         return option.value === this.itemValue(this.value);

@@ -8,10 +8,16 @@
         >
         </KonSelect>
         <KonSelect
-            placeholder="Select konponent (simple)"
+            placeholder="Select konponent (disabled)"
             :items="items"
             disabled
             v-model="disabledItem"
+        >
+        </KonSelect>
+        <KonSelect
+            placeholder="Select konponent (empty)"
+            :items="emptyItems"
+            v-model="emptyItem"
         >
         </KonSelect>
         <KonButton @click="addItem" icon-only><ListPlus :size="16" /></KonButton>
@@ -38,6 +44,8 @@ export default {
             ],
             selectedItem: 'Smol Ame',
             disabledItem: 'Kusotori',
+            emptyItems: [],
+            emptyItem: '',
         };
     },
     computed: {
