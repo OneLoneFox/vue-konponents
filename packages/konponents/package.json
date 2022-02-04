@@ -21,9 +21,7 @@
         "scss:watch": "sass --watch src/styles/main.scss dist/konponents.css",
         "vetur": "node scripts/docgen.js"
     },
-    "dependencies": {
-        "core-js": "^3.6.5"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
