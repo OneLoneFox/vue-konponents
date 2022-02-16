@@ -75,8 +75,13 @@
                     // const height = `${element.offsetHeight}px`;
                     // const width = `${element.offsetWidth}px`;
                     const {width, height} = getComputedStyle(element);
-                    element.style.height = 0;
-                    element.style.width = 0;
+                    if(this.absolute){
+                        element.style.height = this.leavingElementSize.height;
+                        element.style.width = this.leavingElementSize.width;
+                    }else{
+                        element.style.height = 0;
+                        element.style.width = 0;
+                    }
 
                     void element.offsetHeight;
 
