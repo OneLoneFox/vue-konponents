@@ -25,7 +25,7 @@
           :value="value"
           :disabled="disabled"
           v-bind="$attrs"
-          @input="$emit('input', $event.target.value)"
+          @input="handleInput"
         >
         <div class="kon-input-icon trailing" v-if="!!$slots.trailingicon">
             <div class="kon-input-icon-content">
@@ -146,6 +146,11 @@
                 default: false,
             },
         },
+        data: function(){
+            return {
+                _value: '',
+            }
+        },
         computed: {
             inputType: function(){
                 return (this.type === 'password' && this.showPassword) ? 'text' : this.type;
@@ -153,8 +158,22 @@
             isElevated: function(){
                 // let inputs with pre established "placeholders" be elevated by default so the placeholderAsLabel doesn't interfere
                 let preformattedTypes = ['date', 'time', 'month', 'week'];
-                return this.value !== '' || preformattedTypes.includes(this.type);
+                return this.$data._value !== '' || preformattedTypes.includes(this.type);
             },
+        },
+        methods: {
+            /**
+             * Handles input event.
+             * Sets the internal value and emits the input's value on input.
+             * 
+             * @param {Event} e - The input's event payload
+             * @fires input
+             * @returns {void}
+             */
+            handleInput: function(e){
+                this.$data._value = e.target.value;
+                $this.$emit('input', e.target.value);
+            }
         },
         beforeCreate: function(){
             this.uid = `konponent-${uniqueId()}`;
