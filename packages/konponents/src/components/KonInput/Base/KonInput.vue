@@ -22,7 +22,7 @@
         <input
           :id="id || uid"
           :type="inputType"
-          :value="value"
+          :value="actualValue"
           :disabled="disabled"
           v-bind="$attrs"
           @input="handleInput"
@@ -158,8 +158,11 @@
             isElevated: function(){
                 // let inputs with pre established "placeholders" be elevated by default so the placeholderAsLabel doesn't interfere
                 let preformattedTypes = ['date', 'time', 'month', 'week'];
-                return this.$data._value !== '' || preformattedTypes.includes(this.type);
+                return this.value || this.$data._value !== '' || preformattedTypes.includes(this.type);
             },
+            actualValue: function(){
+                return this.value !== undefined ? this.value : this.$data._value;
+            }
         },
         methods: {
             /**
@@ -172,7 +175,7 @@
              */
             handleInput: function(e){
                 this.$data._value = e.target.value;
-                $this.$emit('input', e.target.value);
+                this.$emit('input', e.target.value);
             }
         },
         beforeCreate: function(){
