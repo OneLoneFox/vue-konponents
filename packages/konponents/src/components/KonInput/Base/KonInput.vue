@@ -25,7 +25,7 @@
           :value="actualValue"
           :disabled="disabled"
           v-bind="$attrs"
-          @input="handleInput"
+          v-on="listeners"
         >
         <div class="kon-input-icon trailing" v-if="!!$slots.trailingicon">
             <div class="kon-input-icon-content">
@@ -162,20 +162,23 @@
             },
             actualValue: function(){
                 return this.value !== undefined ? this.value : this.$data._value;
-            }
-        },
-        methods: {
-            /**
-             * Handles input event.
-             * Sets the internal value and emits the input's value on input.
-             * 
-             * @param {Event} e - The input's event payload
-             * @fires input
-             * @returns {void}
-             */
-            handleInput: function(e){
-                this.$data._value = e.target.value;
-                this.$emit('input', e.target.value);
+            },
+            listeners: function(){
+                return {
+                    ...this.$listeners,
+                    /**
+                     * Handles input event.
+                     * Sets the internal value and emits the input's value on input.
+                     * 
+                     * @param {Event} e - The input's event payload
+                     * @fires input
+                     * @returns {void}
+                     */
+                    input: (e) => {
+                        this.$data._value = e.target.value;
+                        this.$emit('input', e.target.value);
+                    }
+                }
             }
         },
         beforeCreate: function(){
