@@ -1,8 +1,9 @@
-@use '../animations/components/KonInput/ToggleMessage';
+@use '../animations/components/ToggleMessage';
 
 /* The label can be elevated from either user focus or fulfilled value */
 @mixin elevated-placeholder {
     --current-label-color: rgba(var(--foreground-color), 1);
+    --current-label-elevation-offset: -80%;
     pointer-events: auto;
     transform: translate(8px, -80%);
 }
@@ -15,6 +16,7 @@
     --current-background-color: rgba(var(--background-color), 1);
     --current-foreground-color: rgba(var(--foreground-color), 1);
     --current-label-color: rgba(var(--foreground-color), 1);
+    --current-label-elevation-offset: -80%;
     position: relative;
     margin: var(--margin);
     transition-property: opacity;
@@ -29,13 +31,30 @@
         --margin: 0px;
     }
     &.error{
-        --foreground-color: var(--danger-color);
+        & > .kon-input-label{
+            color: rgb(var(--danger-color));
+            animation: shake-label 500ms ease;
+        }
+        & > .kon-input-message{
+            color: rgb(var(--danger-color));
+            animation: shake-message 500ms ease;
+        }
     }
     &.warning{
-        --foreground-color: var(--warning-color);
+        & > .kon-input-label{
+            color: rgb(var(--warning-color));
+        }
+        & > .kon-input-message{
+            color: rgb(var(--warning-color));
+        }
     }
     &.success{
-        --foreground-color: var(--success-color);
+        & > .kon-input-label{
+            color: rgb(var(--success-color));
+        }
+        & > .kon-input-message{
+            color: rgb(var(--success-color));
+        }
     }
     &.disabled{
         opacity: .6;
@@ -78,16 +97,17 @@
         left: 0;
         height: 100%;
         font-size: .8rem;
-        transform: translate(8px, -80%);
+        transform: translate(8px, var(--current-label-elevation-offset));
         color: var(--current-label-color);
         &.is-placeholder{
             --current-label-color: rgba(var(--foreground-color), .4);
+            --current-label-elevation-offset: 0;
             // passthrough events while on placeholder mode
             pointer-events: none;
             transition-property: transform, color;
             transition-timing-function: ease;
             transition-duration: 250ms;
-            transform: translate(10px, 0);
+            transform: translate(10px, var(--current-label-elevation-offset));
             &.elevated{
                 @include elevated-placeholder;
             }
@@ -139,5 +159,41 @@
             // background: rgba(var(--background-color), 1);
             border-radius: calc(var(--radius) - 2px);
         }
+    }
+}
+
+@keyframes shake-message {
+    10%, 90% {
+        transform: translate(-1px, 0);
+    }
+    
+    20%, 80% {
+        transform: translate(2px, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate(-4px, 0);
+    }
+
+    40%, 60% {
+        transform: translate(4px, 0);
+    }
+}
+
+@keyframes shake-label {
+    10%, 90% {
+        transform: translate(7px, var(--current-label-elevation-offset));
+    }
+    
+    20%, 80% {
+        transform: translate(10px, var(--current-label-elevation-offset));
+    }
+
+    30%, 50%, 70% {
+        transform: translate(4px, var(--current-label-elevation-offset));
+    }
+
+    40%, 60% {
+        transform: translate(12px, var(--current-label-elevation-offset));
     }
 }

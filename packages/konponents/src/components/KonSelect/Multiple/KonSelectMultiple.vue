@@ -111,6 +111,14 @@
                 </transition-group>
             </div>
         </transition>
+        <transition name="kon-toggle-message">
+            <div class="kon-select-message" v-if="!!$slots.message">
+                <!-- 
+                    @slot Shows a message below the select
+                 -->
+                <slot name="message" />
+            </div>
+        </transition>
     </div>
 </template>
 
