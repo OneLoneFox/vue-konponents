@@ -67,7 +67,7 @@ should be dead simple with the existence of the prefers-color-scheme css media q
 
 # FAQ
 
-Why does this project exist? It all started after discovering **[https://vuesax.com/](Vuesax)**. A great looking but not so greatly mantained or functional component library.
+Why does this project exist? It all started after discovering **[Vuesax](https://vuesax.com/)**. A great looking but not so greatly mantained or functional component library.
 
 Is the project manager ranting about modern web development being bloated? Yes.
 
@@ -76,4 +76,4 @@ you're just delusional and part of the problem. Btw using older browsers is a hi
 
 # LICENSE
 
-This project is licensed under [https://opensource.org/licenses/MIT](MIT License)
+This project is licensed under [MIT License](https://opensource.org/licenses/MIT)
