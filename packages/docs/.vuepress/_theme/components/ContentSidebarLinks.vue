@@ -2,7 +2,7 @@
     <ul v-if="items.length" class="content-sidebar-links">
         <li class="title">Contents</li>
         <li v-for="(item, i) in items" :key="i">
-            <!-- <SidebarGroup
+            <SidebarGroup
                 v-if="item.type === 'group'"
                 :item="item"
                 :open="true"
@@ -10,22 +10,7 @@
                 :depth="depth"
                 @toggle="toggleGroup(i)"
             />
-            <SidebarLink v-else :sidebar-depth="sidebarDepth" :item="item" /> -->
-            <template v-if="item.type === 'group'">
-                <template v-for="(child, idx) in item.children">
-                    <ul v-if="isActive(child.path)" :key="idx">
-                        <li class="content-item" v-for="(h, k) in secondLevelHeaders(child.headers)" :key="k">
-                            <RouterLink
-                              :to="`${child.path}#${h.slug}`"
-                              class="content-link"
-                              :class="{active: isActive(`${child.path}#${h.slug}`)}"
-                            >
-                                {{ h.title }}
-                            </RouterLink>
-                        </li>
-                    </ul>
-                </template>
-            </template>
+            <SidebarLink v-else :sidebar-depth="sidebarDepth" :item="item" />
         </li>
     </ul>
 </template>
@@ -33,7 +18,7 @@
 <script>
 import SidebarGroup from "@theme/components/SidebarGroup.vue";
 import SidebarLink from "@theme/components/SidebarLink.vue";
-import { isActive } from "@theme/util";
+import { isActive } from "@parent-theme/util";
 
 export default {
     name: "ContentSidebarLinks",
@@ -47,15 +32,65 @@ export default {
         "initialOpenGroupIndex"
     ],
 
+    data() {
+        return {
+            openGroupIndex: this.initialOpenGroupIndex || 0
+        };
+    },
+
+    watch: {
+        $route() {
+            this.refreshIndex();
+        }
+    },
+
+    created() {
+        this.refreshIndex();
+    },
+
     methods: {
-        isActive(path) {
-            return isActive(this.$route, path);
+        refreshIndex() {
+            const index = resolveOpenGroupIndex(this.$route, this.items);
+            if (index > -1) {
+                this.openGroupIndex = index;
+            }
         },
-        secondLevelHeaders(headers){
-            return headers.filter(h => h.level === 2);
+
+        toggleGroup(index) {
+            this.openGroupIndex = index === this.openGroupIndex ? -1 : index;
+        },
+
+        isActive(page) {
+            return isActive(this.$route, page.regularPath);
         }
     }
 };
+
+function resolveOpenGroupIndex(route, items) {
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (descendantIsActive(route, item)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function descendantIsActive(route, item) {
+    if (item.type === "group") {
+        const childIsActive = item.path && isActive(route, item.path);
+        const grandChildIsActive = item.children.some(child => {
+            if (child.type === "group") {
+                return descendantIsActive(route, child);
+            } else {
+                return child.type === "page" && isActive(route, child.path);
+            }
+        });
+
+        return childIsActive || grandChildIsActive;
+    }
+    return false;
+}
 </script>
 
 <style lang="scss">
@@ -69,15 +104,13 @@ export default {
         position: fixed;
         top: var(--doc-navbar-height);
         right: 0;
-        width: var(--doc-content-links-width);
+        width: 150px;
         padding: 10px;
         padding-top: 20px;
         background: rgb(var(--background-active-color));
         border-bottom-left-radius: 20px;
-        z-index: 10;
         .title{
             margin-bottom: 10px;
-            margin-left: 6px;
         }
         &::before{
             content: '';
@@ -88,11 +121,22 @@ export default {
             left: -20px;
             background: radial-gradient(circle at 0% 100%, transparent 20px, rgb(var(--background-active-color)) 20px);
         }
-        .content-item .content-link{
+        .sidebar-group.is-sub-group > .sidebar-group-items{
+            padding-left: 0;
+        }
+        .sidebar-heading{
+            display: none;
+        }
+        .sidebar-links{
+            > li > a{
+                display: none;
+            }
+        }
+        .sidebar-sub-header .sidebar-link{
             display: block;
             font-size: 13px;
             color: rgba(var(--foreground-color), 0.6);
-            padding: 2px 8px;
+            padding: 4px 8px;
 
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -105,7 +149,7 @@ export default {
             }
         }
     }
-    @media (max-width: 1420px){
+    @media (max-width: 1300px){
         display: none;
     }
 }

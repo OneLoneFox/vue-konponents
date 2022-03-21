@@ -1,20 +1,20 @@
 <template>
     <div class="demo">
         <KonInput v-model="data" placeholder="Leading icon" autocomplete="off">
-            <template #leadingIcon>
+            <template #leadingicon>
                 <User :size="16" />
             </template>
         </KonInput>
-        <KonInput v-model="data2" placeholder="Leading icon" autocomplete="off">
-            <template #leadingIcon>
+        <KonInput v-model="data2" placeholder="Leading &amp; trailing icon" autocomplete="off">
+            <template #leadingicon>
                 <Lock :size="16" />
             </template>
-            <template #trailingIcon>
+            <template #trailingicon>
                 <Eye :size="16" />
             </template>
         </KonInput>
-        <KonInput v-model="data3" placeholder="Leading icon" autocomplete="off">
-            <template #trailingIcon>
+        <KonInput v-model="data3" placeholder="Trailing icon" autocomplete="off">
+            <template #trailingicon>
                 <Search :size="16" />
             </template>
         </KonInput>

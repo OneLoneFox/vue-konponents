@@ -1,0 +1,20 @@
+@require './code'
+
+h1, h2, h3, h4
+    border none
+
+@css{
+    *{
+        --doc-navbar-height: 70px;
+        --doc-sidebar-width: 250px;
+        --doc-content-links-width: 150px;
+        --doc-background-color: 244, 247, 248;
+
+        box-sizing: border-box;
+    }
+    body{
+        background: rgb(var(--background-active-color));
+        font-family: 'Poppins';
+        color: rgb(var(--foreground-color));
+    }
+}

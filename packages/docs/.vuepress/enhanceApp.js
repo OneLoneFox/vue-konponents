@@ -1,5 +1,4 @@
-// import Konponents from './../../src/main.js';
-import Konponents from 'konponents';
+import Konponents from 'konponents/src/main';
 
 export default ({Vue}) => {
     Vue.use(Konponents);

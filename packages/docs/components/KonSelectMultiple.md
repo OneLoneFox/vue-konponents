@@ -59,7 +59,7 @@ Collapse.
 
 ## Array of objects and text/value attributes
 
-When you set an array of objects the value returned on change is set to the **value-attribute** by default.
+When you set an array of objects the value returned on change is set to the `value-attribute` by default.
 Whenever the value changes it will return an array with all the selected objects.
 
 When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your objects.

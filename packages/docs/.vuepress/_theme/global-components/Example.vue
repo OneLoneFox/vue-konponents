@@ -7,7 +7,7 @@
             <div class="controls">
                 <button
                     :title="expandedResults ? 'Hide results' : 'Show results'"
-                    class="toggle results"
+                    class="toggle"
                     :class="{expanded: expandedResults}"
                     @click="toggleResults"
                     v-if="resultSnippet"
@@ -84,13 +84,7 @@
     .card{
         padding: 20px;
         .demo{
-            /* @media (max-width: 1250px){
-                > .kon-button{
-                    display: none;
-                }
-            } */
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
             align-items: center;
             justify-content: center;
@@ -117,7 +111,6 @@
     }
     .result-snippet div.language-json{
         background: transparent;
-        border: 2px solid rgba(var(--background-color), 1);
         &::before{
             content: 'json | results';
             color: rgba(var(--foreground-color), 0.4);
@@ -128,7 +121,6 @@
         align-items: center;
         justify-content: center;
         .toggle{
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,34 +130,12 @@
             padding: 4px 10px;
             border-radius: 8px 8px 0 0;
             transition: all 250ms ease;
-            // overflow: hidden;
+            overflow: hidden;
             cursor: pointer;
             outline: none;
-            border: 2px solid transparent;
-            border-bottom-width: 0px;
-            &.expanded:not(.results){
+            &.expanded{
                 color: #FFF;
                 background: rgb(var(--dark-accent-color));
-            }
-            &.results::before{
-                content: '';
-                display: block;
-                position: absolute;
-                transition-property: background;
-                transition-duration: 0;
-                // transition-delay: 250ms;
-                background: transparent;;
-                width: 100%;
-                height: 4px;
-                bottom: -3px;
-                z-index: 2;
-            }
-            &.expanded.results{
-                &::before{
-                    background: rgb(var(--background-active-color));
-                }
-                border: 2px solid rgba(var(--background-color), 1);
-                border-bottom-width: 0px;
             }
             &:hover, &:focus-visible{
                 &:not(.expanded){

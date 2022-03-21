@@ -1,3 +1,31 @@
+let components = [
+    {text: 'Button', slug: 'KonButton'},
+    {text: 'Select', slug: 'KonSelect'},
+    {text: 'Select multiple', slug: 'KonSelectMultiple'},
+    {text: 'Stepper', slug: 'KonStepper'},
+    {text: 'Input', slug: 'KonInput'},
+    {text: 'Checkbox', slug: 'KonCheckbox'},
+    {text: 'Switch', slug: 'KonSwitch'},
+    {text: 'Radio', slug: 'KonRadio'},
+    {text: 'Collapse', slug: 'KonCollapse'},
+    {text: 'Modal', slug: 'KonModal'},
+];
+
+/**
+ * 
+ * @param {string} prefix - The link prefix (must NOT end with /)
+ * @param {object[]} items - The components to map
+ * @returns object[]
+ */
+function getNavbarComponents(prefix, items){
+    return items.map((item) => {
+        return {
+            text: item.text,
+            link: `${prefix}/${item.slug}`
+        };
+    });
+}
+
 module.exports = {
     head: [
         [
@@ -9,6 +37,7 @@ module.exports = {
         ],
     ],
     themeConfig: {
+        sidebarDepth: 0,
         repo: '',
         editLinks: true,
         search: false,
@@ -27,7 +56,11 @@ module.exports = {
                 },
                 nav: [
                     { text: 'Getting Started', link: '/guide' },
-                    { text: 'Components', link: '/components/' },
+                    { 
+                        text: 'Components',
+                        link: '/components/',
+                        items: getNavbarComponents('/components', components),
+                    },
                     // external link to git repo...again
                     { text: 'GitHub', link: '' }
                 ],
@@ -36,17 +69,7 @@ module.exports = {
                         {
                             title: 'Components',
                             collapsable: false,
-                            children: [
-                                'KonButton',
-                                'KonSelect',
-                                'KonSelectMultiple',
-                                'KonStepper',
-                                'KonInput',
-                                'KonCheckbox',
-                                'KonSwitch',
-                                'KonRadio',
-                                'KonCollapse',
-                            ]
+                            children: components.map(x => x.slug),
                         }
                     ]
                 }

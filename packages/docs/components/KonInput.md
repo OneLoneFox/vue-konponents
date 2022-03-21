@@ -48,6 +48,31 @@ Icons.
   </template>
 </Example>
 
+## Message
+
+<Example>
+  <component is="examples-KonInput-slotmessage" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonInput/slotmessage.vue
+  
+  </template>
+</Example>
+
+## Status
+
+The status property adds some style modifications to the component
+such as a shake animation to the label on error and colored text.
+
+<Example>
+  <component is="examples-KonInput-status" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonInput/status.vue
+  
+  </template>
+</Example>
+
 ## API
 
 <API component="KonInput" />

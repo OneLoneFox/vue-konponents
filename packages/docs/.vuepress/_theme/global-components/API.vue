@@ -349,7 +349,6 @@
     }
     .tables{
         position: relative;
-        min-width: 800px;
     }
     .api-docs{
         position: relative;
@@ -357,7 +356,6 @@
         padding: 24px 30px;
         border-radius: 12px;
         border-top-left-radius: 0;
-        overflow-x: auto;
     }
     .table{
         .type{

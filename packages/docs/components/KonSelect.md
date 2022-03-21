@@ -62,8 +62,8 @@ Label and placeholder types.
 
 ## Return object and text/value properties
 
-When you set an array of objects the value returned on change is set to the **value-attribute** by default.
-It can also return the entire object if the **return-object** property is set to true.
+When you set an array of objects the value returned on change is set to the `value-attribute` by default.
+It can also return the entire object if the `return-object` property is set to true.
 
 When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your   objects.
 These values are defaulted to text and value if none are provided.
@@ -110,13 +110,26 @@ The empty slot is also a scoped slot that exposes the **search** term if there's
   </template>
 </Example>
 
+### Message slot
+
+Shows a message under the component.
+
+<Example>
+  <component is="examples-KonSelect-slotmessage" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSelect/slotmessage.vue
+  
+  </template>
+</Example>
+
 ## Filter
 
 The select API provides several ways to filter the provided items.
 
 ### Default
 
-The simples way to filter is to provide the **filterable** and **filter-input** properties
+The simples way to filter is to provide the `filterable` and `filter-input` properties
 which will enable filtering and provide a built in input for searching.
 
 <Example>
@@ -130,7 +143,7 @@ which will enable filtering and provide a built in input for searching.
 
 ### External filter value
 
-You can also choose to pass a **search** property instead of **filter-input** to filter
+You can also choose to pass a `search` property instead of `filter-input` to filter
 by a value coming from somewhere else.
 
 <Example>
@@ -145,7 +158,7 @@ by a value coming from somewhere else.
 ### Filter by
 
 If you want to filter by something else than the text-attribute you can provide
-the *filter-by* attribute and pass the name of one of your objects' properties.
+the `filter-by` attribute and pass the name of one of your objects' properties.
 
 <Example>
   <component is="examples-KonSelect-filterby" />
@@ -162,8 +175,8 @@ You can also provide a custom function for filtering the items.
 
 This function takes **items** and **searchTerm** as arguments and **returns an array**.
 
-The default implementation uses lowercase string matching on the **text-attribute** 
-or **filter-by** if it's provided.
+The default implementation uses lowercase string matching on the `text-attribute` 
+or `filter-by` if it's provided.
 
 You could use a fuzzy search library if you wanted (Example not provided).
 
