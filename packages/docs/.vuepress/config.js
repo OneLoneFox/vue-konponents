@@ -37,11 +37,12 @@ module.exports = {
         ],
     ],
     themeConfig: {
-        sidebarDepth: 0,
+        sidebarDepth: 1,
         repo: '',
         editLinks: true,
         search: false,
         docsDir: 'docs',
+        smoothScroll: true,
         locales: {
             '/': {
                 label: 'English',
