@@ -63,7 +63,7 @@
                                     <th>Name</th>
                                     <th>Type</th>
                                     <th>Default</th>
-                                    <th>Values</th>
+                                    <!-- <th>Values</th> -->
                                     <th class="description">Description</th>
                                 </tr>
                             </thead>
@@ -80,15 +80,27 @@
                                     </td>
                                     <td class="default">
                                         <template v-if="prop.type == 'func'">truncated... (ToDo)</template>
-                                        <template v-else>{{ prop.default }}</template>
+                                        <template v-else>
+                                            <div class="wrap">
+                                                {{ prop.default }}
+                                                <ChevronDown v-if="prop.options" :size="16" :stroke-width="1.5" />
+                                                <div class="dropdown" v-if="prop.options">
+                                                    <div class="options">
+                                                        <div class="option" v-for="(option, idx) in prop.options" :key="idx">
+                                                            {{ option }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="options">
                                             <div class="option" v-for="(option, idx) in prop.options" :key="idx">
                                                 {{ option }}
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td><span class="description">{{ prop.description }}</span></td>
                                 </tr>
                             </tbody>
@@ -238,7 +250,7 @@
     import attributes from '../../../.api/attributes.json';
     import slots from '../../../.api/slots.json';
     import methods from '../../../.api/methods.json';
-    import { Code, Podcast, BoxSelect, Palette, FunctionSquare } from 'lucide-vue';
+    import { Code, Podcast, BoxSelect, Palette, FunctionSquare, ChevronDown } from 'lucide-vue';
     export default {
         apiData: {
             attributes,
@@ -252,6 +264,7 @@
             BoxSelect,
             Palette,
             FunctionSquare,
+            ChevronDown,
         },
         props: ['component'],
         data: function(){
@@ -323,6 +336,7 @@
     position: relative;
     font-family: "Poppins";
     color: rgb(var(--foreground-color));
+    margin: 0 -40px;
     .tabs{
         position: absolute;
         display: flex;
@@ -367,6 +381,33 @@
             font-size: 24px;
             line-height: 36px;
             margin-top: 0;
+        }
+        .default{
+            position: relative;
+            .wrap{
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+        }
+        .dropdown{
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            width: 200px;
+            background: rgb(var(--background-active-color));
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0,0,0,.15);
+            opacity: 0;
+            transform: translate(-50%, -10px);
+            overflow: hidden;
+            transition: all .3s ease;
+            z-index: 2;
+            padding: 8px;
+        }
+        .default:hover .dropdown{
+            opacity: 1;
+            transform: translate(-50%, 0);
         }
         .options{
             display: flex;
