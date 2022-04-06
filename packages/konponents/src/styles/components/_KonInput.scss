@@ -37,7 +37,7 @@
         }
         & > .kon-input-message{
             color: rgb(var(--danger-color));
-            animation: shake-message 500ms ease;
+            animation: shake-transform 500ms ease;
         }
     }
     &.warning{
@@ -161,7 +161,7 @@
         }
     }
 }
-
+/* 
 @keyframes shake-message {
     10%, 90% {
         transform: translate(-1px, 0);
@@ -179,7 +179,7 @@
         transform: translate(4px, 0);
     }
 }
-
+ */
 @keyframes shake-label {
     10%, 90% {
         transform: translate(7px, var(--current-label-elevation-offset));

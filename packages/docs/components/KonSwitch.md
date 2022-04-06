@@ -47,6 +47,19 @@ __Note:__ One thing to note is that in order to allow this component to work as 
   </template>
 </Example>
 
+## Readonly
+
+Behaves exactly the same as the checkbox.
+
+<Example>
+  <component is="examples-KonSwitch-readonly" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonSwitch/readonly.vue
+  
+  </template>
+</Example>
+
 ## API
 
 <API component="KonSwitch" />

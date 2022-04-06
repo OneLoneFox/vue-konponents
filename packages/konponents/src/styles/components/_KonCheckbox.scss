@@ -15,11 +15,11 @@
     &.readonly{
         pointer-events: none;
     }
-    & > .kon-checkbox-content{
+    > .kon-checkbox-content{
         position: relative;
         width: 24px;
         height: 24px;
-        & > input{
+        > input{
             position: absolute;
             top: 0;
             left: 0;
@@ -29,19 +29,19 @@
             margin: 0;
             cursor: pointer;
             &:hover:not(:checked), &:focus-visible:not(:checked){
-                & + .kon-checkmark::before{
+                + .kon-checkmark::before{
                     --border-width: 3px;
                     --border-color: rgb(var(--konponent-color));
                 }
             }
             &:checked:hover, &:checked:focus-visible{
-                & + .kon-checkmark::before{
+                + .kon-checkmark::before{
                     --glow-intensity: 8px;
                     --glow-opacity: .6;
                 }
             }
         }
-        & > .kon-checkmark{
+        > .kon-checkmark{
             display: flex;
             align-items: center;
             justify-content: center;
@@ -71,7 +71,7 @@
                 box-sizing: border-box;
                 transition: all 250ms ease;
             }
-            & > .kon-checkmark-tick{
+            > .kon-checkmark-tick{
                 /*
                  * The only reason this is made with css and pseudo elements instead of an svg
                  * is because I want to animate it.
@@ -89,12 +89,14 @@
                  * No matter how experienced you are with css you'll always find weird sh*t like this.
                  */
                 transform: rotate(45deg);
+                transition: transform 150ms ease;
+                overflow: hidden;
                 &::before, &::after{
                     content: '';
                     display: block;
                     position: absolute;
                     background-color: #FFF;
-                    transition-property: width, height;
+                    transition-property: width, height, transform;
                     transition-timing-function: ease;
                     transition-duration: 150ms;
                 }
@@ -119,15 +121,42 @@
             }
         }
     }
-    & > .kon-checkbox-label{
+    > .kon-checkbox-label{
         cursor: pointer;
         padding: 0 6px;
         color: rgba(var(--foreground-color), 1);
     }
-    &.checked{
-        & > .kon-checkbox-content{
-            & > .kon-checkmark{
-                & > .kon-checkmark-tick{
+    &.indeterminate{
+        > .kon-checkbox-content{
+            > .kon-checkmark{
+                > .kon-checkmark-tick{
+                    transform: rotate(90deg);
+                    transition-delay: 150ms;
+                    &::after{
+                        height: 100%;
+                        border-radius: 2px;
+                        transform: translateX(-2px);
+                        transition-delay: 150ms;
+                    }
+                }
+                &::before{
+                    --border-width: 12px;
+                    --border-color: rgb(var(--konponent-color));
+                }
+            }
+            /* Override hover effect */
+            > input{
+                &:hover:not(:checked), &:focus-visible:not(:checked){
+                    + .kon-checkmark::before{
+                        --border-width: 12px;
+                    }
+                }
+            }
+        }
+    }
+    &.checked:not(.indeterminate){
+        > .kon-checkbox-content > .kon-checkmark{
+                > .kon-checkmark-tick{
                     &::before, &::after{
                         transition-duration: 150ms;
                     }
@@ -146,7 +175,6 @@
                     --border-width: 12px;
                     --border-color: rgb(var(--konponent-color));
                 }
-            }
         }
     }
 }

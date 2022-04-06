@@ -21,6 +21,17 @@
           }
         ],
         "description": "Emitted when an invalid item is passed as the value. Is also emitted if the items property is updated but the value is not."
+      },
+      {
+        "name": "change",
+        "payload": [
+          {
+            "name": "item",
+            "type": ["string", "object"],
+            "description": "The new selected item"
+          }
+        ],
+        "description": "Emitted on user interaction, If not using v-model syntax this is the event you're looking for."
       }
     ],
   }

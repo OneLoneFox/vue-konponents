@@ -1,11 +1,11 @@
 <template>
-    <div class="kon-switch" :class="{'checked': isChecked, 'disabled': disabled, 'readonly': readonly}">
+    <div class="kon-switch" :class="{'checked': isChecked, 'disabled': disabled, 'readonly': readonly, 'indeterminate': $data._indeterminate}">
         <div class="kon-switch-content">
             <input
               type="checkbox"
               :id="uid"
               :value="value"
-              :checked="checked"
+              :checked="isChecked"
               :disabled="disabled"
               @change="handleChange"
               v-bind="$attrs"

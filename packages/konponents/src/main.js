@@ -1,4 +1,7 @@
 import * as components from './components';
+import confirm from './components/KonModal/Confirm';
+import prompt from './components/KonModal/Prompt';
+import alert from './components/KonModal/Alert';
 import './styles/main.scss';
 
 const Konponents = {
@@ -8,6 +11,13 @@ const Konponents = {
       
       Vue.component(component.name, component);
     }
+
+
+    Vue.prototype.$kon = {
+      confirm,
+      prompt,
+      alert,
+    };
   }
 }
 

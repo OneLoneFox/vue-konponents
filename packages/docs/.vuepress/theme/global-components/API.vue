@@ -251,6 +251,15 @@
     import slots from '../../../.api/slots.json';
     import methods from '../../../.api/methods.json';
     import { Code, Podcast, BoxSelect, Palette, FunctionSquare, ChevronDown } from 'lucide-vue';
+    const sortByName = (a,b) => {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
     export default {
         apiData: {
             attributes,
@@ -277,10 +286,10 @@
                 return this.$frontmatter.api;
             },
             apiEvents: function(){
-                return this.data?.events;
+                return this.data?.events ? this.data.events.sort(sortByName) : undefined;
             },
             apiCssVars: function(){
-                return this.data?.css_vars;
+                return this.data?.css_vars ? this.data.css_vars.sort(sortByName) : undefined;
             },
             propNotes: function(){
                 return this.data?.prop_notes;
@@ -296,7 +305,7 @@
                     ...generatedProps,
                     ...extraProps,
                 ];
-                return props.length ? props : null;
+                return props.length ? props.sort(sortByName) : null;
             },
             apiMethods: function(){
                 let extraMethods = this.data?.methods ? this.data.methods : [];
@@ -305,7 +314,7 @@
                     ...generatedMethods,
                     ...extraMethods,
                 ];
-                return methods.length ? methods : null;
+                return methods.length ? methods.sort(sortByName) : null;
             },
             apiSlots: function(){
                 let extraSlots = this.data?.slots ? this.data.slots : [];
@@ -314,7 +323,7 @@
                     ...generatedSlots,
                     ...extraSlots,
                 ];
-                return slots.length ? slots : null;
+                return slots.length ? slots.sort(sortByName) : null;
             }
         },
         methods: {
@@ -437,9 +446,11 @@
             width: 100%;
         }
         td, th{
+            font-weight: normal;
             border-collapse: collapse;
             padding: 10px;
             text-align: left;
+            font-size: 13px;
             &.name{
                 width: 100px;
             }
@@ -448,12 +459,6 @@
             }
             &.short-description{
                 width: 180px;
-            }
-            &:first-child{
-                padding-left: 0;
-            }
-            &:last-child{
-                padding-right: 0;
             }
         }
         tr, td, th{

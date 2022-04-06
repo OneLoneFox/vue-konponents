@@ -1,12 +1,12 @@
 // box sizing to all konponents and its descendants
 [class^="kon-"], [class*=" kon-"],
-[class^="kon-"] *, [class*=" kon-"] *,
-[class^="kon-"]::before, [class*=" kon-"]::after,
-[class^="kon-"] *::before, [class*=" kon-"] *::after{
-  box-sizing: border-box;
-  outline: none;
-  font-family: inherit;
-  -webkit-tap-highlight-color: transparent;
+[class^="kon-"] *, [class*=" kon-"] *{
+  &::before, &::after{
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
   /* W/H */
   &::-webkit-scrollbar {
     width: 5px;
@@ -21,14 +21,10 @@
   
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: rgb(192, 192, 192);
+    background: rgb(var(--foreground-color));
     border-radius: 3px;
   }
-  
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgb(160, 160, 160);
-  }
+  outline: none;
 }
 .kon-button{
   border: none;

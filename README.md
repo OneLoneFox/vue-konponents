@@ -65,6 +65,10 @@ B-but what about dynamic themes? Implement them yourself, this is not a framewor
 
 should be dead simple with the existence of the prefers-color-scheme css media query, at the end of the day that's what your fancy config wrappers use.
 
+### Native-like form components
+
+All components are designed with native form compatibility in mind, most of them don't even require you to pass any `prop` data or `v-model`, with some exceptions (select and select multiple).
+
 # FAQ
 
 Why does this project exist? It all started after discovering **[Vuesax](https://vuesax.com/)**. A great looking but not so greatly mantained or functional component library.

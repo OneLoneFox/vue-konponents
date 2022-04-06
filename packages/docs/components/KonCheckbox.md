@@ -46,6 +46,34 @@ __Note:__ One thing to note is that in order to allow this component to work as 
   </template>
 </Example>
 
+## Readonly
+
+When readonly is set to true the v-model becomes obsolete and the state of the checkbox should be set with the `checked` prop.
+
+<Example>
+  <component is="examples-KonCheckbox-readonly" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonCheckbox/readonly.vue
+  
+  </template>
+</Example>
+
+## Native
+
+This component can be used without the need to use v-model, it will still emit the `change` event (in this case it will emit the whole event payload).
+
+You can set the default state by using the `checked` prop.
+
+<Example>
+  <component is="examples-KonCheckbox-native" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonCheckbox/native.vue
+  
+  </template>
+</Example>
+
 ## API
 
 <API component="KonCheckbox" />

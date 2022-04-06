@@ -2,6 +2,8 @@
 
 @use 'utils/_reset';
 
+@use 'animations/components/Shared';
+
 @use 'components/_KonButton';
 
 @use 'components/select/_KonSelect';
@@ -20,7 +22,9 @@
 
 @use 'components/KonRadio';
 
-@use 'components/KonModal';
+@use 'components/modal/KonModal';
+
+@use 'components/modal/KonPremades';
 
 @use 'animations/components/KonCollapse';
 

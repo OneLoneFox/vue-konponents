@@ -19,6 +19,7 @@ var toggleableMixin = {
          */
         val: {
             type: [Boolean, Array],
+            default: undefined,
         },
         /**
          * The actual value of the checkbox.
@@ -32,7 +33,8 @@ var toggleableMixin = {
         /**
          * State of the component.
          * 
-         * Used only if readonly mode is set to true.
+         * Used only if readonly mode is set to true or using this component as native
+         * (without v-model).
          */
         checked: {
             type: Boolean,
@@ -62,9 +64,24 @@ var toggleableMixin = {
         label: {
             type: String,
         },
+        indeterminate: {
+            type: Boolean,
+        }
+    },
+    data: function(){
+        return {
+            _indeterminate: this.indeterminate,
+            _checked: this.checked,
+        };
     },
     computed: {
         isChecked: function(){
+            if(this.val === undefined && !this.readonly){
+                return this.$data._checked;
+            }
+            if(this.$data._indeterminate) {
+                return false;
+            }
             if(this.readonly){
                 return this.checked;
             }
@@ -79,6 +96,12 @@ var toggleableMixin = {
             }
         },
     },
+    watch: {
+        indeterminate: function(val){
+            // force data update on prop update
+            this.$nextTick(() => {this.$data._indeterminate = val;});
+        }
+    },
     methods: {
         /**
          * Toggles the state of the component.
@@ -86,7 +109,21 @@ var toggleableMixin = {
          * 
          * @fires change
          */
-        handleChange: function(){
+        handleChange: function(e){
+            if(this.val === undefined){
+                let checked = e.target.checked;
+                this.$data._checked = checked;
+                this.$emit('change', e);
+                return;
+            }
+            if(this.$data._indeterminate){
+                this.$data._indeterminate = false;
+                // override default behaviour to force checked on next change.
+                if(typeof this.val === 'boolean'){
+                    this.$emit('change', true);
+                    return;
+                }
+            }
             if(typeof this.val === 'boolean'){
                 this.$emit('change', !this.val);
             }

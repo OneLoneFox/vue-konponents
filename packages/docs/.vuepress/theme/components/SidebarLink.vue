@@ -117,8 +117,7 @@ function renderExternal(h, to, text) {
 <style lang="scss">
 .sidebar {
   .sidebar-sub-headers {
-    padding-left: 1rem;
-    font-size: 0.95em;
+    display: none;
   }
 }
 a {
@@ -160,18 +159,6 @@ a {
   a {
     &.sidebar-link {
       padding-left: 2rem;
-    }
-  }
-}
-.sidebar-sub-headers {
-  a {
-    &.sidebar-link {
-      padding-top: 0.25rem;
-      padding-bottom: 0.25rem;
-      border-left: none;
-      &.active {
-        font-weight: 500;
-      }
     }
   }
 }

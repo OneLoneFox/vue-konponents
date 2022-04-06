@@ -1,0 +1,14 @@
+.kon-prompt, .kon-alert, .kon-confirm {
+    &-content{
+        max-width: 500px;
+    }
+    &-header,
+    &-content {
+        margin: 0;
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: end;
+    }
+}

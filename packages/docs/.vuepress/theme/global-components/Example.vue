@@ -24,9 +24,9 @@
                 </button>
             </div>
             <KonCollapse>
-                <div class="snippets" v-if="expandedResults || expandedSnippet">
+                <div class="kon-snippets" v-if="expandedResults || expandedSnippet">
                     <KonCollapse absolute fade>
-                        <div class="result-snippet" v-if="resultSnippet && expandedResults" key="result">
+                        <div class="kon-result-snippet" v-if="resultSnippet && expandedResults" key="result">
                             <ResultsSnippet
                                 :code="resultSnippet"
                                 lang="json"
@@ -109,18 +109,23 @@
     .code{
         padding-top: 10px;
     }
-    .snippets{
+    .kon-snippets{
         position: relative;
-        .result-snippet, .snippet{
+        .kon-result-snippet, .snippet{
             width: 100%;
         }
     }
-    .result-snippet div.language-json{
-        background: transparent;
-        border: 2px solid rgba(var(--background-color), 1);
-        &::before{
-            content: 'json | results';
-            color: rgba(var(--foreground-color), 0.4);
+    .kon-result-snippet{
+        pre.language-json{
+            max-height: 400px;
+        }
+        div.language-json{
+            background: transparent;
+            border: 2px solid rgba(var(--background-color), 1);
+            &::before{
+                content: 'json | results';
+                color: rgba(var(--foreground-color), 0.4);
+            }
         }
     }
     .controls{

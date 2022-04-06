@@ -56,19 +56,30 @@ export default {
     watch: {
         activeTheme: function(theme){
             localStorage.setItem('theme', theme);
-        }
+        },
     },
     methods: {
         changeTheme: function(theme){
             this.activeTheme = theme;
             document.body.setAttribute('konponent-theme', theme);
         },
+        handleClick(e){
+            if (e.target.closest(".site-config") != this.$el) {
+                this.expanded = false;
+            }
+        }
     },
     created: function(){
         let savedTheme = localStorage.getItem('theme');
         if(savedTheme !== null){
             this.changeTheme(savedTheme);
         }
+    },
+    beforeMount: function(){
+        window.addEventListener('click', this.handleClick);
+    },
+    beforeDestroy: function(){
+        window.removeEventListener('click', this.handleClick);
     }
 }
 </script>

@@ -1,0 +1,82 @@
+@use '../../animations/components/KonModal/Toggle';
+
+.kon-modal{
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	z-index: 999;
+	> .kon-modal-content{
+		--content-margin: 10px;
+		display: grid;
+		grid-template-rows: max-content 1fr max-content;
+		gap: 20px;
+		position: relative;
+		width: calc(100% - (var(--content-margin) * 2));
+		max-width: 600px;
+		max-height: calc(100% - (var(--content-margin) * 2));
+		background: rgb(var(--background-active-color));
+		border-radius: 20px;
+		&.kon-hide-overflow{
+			overflow: hidden;
+		}
+		&.kon-fullscreen{
+			width: 100%;
+			height: 100%;
+			max-width: none;
+			max-height: none;
+			border-radius: 0;
+			overflow: auto;
+		}
+		&.kon-fullscreen, &.kon-hide-overflow{
+			.kon-close{
+				top: 0;
+				right: 0;
+			}
+		}
+		.kon-close{
+			position: absolute;
+			right: -8px;
+			top: -8px;
+			background: rgb(var(--background-active-color));
+			color: rgb(var(--foreground-color));
+			box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+			&:hover, &:focus-visible:active{
+				box-shadow: 0 0 5px rgba(0,0,0,0.3);
+				transform: translateY(2px);
+			}
+		}
+		&:not(.kon-modal-no-padding){
+			> .kon-header,
+			> .kon-footer,
+			> .kon-body{
+				padding: 20px;
+			}
+			> .kon-header{
+				padding-bottom: 0;
+			}
+			> .kon-footer{
+				padding-top: 0;
+			}
+			> .kon-body{
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+		}
+		> .kon-body{
+			overflow: visible;
+			border-radius: inherit;
+			&.kon-scrollable{
+				overflow-y: auto;
+			}
+		}
+		&.persistent-animate{
+			animation: rebound-scale 350ms;
+		}
+	}
+}
