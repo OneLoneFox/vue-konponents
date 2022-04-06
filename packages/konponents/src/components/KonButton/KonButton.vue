@@ -1,7 +1,7 @@
 <template>
     <button
       class="kon-button"
-      :class="{xs: xs, xl: xl, text: text, border: border, block: block, 'icon-only': iconOnly}"
+      :class="{xs: xs, xl: xl, text: text, border: border, block: block, 'icon-only': iconOnly, danger: danger, success: success, blank: blank}"
       v-on="buttonListeners"
     >
         <div class="icon" v-if="!!$slots.icon">
@@ -42,6 +42,27 @@
              * Set button size to extra large.
              */
             xl: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Set the color palette to danger.
+             */
+            danger: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Set the color palette to success.
+             */
+            success: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Set the color palette to dynamic (light, dark)
+             */
+            blank: {
                 type: Boolean,
                 default: false,
             },

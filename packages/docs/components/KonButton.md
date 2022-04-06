@@ -20,7 +20,37 @@
       },
       {
         "name": "--padding",
-      }
+      },
+      {
+        "name": "--default-foreground",
+        "description": "Defines the text color of the default/filled button.",
+        "default": "255,255,255",
+        "format": "{n},{n},{n}",
+      },
+      {
+        "name": "--text-idle-foreground",
+        "description": "Defines the text color of the 'text' style button.",
+        "default": "var(--konponent-color)",
+        "format": "{n},{n},{n}",
+      },
+      {
+        "name": "--border-idle-foreground",
+        "description": "Defines the text color of the 'border' style button in its idle state.",
+        "default": "var(--foreground-color)",
+        "format": "{n},{n},{n}",
+      },
+      {
+        "name": "--border-hover-foreground",
+        "description": "Defines the text color of the 'border' style button in its hover/focus state.",
+        "default": "255,255,255",
+        "format": "{n},{n},{n}",
+      },
+      {
+        "name": "--border-keyboard-foreground",
+        "description": "Defines the text color of the 'border' style button in its focus-visible (keyboard only focus) state. Recommended to set the same color as the idle state.",
+        "default": "var(--foreground-color)",
+        "format": "{n},{n},{n}",
+      },
     ]
   }
 }
@@ -78,6 +108,17 @@ You can set the appropiate size prop for your button
   </template>
 </Example>
 
+## Colors
+
+<Example>
+  <component is="examples-KonButton-colors" />
+  <template v-slot:snippet>
+
+  <<< @/.vuepress/components/examples/KonButton/colors.vue
+
+  </template>
+</Example>
+
 ## Icon button
 
 The icon button simply makes the padding even on all sides withot forcing the aspect ratio, if you want a 1:1 aspect ratio you must ensure your icon is also 1:1.
@@ -94,4 +135,5 @@ Needless to say this property is valid with all variations.
 </Example>
 
 ## API
+
 <API component="KonButton" />
