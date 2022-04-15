@@ -59,11 +59,11 @@ Collapse.
 
 ## Array of objects and text/value attributes
 
-When you set an array of objects the value returned on change is set to the `value-attribute` by default.
-Whenever the value changes it will return an array with all the selected objects.
+Unlike the single select, the select multiple component returns an array of selected objects by default on change.
+If you wish to return an array containing only the values you must set `return-values` to true.
 
-When using an array of objects you must set the value-attribute and text-attribute properties to existing properties on your objects.
-These values are defaulted to text and value if none are provided.
+When using an array of objects you must set the `value-attribute` and `text-attribute` properties to existing properties on your objects.
+These values are defaulted to **text** and **value** if none are provided.
 
 <Example>
   <component is="examples-KonSelectMultiple-object" />

@@ -11,6 +11,17 @@
             >
             </KonSelectMultiple>
         </div>
+        <div class="col">
+            <KonSelectMultiple
+                placeholder="Select multiple (return-values)"
+                :items="items"
+                v-model="selectedValues"
+                value-attribute="id"
+                text-attribute="name"
+                return-values
+            >
+            </KonSelectMultiple>
+        </div>
         <KonButton @click="addItem">Add</KonButton>
     </div>
 </template>
@@ -29,13 +40,15 @@ export default {
                 {id: 5, name: "Minami"},
                 {id: 6, name: "Yorushika"},
             ],
-            selectedItems: [{id: 4, name: "Inabakumori"}],
+            selectedItems: [{id: 1, name: "Takayan"}],
+            selectedValues: [4],
         };
     },
     computed: {
         results: function(){
             return {
                 selectedItems: this.selectedItems,
+                selectedValues: this.selectedValues,
             };
         },
     },

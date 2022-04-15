@@ -1,7 +1,7 @@
 <template>
     <div
         class="kon-select-multiple"
-        :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
+        :class="[{'disabled': disabled, 'open': isOpen, 'has-label': label, 'has-margin': hasMargin, 'full-width': fullWidth}, konStyle]"
         :style="`z-index: ${zIndex};`"
         v-on="listeners"
         :tabindex="disabled ? -1 : 0"
@@ -52,7 +52,7 @@
                     v-for="item in selectedItems"
                     :key="itemValue(item)"
                 >
-                    <span class="kon-value-text">{{ itemText(item) }}</span>
+                    <span class="kon-value-text">{{ getDisplayItem(item) }}</span>
                     <span class="kon-chip-remove" @click.stop="handleRemoveClick($event, item)"></span>
                 </div>
             </template>
@@ -158,8 +158,28 @@
                     return val > 0;
                 }
             },
+            /**
+             * Determines if the component should return only an array of values
+             * instead of objects if the items prop is an array of objects.
+             */
+            returnValues: {
+                type: Boolean,
+                default: false,
+            }
         },
         computed: {
+            /**
+             * Provides a way to find the object in items in O(1) time even if return-values is set. :D
+             * 
+             * @returns {Map<String|Number, *>}
+             */
+            mappedItems: function(){
+                let map = new Map();
+                this.items.forEach(item => {
+                    map.set(this.itemValue(item), this.itemText(item));
+                });
+                return map;
+            },
             /**
              * @returns {Array}
              */
@@ -263,6 +283,13 @@
         },
         methods: {
             /**
+             * @param {Object|string|number} item - The item to find the label for.
+             * @return {*}
+             */
+            getDisplayItem(item){
+                return this.mappedItems.get(this.itemValue(item));
+            },
+            /**
              * Handles toggling of items to either be selected or unselected.
              * 
              * @returns {void}
@@ -286,7 +313,7 @@
             selectItem: function(e, item){
                 // we want a copy of the computed value
                 let selectedItems = [...this.selectedItems];
-                selectedItems.push(item);
+                selectedItems.push(this.returnValues ? this.itemValue(item) : item);
                 this.$emit('change', selectedItems);
             },
             /**
