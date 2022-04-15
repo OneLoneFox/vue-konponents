@@ -7,6 +7,7 @@
         @mousedown="handleMouseDown"
         @blur="handleBlur"
         tabindex="-1"
+        type="button"
     >
         <!-- 
             @slot Option Content
