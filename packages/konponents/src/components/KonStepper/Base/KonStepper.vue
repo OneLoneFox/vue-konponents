@@ -43,122 +43,128 @@
 </template>
 
 <script>
-    import '../../KonButton/';
-    export default {
-        name: 'KonStepper',
-        inheritAttrs: false,
-        props: {
-            /**
-             * @model
-             */
-            value: {
-                type: Number,
-                default: 0,
-            },
-            /**
-             * Amount to increase or decrease every step.
-             * 
-             * Must be greater than 0
-             */
-            stepSize: {
-                type: Number,
-                default: 1,
-                validator: function(val){
-                    return val > 0;
-                },
-            },
-            /**
-             * The unit the component's value is representing.
-             * 
-             * @ignore
-             */
-            unitLabel: {
-                type: String,
-            },
-            /**
-             * Determines if the input has vertical margin.
-             * 
-             * The margin is just enough to let labels and messages not be occluded by other elements.
-             */
-            hasMargin: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Determines if the component should take the full width of its container.
-             */
-            fullWidth: {
-                type: Boolean,
-                default: false,
-            },
-        },
-        data: function(){
-            return {
-                isFocused: false,
-                keepFocus: false,
-            };
-        },
-        computed: {
-            stepperListeners: function(){
-                return {
-                    ...this.$listeners,
-                    input: (e) => {
-                        // emit the value or 0 (in case of backspace setting the value to '')
-                        this.$emit('input', e.target.value || 0);
-                    },
-                    focus: () => {
-                        this.isFocused = true;
-                    },
-                    blur: (e) => {
-                        // Keep the focus on button click (fires blur) once 
-                        // the user has actually focused the input (not just clicked the buttons)
-                        if(this.keepFocus && e.relatedTarget && e.relatedTarget.closest('.kon-stepper') == this.$el){
-                            this.$refs.value.focus();
-                            return;
-                        }
-                        this.isFocused = false;
-                        this.keepFocus = false;
-                        this.$emit('blur', e);
-                    },
-                };
-            },
-        },
-        methods: {
-            handleMouseDown: function(){
-                // triggers before blur
-                this.keepFocus = this.isFocused;
-            },
-            handleClick: function(e){
-                // don't force focus if the user is directly using the buttons
-                if(e.target == this.$refs.decreaseButton.$el || e.target == this.$refs.increaseButton.$el){
-                    return;
-                }
-                this.isFocused = true;
-                this.$nextTick().then(() => {
-                    // wait for the ref to exist (Flipped's v-if)
-                    this.$refs.value.focus();
-                });
-            },
-            /**
-             * Decreases the component's value by one stepSize unit
-             */
-            decrease: function(){
-                // if(!this.isFocused){
-                //     return;
-                // }
-                let decreased = this.value - this.stepSize;
-                this.$emit('input', decreased);
-            },
-            /**
-             * Increases the component's value by one stepSize unit
-             */
-            increase: function(){
-                // if(!this.isFocused){
-                //     return;
-                // }
-                let increased = this.value + this.stepSize;
-                this.$emit('input', increased);
-            },
-        },
-    }
+import '../../KonButton/';
+export default {
+	name: 'KonStepper',
+	inheritAttrs: false,
+	props: {
+		/**
+		 * @model
+		 */
+		value: {
+			type: Number,
+			default: 0,
+		},
+		/**
+		 * Amount to increase or decrease every step.
+		 * 
+		 * Must be greater than 0
+		 */
+		stepSize: {
+			type: Number,
+			default: 1,
+			validator: function(val){
+				return val > 0;
+			},
+		},
+		/**
+		 * The unit the component's value is representing.
+		 * 
+		 * @ignore
+		 */
+		unitLabel: {
+			type: String,
+		},
+		/**
+		 * Determines if the input has vertical margin.
+		 * 
+		 * The margin is just enough to let labels and messages not be occluded by other elements.
+		 */
+		hasMargin: {
+			type: Boolean,
+			default: false,
+		},
+		/**
+		 * Determines if the component should take the full width of its container.
+		 */
+		fullWidth: {
+			type: Boolean,
+			default: false,
+		},
+	},
+	data: function(){
+		return {
+			isFocused: false,
+			keepFocus: false,
+		};
+	},
+	computed: {
+		stepperListeners: function(){
+			return {
+				...this.$listeners,
+				input: (e) => {
+					// emit the value or 0 (in case of backspace setting the value to '')
+					this.$emit('input', e.target.value || 0);
+				},
+				focus: () => {
+					this.isFocused = true;
+				},
+				blur: (e) => {
+					/*
+					 * Keep the focus on button click (fires blur) once 
+					 * the user has actually focused the input (not just clicked the buttons)
+					 */
+					if(this.keepFocus && e.relatedTarget && e.relatedTarget.closest('.kon-stepper') == this.$el){
+						this.$refs.value.focus();
+						return;
+					}
+					this.isFocused = false;
+					this.keepFocus = false;
+					this.$emit('blur', e);
+				},
+			};
+		},
+	},
+	methods: {
+		handleMouseDown: function(){
+			// triggers before blur
+			this.keepFocus = this.isFocused;
+		},
+		handleClick: function(e){
+			// don't force focus if the user is directly using the buttons
+			if(e.target == this.$refs.decreaseButton.$el || e.target == this.$refs.increaseButton.$el){
+				return;
+			}
+			this.isFocused = true;
+			this.$nextTick().then(() => {
+				// wait for the ref to exist (Flipped's v-if)
+				this.$refs.value.focus();
+			});
+		},
+		/**
+		 * Decreases the component's value by one stepSize unit
+		 */
+		decrease: function(){
+			/*
+			 * if(!this.isFocused){
+			 *     return;
+			 * }
+			 */
+			let decreased = this.value - this.stepSize;
+			this.$emit('input', decreased);
+		},
+		/**
+		 * Increases the component's value by one stepSize unit
+		 */
+		increase: function(){
+			/*
+			 * if(!this.isFocused){
+			 *     return;
+			 * }
+			 */
+			let increased = this.value + this.stepSize;
+			this.$emit('input', increased);
+		},
+	},
+};
 </script>

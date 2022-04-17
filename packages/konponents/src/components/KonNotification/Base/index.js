@@ -17,7 +17,7 @@ const getNotificationContainer = (position) => {
 		document.body.appendChild(container);
 	}
 	return container;
-}
+};
 
 /**
  * Create a function that creates and returns an instance.
@@ -37,11 +37,11 @@ const notification = (props) => {
 	// The attachable mixin handles the rest.
 	instance.$props.attach = container;
 	instance.$mount();
-    // Change visibility after mounting to trigger transition.
+	// Change visibility after mounting to trigger transition.
 	Vue.nextTick(() => {
 		instance.show();
 	});
 	return instance;
-}
+};
 
 export default notification;

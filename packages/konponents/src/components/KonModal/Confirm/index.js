@@ -10,17 +10,17 @@ let konConfirmConstructor = Vue.extend(KonConfirm);
  * recieves a callbacks for cancel and ok.
  */
 const confirm = (props) => {
-    let instance = new konConfirmConstructor({
-        propsData: {
-            ...props,
-        },
-    });
-    instance.$mount();
-    // Change visibility after mounting to trigger transition.
-    Vue.nextTick(() => {
-        instance.$data.isOpen = true;
-    });
-    return instance;
+	let instance = new konConfirmConstructor({
+		propsData: {
+			...props,
+		},
+	});
+	instance.$mount();
+	// Change visibility after mounting to trigger transition.
+	Vue.nextTick(() => {
+		instance.$data.isOpen = true;
+	});
+	return instance;
 };
 
 export default confirm;

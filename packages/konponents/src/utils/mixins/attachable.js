@@ -45,6 +45,6 @@ var attachableMixin = {
 			this.$el.parentElement.removeChild(this.$el);
 		}
 	},
-}
+};
 
 export default attachableMixin;

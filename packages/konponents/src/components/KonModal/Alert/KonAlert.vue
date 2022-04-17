@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import "../Base";
-import "../../KonButton";
+import '../Base';
+import '../../KonButton';
 export default {
-	name: "KonAlert",
+	name: 'KonAlert',
 	data: function () {
 		return {
 			isOpen: false,
@@ -48,13 +48,13 @@ export default {
 		 */
 		content: {
 			type: String,
-			default: "",
+			default: '',
 		},
 	},
 	methods: {
 		handleLeave: function(){
-            this.$destroy();
-        },
+			this.$destroy();
+		},
 		dismiss: function(){
 			this.isOpen = false;
 		}

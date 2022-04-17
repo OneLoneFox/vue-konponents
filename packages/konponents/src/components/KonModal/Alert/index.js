@@ -10,17 +10,17 @@ let konAlertConstructor = Vue.extend(KonAlert);
  * recieves a callbacks for cancel and ok.
  */
 const alert = (props) => {
-    let instance = new konAlertConstructor({
-        propsData: {
-            ...props,
-        },
-    });
-    instance.$mount();
-    // Change visibility after mounting to trigger transition.
-    Vue.nextTick(() => {
-        instance.$data.isOpen = true;
-    });
-    return instance;
+	let instance = new konAlertConstructor({
+		propsData: {
+			...props,
+		},
+	});
+	instance.$mount();
+	// Change visibility after mounting to trigger transition.
+	Vue.nextTick(() => {
+		instance.$data.isOpen = true;
+	});
+	return instance;
 };
 
 export default alert;

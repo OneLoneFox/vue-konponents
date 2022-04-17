@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import attachableMixin from "../../../utils/mixins/attachable.js";
+import attachableMixin from '../../../utils/mixins/attachable.js';
 export default {
-	name: "KonNotification",
+	name: 'KonNotification',
 	inheritAttrs: false,
 	mixins: [attachableMixin],
 	props: {
@@ -153,7 +153,7 @@ export default {
 			});
 		},
 		afterEnter: function(element){
-			element.style.height = "auto";
+			element.style.height = 'auto';
 		},
 		leave: function(element){
 			const {height} = getComputedStyle(element);
@@ -177,7 +177,7 @@ export default {
 		}
 	},
 
-}
+};
 </script>
 
 <style>

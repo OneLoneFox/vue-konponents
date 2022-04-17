@@ -1,5 +1,5 @@
 export default {
-    props: {
+	props: {
 		okText: {
 			type: String,
 			default: 'Ok',
@@ -19,9 +19,9 @@ export default {
 			type: Function,
 		}
 	},
-    methods: {
-        handleLeave: function(){
-            this.$destroy();
-        },
-    },
+	methods: {
+		handleLeave: function(){
+			this.$destroy();
+		},
+	},
 };

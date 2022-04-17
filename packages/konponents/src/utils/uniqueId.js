@@ -1,4 +1,4 @@
-let idCount = 0
+let idCount = 0;
 
 /**
  * Dead simple unique ID implementation.
@@ -7,7 +7,7 @@ let idCount = 0
  * @returns {number}
  */
 function uniqueId() {
-  return ++idCount
+	return ++idCount;
 }
 
-export default uniqueId
+export default uniqueId;

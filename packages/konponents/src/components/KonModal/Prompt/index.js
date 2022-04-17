@@ -12,17 +12,17 @@ let konPromptConstuctor = Vue.extend(KonPrompt);
  * The ok callback takes a parameter for the input data.
  */
 const prompt = (props) => {
-    let instance = new konPromptConstuctor({
-        propsData: {
-            ...props,
-        },
-    });
-    instance.$mount();
-    // Change visibility after mounting to trigger transition.
-    Vue.nextTick(() => {
-        instance.$data.isOpen = true;
-    });
-    return instance;
+	let instance = new konPromptConstuctor({
+		propsData: {
+			...props,
+		},
+	});
+	instance.$mount();
+	// Change visibility after mounting to trigger transition.
+	Vue.nextTick(() => {
+		instance.$data.isOpen = true;
+	});
+	return instance;
 };
 
 export default prompt;

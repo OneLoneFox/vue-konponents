@@ -25,15 +25,15 @@
 </template>
 
 <script>
-    import uidMixin from '../../../utils/mixins/uid.js';
-    import toggleableMixin from '../../../utils/mixins/toggleable.js';
-    export default {
-        name: 'KonCheckbox',
-        model: {
-            prop: 'val',
-            event: 'change',
-        },
-        inheritAttrs: false,
-        mixins: [uidMixin, toggleableMixin],
-    }
+import uidMixin from '../../../utils/mixins/uid.js';
+import toggleableMixin from '../../../utils/mixins/toggleable.js';
+export default {
+	name: 'KonCheckbox',
+	model: {
+		prop: 'val',
+		event: 'change',
+	},
+	inheritAttrs: false,
+	mixins: [uidMixin, toggleableMixin],
+};
 </script>

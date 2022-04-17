@@ -20,41 +20,41 @@
 </template>
 
 <script>
-import "../Base";
-import "../../KonButton";
-import premades from "../../../utils/mixins/modal-premades";
+import '../Base';
+import '../../KonButton';
+import premades from '../../../utils/mixins/modal-premades';
 export default {
-  mixins: [premades],
-  name: "KonConfirm",
-  data: function () {
-    return {
-      isOpen: false,
-    };
-  },
-  props: {
-    content: {
-		type: String,
-		default: "",
-    },
-  },
-  methods: {
-    handleCancel: function () {
+	mixins: [premades],
+	name: 'KonConfirm',
+	data: function () {
+		return {
+			isOpen: false,
+		};
+	},
+	props: {
+		content: {
+			type: String,
+			default: '',
+		},
+	},
+	methods: {
+		handleCancel: function () {
 		/**
 		 * For some weird reason it's detecting a click outside unless I do this
 		 * which triggers handleCancel (in this case twice)
 		 * even nesting $nextTick doesn't help
 		 */
-		setTimeout(() => {
-			this.isOpen = false;
-		}, 1);
-		this.onCancel && typeof this.onCancel === "function" && this.onCancel();
-    },
-    handleOk: function () {
-      	setTimeout(() => {
-			this.isOpen = false;
-		}, 1);
-		this.onOk && typeof this.onOk === "function" && this.onOk();
-    },
-  },
+			setTimeout(() => {
+				this.isOpen = false;
+			}, 1);
+			this.onCancel && typeof this.onCancel === 'function' && this.onCancel();
+		},
+		handleOk: function () {
+			setTimeout(() => {
+				this.isOpen = false;
+			}, 1);
+			this.onOk && typeof this.onOk === 'function' && this.onOk();
+		},
+	},
 };
 </script>
