@@ -1,7 +1,7 @@
 <template>
     <div
       class="kon-stepper"
-      :class="{'focus': (isFocused)}"
+      :class="{'focus': isFocused, 'full-width': fullWidth, 'has-margin': hasMargin}"
       @click="handleClick"
       @mousedown="handleMouseDown"
     >
@@ -22,7 +22,7 @@
                     type="number"
                     ref="value"
                     :value="value"
-                    step="stepSize"
+                    :step="stepSize"
                     v-bind="$attrs"
                     v-on="stepperListeners"
                 />
@@ -74,6 +74,22 @@
              */
             unitLabel: {
                 type: String,
+            },
+            /**
+             * Determines if the input has vertical margin.
+             * 
+             * The margin is just enough to let labels and messages not be occluded by other elements.
+             */
+            hasMargin: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Determines if the component should take the full width of its container.
+             */
+            fullWidth: {
+                type: Boolean,
+                default: false,
             },
         },
         data: function(){

@@ -1,5 +1,6 @@
 import 'prismjs';
 import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-javascript';
 
 export default {
     functional: true,

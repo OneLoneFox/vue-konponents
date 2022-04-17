@@ -29,6 +29,7 @@ export default {
 .sidebar{
   width: var(--doc-sidebar-width);
   background: rgb(var(--background-active-color));
+  top: var(--doc-navbar-height);
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
     <button
       class="kon-button"
-      :class="{xs: xs, xl: xl, text: text, border: border, block: block, 'icon-only': iconOnly, danger: danger, success: success, blank: blank}"
+      :class="{xs: xs, xl: xl, text: text, border: border, flat: flat, block: block, 'icon-only': iconOnly, danger: danger, success: success, blank: blank}"
       v-on="buttonListeners"
     >
         <div class="icon" v-if="!!$slots.icon">
@@ -77,6 +77,13 @@
              * Determines if the button should be a border button.
              */
             border: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Determines if the button should be a flat button.
+             */
+            flat: {
                 type: Boolean,
                 default: false,
             },

@@ -1,18 +1,29 @@
 .kon-stepper{
+    --margin: 0px;
     --font-size: .8rem;
     display: inline-flex;
     position: relative;
     width: 200px;
-    & input::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
+    margin: var(--margin);
+    &.full-width{
+        width: 100%;
+    }
+    &.has-label{
+        margin-top: 22px;
+    }
+    &.has-margin{
+        --margin: 20px 0;
+    }
+    input::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
         -webkit-appearance: none;
         margin: 0;
     }
-    & input[type=number]{
+    input[type=number]{
         -moz-appearance: none;
     }
-    & .kon-stepper-{
+    .kon-stepper{
         /* idle state */
-        &decrease, &increase{
+        &-decrease, &-increase{
             --konponent-color: var(--background-color);
             color: rgb(var(--foreground-color));
             z-index: 1;
@@ -30,7 +41,7 @@
                 --konponent-color: var(--background-accent-color);
             }
         }
-        &content{
+        &-content{
             cursor: text;
             & .kon-stepper-input-bg{
                 position: absolute;
@@ -57,19 +68,19 @@
             border-bottom-left-radius: 0px;
         }
     }
-    & .kon-stepper-content{
+    .kon-stepper-content{
         display: flex;
         justify-content: center;
         position: relative;
         min-width: 50px;
         flex-grow: 1;
-        & .kon-stepper-value{
+        .kon-stepper-value{
             display: flex;
             align-items: center;
             position: relative;
             height: 100%;
             width: 100%;
-            & input{
+            input{
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -83,7 +94,7 @@
                 font-size: var(--font-size);
                 color: rgb(var(--foreground-color));
             }
-            & > .unit-label{
+            > .unit-label{
                 // display: inline-flex;
                 // align-items: center;
                 // height: 100%;
@@ -93,11 +104,11 @@
         }
     }
     &.focus{
-        & .kon-stepper-input-bg{
+        .kon-stepper-input-bg{
             border-radius: 12px;
             width: calc(100% - 8px);
         }
-        & .kon-stepper-decrease, & .kon-stepper-increase{
+        .kon-stepper-decrease, .kon-stepper-increase{
             --konponent-color: var(--background-accent-color);
         }
     }

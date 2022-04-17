@@ -82,6 +82,14 @@ export default {
       }
     }
   }
+  & > .sidebar-group-items{
+    > li{
+      padding: 0 16px;
+      &:not(:first-child){
+        margin-top: 4px;
+      }
+    }
+  }
   &.is-sub-group {
     padding-left: 0;
     & > .sidebar-heading {

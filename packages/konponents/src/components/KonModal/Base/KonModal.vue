@@ -1,5 +1,9 @@
 <template>
-  <transition name="kon-toggle-modal" @after-leave="$emit('afterLeave')">
+  <transition
+    name="kon-toggle-modal"
+    @after-leave="$emit('after-leave')"
+    @after-enter="(el) => {$emit('after-enter', el)}"
+  >
     <div class="kon-modal" v-if="open" v-bind="$attrs" @click="handleClick">
       <div
         class="kon-modal-content"
@@ -81,7 +85,7 @@ export default {
     },
     /**
      * Capture focus to the first focusable element within
-     * the modal's area.
+     * the modal's area when focus tries to escape the component.
      */
     captureFocus: {
       type: Boolean,

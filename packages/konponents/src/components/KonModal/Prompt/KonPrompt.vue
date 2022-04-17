@@ -3,7 +3,8 @@
 	  class="kon-prompt"
 	  no-close
 	  :open="isOpen"
-	  @afterLeave="handleLeave"
+	  @after-leave="handleLeave"
+	  @after-enter="handleShown"
 	  @close="handleCancel"
 	>
 	<template #header>
@@ -14,6 +15,7 @@
 		  @keydown.enter="handleOk"
 		  v-model="inputData"
 		  :label="promptText"
+		  full-width
 		/>
 	</div>
 	<template #footer>
@@ -66,6 +68,10 @@ export default {
 		}, 1);
 		this.onOk && typeof this.onOk === "function" && this.onOk(this.inputData);
 	},
+	handleShown: function(el){
+		/** Refs won't work here */
+		el.querySelector('input').focus();
+	}
   },
 };
 </script>

@@ -29,6 +29,17 @@
     transition-duration: 250ms;
     transition-timing-function: ease;
     box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    &.flat{
+        &:hover, &:focus{
+            box-shadow: none;
+            transform: none;
+        }
+        &:focus-visible{
+            outline: 2px solid rgb(var(--foreground-color));
+        }
+    }
     &.danger{
         --konponent-color: var(--danger-color);
     }

@@ -9,6 +9,7 @@ let components = [
     {text: 'Radio', slug: 'KonRadio'},
     {text: 'Collapse', slug: 'KonCollapse'},
     {text: 'Modal', slug: 'KonModal'},
+    {text: 'Notification', slug: 'KonNotification'},
 ];
 
 /**

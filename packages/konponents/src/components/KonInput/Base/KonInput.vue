@@ -7,11 +7,18 @@
                 'has-label': label,
                 'disabled': disabled,
                 'has-leading-icon': !!$slots.leadingicon,
-                'has-trailing-icon': !!$slots.trailingicon
+                'has-trailing-icon': !!$slots.trailingicon,
+                'has-margin': hasMargin,
+                'full-width': fullWidth,
             }, status
         ]"
     >
-        <div class="kon-input-icon leading" v-if="!!$slots.leadingicon">
+        <div
+          :class="{'leading-clickable': $listeners['click-leading']}"
+          class="kon-input-icon leading"
+          v-if="!!$slots.leadingicon"
+          @click="$emit('click-leading')"
+        >
             <div class="kon-input-icon-content">
                 <!-- 
                     @slot Adds an icon to the left of the component
@@ -27,7 +34,12 @@
           v-bind="$attrs"
           v-on="listeners"
         >
-        <div class="kon-input-icon trailing" v-if="!!$slots.trailingicon">
+        <div
+          :class="{'trailing-clickable': $listeners['click-trailing']}"
+          class="kon-input-icon trailing"
+          v-if="!!$slots.trailingicon"
+          @click="$emit('click-trailing')"
+        >
             <div class="kon-input-icon-content">
                 <!-- 
                     @slot Adds an icon to the right of the component
@@ -132,9 +144,18 @@
                 default: false,
             },
             /**
-             * @ignore
+             * Determines if the input has vertical margin.
+             * 
+             * The margin is just enough to let labels and messages not be occluded by other elements.
              */
-            noMargin: {
+            hasMargin: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Determines if the component should take the full width of its container.
+             */
+            fullWidth: {
                 type: Boolean,
                 default: false,
             },

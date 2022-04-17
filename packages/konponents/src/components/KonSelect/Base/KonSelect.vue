@@ -1,7 +1,7 @@
 <template>
     <div
         class="kon-select"
-        :class="[{'disabled': disabled, 'open': isOpen}, konStyle]"
+        :class="[{'disabled': disabled, 'open': isOpen, 'has-label': label, 'has-margin': hasMargin, 'full-width': fullWidth}, konStyle]"
         :style="`z-index: ${zIndex};`"
         v-on="listeners"
         :tabindex="disabled ? -1 : 0"

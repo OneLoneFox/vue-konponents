@@ -1,11 +1,13 @@
 ---
 {
-  "events": [
-    {
-      "name": "close",
-      "description": "Emitted when a user clicks on the close button or presses the Escape key."
-    }
-  ],
+  "api": {
+    "events": [
+      {
+        "name": "close",
+        "description": "Emitted when a user clicks on the close button or presses the Escape key."
+      }
+    ],
+  }
 }
 ---
 

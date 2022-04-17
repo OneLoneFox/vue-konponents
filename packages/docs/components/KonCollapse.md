@@ -4,6 +4,8 @@
 
 The default behaviour is to simply collapse whatever is inside the component.
 
+NOTE: If the content has padding it is very important to wrap it with a padding-less element to avoid jumping.
+
 <Example>
   <component is="examples-KonCollapse-default" />
   <template v-slot:snippet>

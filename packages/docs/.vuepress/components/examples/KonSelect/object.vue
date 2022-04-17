@@ -2,7 +2,7 @@
     <div class="demo between">
         <KonButton @click="removeItem" icon-only><ListMinus :size="16" /></KonButton>
         <KonSelect 
-            placeholder="Select konponent" 
+            placeholder="Select konponent (return-object)" 
             :items="items" 
             v-model="selectedItem"
             value-attribute="id"
@@ -11,7 +11,7 @@
         >
         </KonSelect>
         <KonSelect
-            placeholder="Select konponent (simple)"
+            placeholder="Select konponent"
             :items="items2"
             v-model="selectedItem2"
             value-attribute="id"

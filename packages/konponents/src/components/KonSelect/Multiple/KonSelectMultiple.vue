@@ -18,7 +18,7 @@
         </label>
         <div
             class="kon-placeholder"
-            :class="{'kon-placeholder-hidden': filterable && filterInput && isOpen}"
+            :class="{'kon-placeholder-hidden': filterable && filterInput}"
             v-if="!selectedItems.length"
         >
             {{ placeholder || '&nbsp;' }}
@@ -58,9 +58,10 @@
             </template>
             <input
                 class="kon-filter-input"
-                v-if="filterable && filterInput && isOpen"
+                v-if="filterable && filterInput"
                 type="text"
                 key="kon-filter"
+                :placeholder="placeholder"
                 :value="$data._search"
                 @input="handleFilterInput"
                 @keydown.stop="listeners.keydown"

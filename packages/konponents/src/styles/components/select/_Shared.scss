@@ -5,7 +5,18 @@
 }
 
 .kon-select, .kon-select-multiple{
+    --margin: 0px;
     --current-label-color: rgba(var(--foreground-color), 1);
+    margin: var(--margin);
+    &.full-width{
+        width: 100%;
+    }
+    &.has-label{
+        margin-top: 22px;
+    }
+    &.has-margin{
+        --margin: 20px 0;
+    }
     > .kon-select-label{
         position: absolute;
         display: flex;

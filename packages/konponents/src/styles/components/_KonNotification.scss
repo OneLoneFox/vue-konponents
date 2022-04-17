@@ -1,0 +1,114 @@
+@use '../animations/components/KonNotification/Toggle';
+
+.kon-notification-container{
+	position: fixed;
+	filter: drop-shadow(0 0 20px rgba(0,0,0,0.06));
+	z-index: 99;
+	padding: 10px;
+	/* Remove pointer events from the container */
+	pointer-events: none;
+	*{
+		/* Give poiter events back to everything inside */
+		pointer-events: all;
+	}
+	&-bottom{
+		&-right{
+			bottom: 0;
+			right: 0;
+		}
+		&-left{
+			bottom: 0;
+			left: 0;
+		}
+	}
+	&-top{
+		&-right{
+			top: 0;
+			right: 0;
+		}
+		&-left{
+			top: 0;
+			left: 0;
+		}
+	}
+	&-top-center, &-bottom-center{
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+.kon-notification{
+	position: relative;
+	display: grid;
+	gap: 10px;
+	&-wrapper{
+		--clip-path-size: 145%;
+		--clip-path-position: 100% 50%;
+		clip-path: circle(var(--clip-path-size) at var(--clip-path-position));
+		max-width: 350px;
+		margin: 5px 0;
+		&:first-child{
+			margin-top: 0;
+		}
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+	--konponent-color: var(--primary-color);
+	padding: 20px;
+	border-radius: 20px;
+	background: rgb(var(--background-active-color));
+	color: rgb(var(--foreground-color));
+	&.no-padding{
+		padding: 0;
+	}
+	> .kon-close{
+		position: absolute;
+		top: 2px;
+		right: 2px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		&:hover{
+			> .kon-close-icon{
+				&::before, &::after{
+					transform: rotate(180deg);
+				}	
+			}
+		}
+		> .kon-close-icon{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 22px;
+			height: 22px;
+			&::before, &::after{
+				position: absolute;
+				display: block;
+				content: '';
+				background: rgb(var(--foreground-color));
+				width: 12px;
+				height: 1px;
+				border-radius: 2px;
+				transition: transform 250ms ease;
+			}
+			&::before{
+				transform: rotate(-45deg);
+			}
+			&::after{
+				transform: rotate(45deg);
+			}
+		}
+	}
+	> .kon-title{
+		h4{
+			margin: 0;
+			font-size: .9rem;
+		}
+	}
+	> .kon-body{
+		p{
+			margin: 0;
+			font-size: .75rem;
+		}
+	}
+}

@@ -1,0 +1,17 @@
+.kon-notification-wrapper.kon-toggle-notification{
+	&-enter-active, &-leave-active{
+		/* transition-property: opacity, height, clip-path;
+		transition-duration: 250ms, 250ms, 2s, 2s; */
+		transition: opacity 250ms, height 250ms, clip-path 500ms;
+		transition-timing-function: ease;
+	}
+	&-enter{
+		--clip-path-size: 0%;
+		> .kon-notification{
+			transform: translateX();
+		}
+	}
+	&-enter, &-leave-to{
+		opacity: 0;
+	}
+}

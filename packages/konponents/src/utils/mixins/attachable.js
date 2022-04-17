@@ -33,7 +33,6 @@ var attachableMixin = {
 		attachToTarget() {
 			let target = this.target;
 			if (!target || this.$el === target) return;
-			// console.log(target);
 			target.appendChild(this.$el);
 		}
 	},
@@ -42,7 +41,7 @@ var attachableMixin = {
 	},
 	beforeDestroy: function () {
 		if(this.$el && this.$el.parentElement){
-			// console.log('Warning destroying modal', this.open, this.$el);
+			// console.log('Warning destroying attachable', this.open, this.$el);
 			this.$el.parentElement.removeChild(this.$el);
 		}
 	},

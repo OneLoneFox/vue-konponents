@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss">
 .page{
-    padding-left: var(--doc-sidebar-width);
+  background: rgb(var(--background-color));
 }
 .page-content{
   max-width: 1000px;
@@ -42,18 +42,6 @@ export default {
     position: relative;        
     z-index: 1;
   }
-  &::before{
-    content: '';
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: calc(100% - var(--doc-sidebar-width));
-    height: calc(100% - var(--doc-navbar-height));
-    // background: rgb(var(--doc-background-color));
-    background: rgb(var(--background-color));
-    border-radius: 40px 0 0 0;
-    z-index: 0;
-  }
 }
 </style>
 
@@ -63,5 +51,9 @@ export default {
 .page
   padding-bottom 2rem
   display block
-
+@media (max-width: $MQMobile)
+  .page
+    padding 10px
+    .page-content
+      padding 0
 </style>

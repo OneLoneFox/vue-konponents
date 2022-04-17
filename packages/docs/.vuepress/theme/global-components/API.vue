@@ -79,7 +79,25 @@
                                         </span>
                                     </td>
                                     <td class="default">
-                                        <template v-if="prop.type == 'func'">truncated... (ToDo)</template>
+                                        <template v-if="prop.type == 'func'">
+                                            <div class="kon-snippet-cell">
+                                                <template v-if="prop.default">
+                                                    <template v-if="prop.default.length > 30">
+                                                        <div class="wrap">
+                                                            Truncated
+                                                            <ChevronDown :size="16" :stroke-width="1.5" />
+                                                            <div class="dropdown">
+                                                                <ResultsSnippet :code="prop.default" lang="js" />
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <template v-else>
+                                                        <ResultsSnippet :code="prop.default" lang="js" />
+                                                    </template>
+                                                </template>
+                                                <template v-else>null</template>
+                                            </div>
+                                        </template>
                                         <template v-else>
                                             <div class="wrap">
                                                 {{ prop.default }}
@@ -194,21 +212,23 @@
                             <tbody>
                                 <tr v-for="(event, index) in apiEvents" :key="index">
                                     <td>{{ event.name }}</td>
-                                    <td v-if="event.payload">
-                                        <h4>{{ event.name }}
-                                        <div v-for="(item, idx) in event.payload" :key="idx">
-                                            <div>
-                                                <span>{{ item.name }}</span>:
-                                                <template v-if="Array.isArray(item.type)">
-                                                    <span>{{ item.type.join(' | ') }}</span>
-                                                </template>
-                                                <template v-else>
-                                                    <span>{{ item.type }}</span>
-                                                </template>
-                                            </div>
-                                            <p>{{ item.description }}</p>
-                                        </div>
-                                        </h4>
+                                    <td>
+                                        <template v-if="event.payload">
+                                            <h4>{{ event.name }}
+                                                <div v-for="(item, idx) in event.payload" :key="idx">
+                                                    <div>
+                                                        <span>{{ item.name }}</span>:
+                                                        <template v-if="Array.isArray(item.type)">
+                                                            <span>{{ item.type.join(' | ') }}</span>
+                                                        </template>
+                                                        <template v-else>
+                                                            <span>{{ item.type }}</span>
+                                                        </template>
+                                                    </div>
+                                                    <p>{{ item.description }}</p>
+                                                </div>
+                                            </h4>
+                                        </template>
                                     </td>
                                     <td><span class="description">{{ event.description }}</span></td>
                                 </tr>
@@ -247,6 +267,7 @@
 </template>
 
 <script>
+    import ResultsSnippet from '@theme/global-components/ResultsSnippet.js';
     import attributes from '../../../.api/attributes.json';
     import slots from '../../../.api/slots.json';
     import methods from '../../../.api/methods.json';
@@ -274,6 +295,7 @@
             Palette,
             FunctionSquare,
             ChevronDown,
+            ResultsSnippet
         },
         props: ['component'],
         data: function(){
@@ -393,6 +415,13 @@
         }
         .default{
             position: relative;
+            .kon-snippet-cell{
+                overflow: auto;
+                .dropdown{
+                    width: auto;
+                    padding: 0;
+                }
+            }
             .wrap{
                 display: flex;
                 gap: 8px;

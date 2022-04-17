@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "konponents": "1.0.3",
-        "lucide-vue": "^0.16.10",
+        "lucide-vue": "^0.x",
         "prismjs": "^1.25.0"
     },
     "devDependencies": {

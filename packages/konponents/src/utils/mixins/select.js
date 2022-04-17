@@ -79,6 +79,22 @@ var selectMixin = {
             }
         },
         /**
+         * Determines if the input has vertical margin.
+         * 
+         * The margin is just enough to let labels and messages not be occluded by other elements.
+         */
+        hasMargin: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Determines if the component should take the full width of its container.
+         */
+        fullWidth: {
+            type: Boolean,
+            default: false,
+        },
+        /**
          * Determines if an item should be disabled.
          * 
          * The function is executed for every item in the items Array

@@ -78,7 +78,7 @@ function renderLink(h, to, text, active, level) {
     };
   }
 
-  return h("RouterLink", component, text);
+  return h("RouterLink", component, [h('span', text)]);
 }
 
 function renderChildren(h, children, path, route, maxDepth, depth = 1) {
@@ -128,23 +128,24 @@ a {
     font-size: 1em;
     font-weight: 400;
     color: rgb(var(--foreground-color));
-    border-left: 0.25rem solid transparent;
     padding: 0.35rem 1rem 0.35rem 1.25rem;
     width: 100%;
     box-sizing: border-box;
     transition: opacity 250ms ease ;
     opacity: 0.5;
+    border-radius: 8px;
     &:hover, &.active  {
       opacity: 1;
+      background: rgba(var(--foreground-color), 0.06);
     }
     &::before{
       content: '';
       display: block;
       position: absolute;
-      width: 8px;
-      height: 8px;
-      left: 12px;
-      border-radius: 50%;
+      width: 5px;
+      height: 70%;
+      left: 0;
+      border-radius: 5px;
       background: rgb(var(--foreground-color));
       transform-origin: center center;
       transform: scale(0);
@@ -153,13 +154,18 @@ a {
     &.active::before{
       transform: scale(1);
     }
+    > span{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
-.sidebar-group {
+/* .sidebar-group {
   a {
     &.sidebar-link {
       padding-left: 2rem;
     }
   }
-}
+} */
 </style>

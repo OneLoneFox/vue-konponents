@@ -2,6 +2,7 @@ import * as components from './components';
 import confirm from './components/KonModal/Confirm';
 import prompt from './components/KonModal/Prompt';
 import alert from './components/KonModal/Alert';
+import notification from './components/KonNotification/Base';
 import './styles/main.scss';
 
 const Konponents = {
@@ -17,6 +18,7 @@ const Konponents = {
       confirm,
       prompt,
       alert,
+      notification,
     };
   }
 }

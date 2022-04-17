@@ -1,10 +1,18 @@
 <template>
     <div class="example" :class="{open: expandedSnippet}">
         <div class="card">
+            <button ref="focus" class="focus-reset" tabindex="-1"></button>
             <slot />
         </div>
         <div class="code">
             <div class="controls">
+                <button
+                  title="Test keyboard navigation"
+                  class="toggle"
+                  @click="setFocus"
+                >
+                    <Keyboard :size="16" />
+                </button>
                 <button
                     :title="expandedResults ? 'Hide results' : 'Show results'"
                     class="toggle results"
@@ -44,10 +52,10 @@
 
 <script>
     import ResultsSnippet from '@theme/global-components/ResultsSnippet.js';
-    import { Code2, View as ViewBox } from 'lucide-vue';
+    import { Code2, View as ViewBox, Keyboard } from 'lucide-vue';
     export default {
         name: 'Example',
-        components: { Code2, ViewBox, ResultsSnippet},
+        components: { Code2, ViewBox, Keyboard, ResultsSnippet},
         data: function(){
             return {
                 expandedSnippet: false,
@@ -72,16 +80,36 @@
             setResultSnippet: function(data){
                 this.resultSnippet = JSON.stringify(data, null, '\t');
             },
+            setFocus: function(){
+                this.$refs.focus.focus();
+            },
         },
     }
 </script>
 
 <style lang="scss">
 .example{
+    position: relative;
     border-radius: 20px;
     background: rgb(var(--background-active-color));
     padding: 10px;
     .card{
+        .focus-reset{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(var(--foreground-color), 0.1);
+            transition: opacity 300ms ease;
+            border: none;
+            opacity: 0;
+            &:focus{
+                opacity: 1;
+                animation: breathe 1s infinite alternate;
+            }
+        }
         padding: 20px;
         .demo{
             /* @media (max-width: 1250px){
@@ -178,6 +206,14 @@
                 }
             }
         }
+    }
+}
+@keyframes breathe {
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(0.8);
     }
 }
 </style>

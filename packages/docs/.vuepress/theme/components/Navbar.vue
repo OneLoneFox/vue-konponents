@@ -97,6 +97,16 @@ function css (el, property) {
   height: var(--doc-navbar-height);
   background: rgb(var(--background-active-color));
 }
+.navbar::after{
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: -40px;
+  left: var(--doc-sidebar-width);
+  background: radial-gradient(circle at 100% 100%, transparent 40px, rgb(var(--background-active-color)) 40px);
+  z-index: 2;
+}
 </style>
 
 <style lang="stylus">
@@ -136,6 +146,8 @@ $navbar-horizontal-padding = 1.5rem
 @media (max-width: $MQMobile)
   .navbar
     padding-left 4rem
+    &::after
+      display none
     .can-hide
       display none
     .links
