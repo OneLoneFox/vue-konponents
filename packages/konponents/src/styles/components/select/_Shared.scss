@@ -10,6 +10,7 @@
     margin: var(--margin);
     &.full-width{
         width: 100%;
+        max-width: none;
     }
     &.has-label{
         margin-top: 22px;
