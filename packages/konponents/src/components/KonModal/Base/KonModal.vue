@@ -193,20 +193,37 @@ export default {
 			this.$emit('toggle', false);
 			this.$emit('close');
 		},
+		isTopMost(){
+			let el = this.$el;
+			let nextEl = el.nextElementSibling;
+			// If there's no siblings next to it then it must be the topmost.
+			if(!nextEl){
+				return true;
+			}
+			// If any of its next siblings is a kon-modal then it's not the topmost
+			while(nextEl){
+				if(nextEl.classList.contains('kon-modal')){
+					return false;
+				}
+				nextEl = nextEl.nextElementSibling;
+			}
+			// If none of its siblings were modals then it's the topmost
+			return true;
+		},
 		handleFocusIn(e) {
 			if (!this.open) return;
 			if (!e || !this.captureFocus) return;
 			if (
 				!!e.target &&
-        // Not the document or the modal content
-        ![document, this.$refs.content].includes(e.target) &&
-        // Focus is escaping the modal
-        !this.$refs.content.contains(e.target)
+				// Not the document or the modal content
+				![document, this.$refs.content].includes(e.target) &&
+				// Focus is escaping the modal
+				!this.$refs.content.contains(e.target) &&
+				// Is the topmost dialog
+				this.isTopMost()
 			) {
 				// then redirect the focus to the first element in the modal content
-
 				let keyboardFocusable = getKeyboardFocusable(this.$refs.content);
-				console.log(keyboardFocusable);
 				keyboardFocusable[0] && keyboardFocusable[0].focus();
 			}
 		},
@@ -228,7 +245,6 @@ export default {
 			window.removeEventListener('keydown', this.handleEscKey);
 		},
 		animatePersistent() {
-			console.log(this.$data._persistentAnimation);
 			if (!this.$data._persistentAnimation) {
 				this.$data._persistentAnimation = true;
 				setTimeout(() => {
