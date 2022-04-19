@@ -27,8 +27,21 @@ The modal component exposes 3 slots for showing content; header, default (conten
   
   </template>
 </Example>
+
+## Nesting
+
+The component supports nesting without configuration, just open one modal after the other and the new one will be on top.
+
+<Example>
+  <component is="examples-KonModal-nesting" />
+  <template v-slot:snippet>
+  
+  <<< @/.vuepress/components/examples/KonModal/nesting.vue
+  
+  </template>
+</Example>
  
- ## Persistent
+## Persistent
 
  Prevents the modal from closing by clicking outside or pressing the `ESC` key.
 
