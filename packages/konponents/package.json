@@ -6,7 +6,7 @@
         "url": "https://github.com/OneLoneFox/vue-konponents",
         "directory": "packages/konponents"
     },
-    "version": "1.0.3",
+    "version": "1.1.0",
     "main": "dist/konponents.common.js",
     "unpkg": "dist/konponents.umd.min.js",
     "jsdelivr": "dist/konponents.umd.min.js",
